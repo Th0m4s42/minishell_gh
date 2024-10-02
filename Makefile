@@ -15,7 +15,7 @@ SRC_DIR := srcs/
 OBJ_DIR := objs/
 
 SRCS := \
-	$(SRC_DIR)main.c \
+	$(SRC_DIR)minishell.c \
 
 INCLUDES := -I includes
 
@@ -27,7 +27,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@echo "$(Cyan)Compiling $<...$(White)"
 
 $(NAME) : $(OBJS)
-	@$(CC) $(FLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@$(CC) $(FLAGS) $(INCLUDES) $(OBJS) -o $(NAME) -lreadline
 	@echo "$(Green)$(NAME) CREATED $(White)"
 
 all : $(NAME)
