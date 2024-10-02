@@ -16,6 +16,7 @@ OBJ_DIR := objs/
 
 SRCS := \
 	$(SRC_DIR)minishell.c \
+	$(SRC_DIR)ft_split.c \
 
 INCLUDES := -I includes
 
