@@ -1,0 +1,7 @@
+{
+	Ignore readline leak
+	Memcheck:Leak
+	...
+	fun*readline*
+	...
+}
