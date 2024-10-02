@@ -6,13 +6,13 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/02 16:00:36 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:08:41 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	main()
+int	main(void)
 {
 	while (1)
 	{
