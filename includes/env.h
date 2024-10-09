@@ -6,9 +6,12 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:36:50 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/09 14:43:06 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/09 17:30:16 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef ENV_H
+# define ENV_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //								STRUCTURES									  //
@@ -24,3 +27,12 @@ typedef struct s_env
 ////////////////////////////////////////////////////////////////////////////////
 //								FONCTIONS									  //
 ////////////////////////////////////////////////////////////////////////////////
+
+/* list_env_manip.c */
+t_env	*new_env_node(char *content, char *value);
+void	free_env_list(t_env **first_node);
+
+/* env.c */
+int		get_env(t_env save, char **envp);
+
+#endif

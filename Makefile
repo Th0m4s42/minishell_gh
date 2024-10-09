@@ -18,13 +18,14 @@ LEXER	:= lexer/
 PARSING := parsing/
 PROMPT	:= prompt/
 SIGNALS	:= signals/
+UTILS	:= utils/
 OBJ_DIR	:= objs/
 
 SRCS := \
 	$(SRC_DIR)minishell.c \
 	\
-	$(SRC_DIR)$(ENV)env.c\
-	\
+	$(SRC_DIR)$(ENV)env.c \
+	$(SRC_DIR)$(ENV)list_env_manip.c \
 
 INCLUDES := -I includes
 
@@ -42,7 +43,8 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@echo "$(Cyan)Compiling $<...$(White)"
 
 $(NAME) : $(OBJS)
-	@$(CC) $(FLAGS) $(INCLUDES) $(OBJS) -o $(NAME) -lreadline
+	make -C libft/
+	@$(CC) $(FLAGS) $(INCLUDES) libft/libft.a $(OBJS) -o $(NAME) -lreadline -Llibft -l:libft.a
 	@echo "$(Green)$(NAME) CREATED $(White)"
 
 all : $(NAME)

@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:13:03 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/09 14:54:13 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/09 17:49:28 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@
 # include <curses.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "../libft/includes/libft.h"
 # include <env.h>
 # include <lexer.h>
 # include <parser.h>
 # include "signal.h"
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //								ENUM										  //
@@ -67,7 +69,5 @@ typedef struct s_redir
 ////////////////////////////////////////////////////////////////////////////////
 //								FONCTIONS									  //
 ////////////////////////////////////////////////////////////////////////////////
-
-char	**ft_split(char const *s, char c);
 
 #endif
