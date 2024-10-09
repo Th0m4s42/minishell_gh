@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/09 14:39:34 by thbasse          ###   ########.fr       */
+/*   Created: 2024/10/09 13:25:49 by thbasse           #+#    #+#             */
+/*   Updated: 2024/10/09 15:53:41 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	main(int argc, char **argv, char **envp)
+int	get_env(t_env save, char **envp)
 {
-	char *rl_value;
-
-	(void)argv;
+	(void)save;
 	(void)envp;
-	rl_value = NULL;
-	if (argc != 1)
-		return (EXIT_FAILURE);
-	while (1)
-	{
-		rl_value = readline("minishell:");
-		add_history(rl_value);
-		free(rl_value);
-	}
-	return (0);
+	return (1);
 }

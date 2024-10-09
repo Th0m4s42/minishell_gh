@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:13:03 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/09 13:15:05 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/09 14:54:13 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,46 @@
 # include <curses.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <env.h>
+# include <lexer.h>
+# include <parser.h>
+# include "signal.h"
 
-# define CMD 101
-# define SEP 102
-# define RED 103
-# define PIP 104
+////////////////////////////////////////////////////////////////////////////////
+//								ENUM										  //
+////////////////////////////////////////////////////////////////////////////////
+
+typedef enum s_redir_type
+{
+	IN,			// 0
+	HERE_DOC,	// 1
+	APPEND,		// 2
+	TRUNC		// 3
+}	t_redir_type;
 
 ////////////////////////////////////////////////////////////////////////////////
 //								STRUCTURES									  //
 ////////////////////////////////////////////////////////////////////////////////
 
-typedef struct s_list
+typedef struct s_cmd
 {
-	void			*content;
-	struct s_list	*next;
-}					t_list;
-
-typedef struct s_line
-{
-	char			**env;
-	char			*line;
 	char			*cmd;
 	char			**args;
-	char			*sep;
-}					t_line;
+	struct s_line	*next;
+}					t_cmd;
 
 typedef struct s_token
 {
 	char			*string;
 	int				token;
 }					t_token;
+
+typedef struct s_redir
+{
+	char			*name;
+	t_redir_type	type;
+	struct s_redir	*next;
+}					t_redir;
 
 ////////////////////////////////////////////////////////////////////////////////
 //								FONCTIONS									  //
