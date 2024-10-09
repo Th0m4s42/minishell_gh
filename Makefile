@@ -50,11 +50,13 @@ $(NAME) : $(OBJS)
 all : $(NAME)
 
 clean :
+	@make -s -C libft/ clean
 	@echo "$(Red)Cleaning object files...$(White)"
 	@rm -f $(OBJS)
 	@rm -rf $(OBJ_DIR)
 
 fclean : clean
+	@make -s -C libft/ fclean
 	@rm -f $(NAME)
 	@echo "$(Red)$(NAME) DELETED $(White)"
 
