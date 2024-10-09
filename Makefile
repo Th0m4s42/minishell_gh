@@ -25,23 +25,20 @@ SRCS := \
 	\
 	$(SRC_DIR)$(ENV)env.c\
 	\
-	\
-	$(SRC_DIR)ft_split.c \
-	\
 
 INCLUDES := -I includes
 
 OBJS := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)/$(ENV)%.c
-	@mkdir -p $(OBJ_DIR)/$(EXEC)%.c
-	@mkdir -p $(OBJ_DIR)/$(LEXER)%.c
-	@mkdir -p $(OBJ_DIR)/$(PARSING)%.c
-	@mkdir -p $(OBJ_DIR)/$(PROMPT)%.c
-	@mkdir -p $(OBJ_DIR)/$(SIGNALS)%.c
+	@mkdir -p $(OBJ_DIR)/$(ENV)
+	@mkdir -p $(OBJ_DIR)/$(EXEC)
+	@mkdir -p $(OBJ_DIR)/$(LEXER)
+	@mkdir -p $(OBJ_DIR)/$(PARSING)
+	@mkdir -p $(OBJ_DIR)/$(PROMPT)
+	@mkdir -p $(OBJ_DIR)/$(SIGNALS)
 	@mkdir -p $(@D)
-	@$(CC) $(FLAGS) $(INCLUDES) -c -o $@ $< -MD
+	@$(CC) $(FLAGS) $(INCLUDES) -c -o $@ $<
 	@echo "$(Cyan)Compiling $<...$(White)"
 
 $(NAME) : $(OBJS)
