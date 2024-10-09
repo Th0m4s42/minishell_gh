@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/03 15:35:32 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/09 11:48:56 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	char *rl_value;
 
-	(void)argc;
 	(void)argv;
-	getenv(envp);
 	rl_value = NULL;
+	if (argc != 1)
+		return (EXIT_FAILURE);
 	while (1)
 	{
 		rl_value = readline("minishell:");
