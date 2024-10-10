@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:36:50 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/09 17:30:16 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/10 14:35:07 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ t_env	*new_env_node(char *content, char *value);
 void	free_env_list(t_env **first_node);
 
 /* env.c */
-int		get_env(t_env save, char **envp);
+int		get_env(t_env *save, char **envp);
 
 #endif
