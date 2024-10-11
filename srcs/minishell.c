@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 18:16:50 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 19:55:42 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (EXIT_FAILURE);
 	env = get_env(envp);
-	
 	tmp = env;
+	iter_shlvl(tmp);
 	while (tmp)
 	{
 		printf("%s=%s\n", tmp->name, tmp->value);

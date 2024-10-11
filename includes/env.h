@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:36:50 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 18:25:48 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 19:51:48 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	free_env_list(t_env **first_node);
 bool	get_env_variable_name(char *envp, char **name);
 bool	get_env_variable_value(char *envp, char **value);
 t_env	*get_env(char **envp);
+void	iter_shlvl(t_env *env);
 
 #endif

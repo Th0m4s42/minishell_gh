@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:49 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 18:35:22 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 19:54:39 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,23 @@ t_env	*get_env(char **envp)
 		envp++;
 	}
 	return (env_list);
+}
+
+void	iter_shlvl(t_env *env)
+{
+	t_env	*temp;
+	int		value;
+
+	temp = env;
+	value = 0;
+	while (temp)
+	{
+		if (ft_strncmp(temp->name, "SHLVL", 5) == 0)
+		{
+			value = ft_atoi(temp->value);
+			value++;
+			temp->value = ft_itoa(value);
+		}
+		temp = temp->next;
+	}
 }
