@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:49 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 17:21:21 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 18:26:53 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	get_env_variable_name(char *envp, char **name)
 bool	get_env_variable_value(char *envp, char **value)
 {
 	int	i;
-	
+
 	i = 0;
 	while (envp[i] && envp[i] != '=')
 		i++;
@@ -43,21 +43,6 @@ bool	get_env_variable_value(char *envp, char **value)
 	return (true);
 }
 
-static void add_back(t_env **first, t_env *new)
-{
-	t_env	*last;
-
-	last = *first;
-	if (*first == NULL)
-	{
-		*first = new;
-		return ;
-	}
-	while (last->next != NULL)
-		last = last->next;
-	last->next = new;
-}
-
 t_env	*get_env(char **envp)
 {
 	t_env	*env_list;
@@ -66,18 +51,20 @@ t_env	*get_env(char **envp)
 	char	*value;
 
 	env_list = NULL;
-	while(*envp)
+	while (*envp)
 	{
 		name = NULL;
 		value = NULL;
 		if (get_env_variable_name(*envp, &name) == false)
-			return (NULL);
+			return (free_env_list(&env_list), NULL);
 		if (get_env_variable_value(*envp, &value) == false)
 		{
 			free(name);
-			return (NULL);
+			return (free_env_list(&env_list), NULL);
 		}
 		new_node = new_env_node(name, value);
+		if (new_node == NULL)
+			return (free_env_list(&env_list), NULL);
 		add_back(&env_list, new_node);
 		envp++;
 	}

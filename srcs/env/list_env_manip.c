@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:43:06 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 17:22:36 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 18:25:59 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,19 @@ void	free_env_list(t_env **first_node)
 		*first_node = tmp;
 	}
 	*first_node = NULL;
+}
+
+void	add_back(t_env **first, t_env *new)
+{
+	t_env	*last;
+
+	last = *first;
+	if (*first == NULL)
+	{
+		*first = new;
+		return ;
+	}
+	while (last->next != NULL)
+		last = last->next;
+	last->next = new;
 }
