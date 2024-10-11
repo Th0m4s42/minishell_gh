@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:43:06 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 14:53:11 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 16:25:17 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_env	*new_env_node(char *content, char *value)
 	node = malloc(sizeof(t_env));
 	if (node == NULL)
 		return (NULL);
-	node->name = ft_strdup(content);
-	node->value = ft_strdup(value);
+	node->name = content;
+	node->value = value;
 	node->next = NULL;
 	return (node);
 }
