@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:49 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 18:26:53 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 18:35:22 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ t_env	*get_env(char **envp)
 		if (get_env_variable_name(*envp, &name) == false)
 			return (free_env_list(&env_list), NULL);
 		if (get_env_variable_value(*envp, &value) == false)
-		{
-			free(name);
-			return (free_env_list(&env_list), NULL);
-		}
+			return (free(name), free_env_list(&env_list), NULL);
 		new_node = new_env_node(name, value);
 		if (new_node == NULL)
+		{
+			free(name);
+			free(value);
 			return (free_env_list(&env_list), NULL);
+		}
 		add_back(&env_list, new_node);
 		envp++;
 	}
