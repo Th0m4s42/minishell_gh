@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:49 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 16:27:40 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/11 17:21:21 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,18 @@ t_env	*get_env(char **envp)
 	char	*name;
 	char	*value;
 
-	name = NULL;
-	value = NULL;
 	env_list = NULL;
 	while(*envp)
 	{
-		get_env_variable_name(*envp, &name);
-		get_env_variable_value(*envp, &value);
+		name = NULL;
+		value = NULL;
+		if (get_env_variable_name(*envp, &name) == false)
+			return (NULL);
+		if (get_env_variable_value(*envp, &value) == false)
+		{
+			free(name);
+			return (NULL);
+		}
 		new_node = new_env_node(name, value);
 		add_back(&env_list, new_node);
 		envp++;
