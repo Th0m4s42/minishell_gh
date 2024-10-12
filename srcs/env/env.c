@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:49 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 19:54:39 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/12 09:36:33 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	iter_shlvl(t_env *env)
 		{
 			value = ft_atoi(temp->value);
 			value++;
+			free(temp->value);
 			temp->value = ft_itoa(value);
+			break ;
 		}
 		temp = temp->next;
 	}
