@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:23 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/12 16:07:31 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/12 17:51:23 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,16 @@ t_prompt	*get_info(t_env *env)
 // dispaly_prompt(t_prompt *prompt_info)
 // prompt_info->id@prompt_info->location:~/prompt_info->pwd$ 
 // et merde
+
+char	*display_prompt(t_prompt *prompt_info)
+{
+	char	*prompt_line;
+
+	prompt_line = ft_strdup(prompt_info->id);
+	prompt_line = ft_strjoin(prompt_line, "@");
+	prompt_line = ft_strjoin(prompt_line, prompt_info->location);
+	prompt_line = ft_strjoin(prompt_line, "~");
+	prompt_line = ft_strjoin(prompt_line, prompt_info->pwd);
+	prompt_line = ft_strjoin(prompt_line, "$ ");
+	return (prompt_line);
+}

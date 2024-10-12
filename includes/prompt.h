@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 09:51:53 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/12 13:18:21 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/12 17:42:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ t_prompt	*get_info(t_env *env);
 char		*get_id(t_env *env);
 char		*get_location(t_env *env);
 char		*get_pwd(t_env *env);
-void		display_prompt(t_prompt prompt_info);
+char		*display_prompt(t_prompt *prompt_info);
 
 #endif

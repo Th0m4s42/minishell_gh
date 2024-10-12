@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/12 15:40:22 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/12 17:50:53 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	// free_env_list(&env);
 	while (1)
 	{
-		printf("%s@%s:~%s", prompt_info->id, prompt_info->location, prompt_info->pwd);
-		readline("$ ");
+		readline(display_prompt(prompt_info));
 		add_history(rl_value);
 		free(rl_value);
 	}
