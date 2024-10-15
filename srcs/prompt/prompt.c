@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:23 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/12 17:51:23 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/15 18:33:35 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_location(t_env *env)
 	{
 		if (ft_strncmp(temp->name, "SESSION_MANAGER", 15) == 0)
 		{
-			loc = ft_substr(temp->value, 6, 13);
+			loc = ft_substr(temp->value, 6, 12);
 			break ;
 		}
 		temp = temp->next;
@@ -97,7 +97,7 @@ char	*display_prompt(t_prompt *prompt_info)
 	prompt_line = ft_strdup(prompt_info->id);
 	prompt_line = ft_strjoin(prompt_line, "@");
 	prompt_line = ft_strjoin(prompt_line, prompt_info->location);
-	prompt_line = ft_strjoin(prompt_line, "~");
+	prompt_line = ft_strjoin(prompt_line, ":~");
 	prompt_line = ft_strjoin(prompt_line, prompt_info->pwd);
 	prompt_line = ft_strjoin(prompt_line, "$ ");
 	return (prompt_line);

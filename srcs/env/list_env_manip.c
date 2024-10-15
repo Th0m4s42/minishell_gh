@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:43:06 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/11 18:25:59 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/15 18:52:27 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,19 @@ void	add_back(t_env **first, t_env *new)
 	while (last->next != NULL)
 		last = last->next;
 	last->next = new;
+}
+
+char	*get_value_by_name(t_env *env, char *name)
+{
+	if (env == NULL)
+		return (NULL);
+	while (env)
+	{
+		if (name == env->name)
+		{
+			return (env->value);
+		}
+		env = env->next;
+	}
+	return (NULL);
 }

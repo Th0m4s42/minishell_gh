@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/12 17:50:53 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/15 18:28:51 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	main(int argc, char **argv, char **envp)
 	// free_env_list(&env);
 	while (1)
 	{
-		readline(display_prompt(prompt_info));
+		rl_value = readline(display_prompt(prompt_info));
+		if (rl_value == NULL)
+			break ;
 		add_history(rl_value);
 		free(rl_value);
 	}
