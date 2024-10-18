@@ -6,99 +6,75 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:23 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/15 18:33:35 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/18 11:12:09 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*get_id(t_env *env)
+void	get_id(t_env *env, t_prompt *info)
 {
-	t_env	*temp;
-	char	*id;
+	char	*user;
 
-	id = NULL;
-	if (env == NULL)
-		return ("user");
-	temp = env;
-	while (temp != NULL)
-	{
-		if (ft_strncmp(temp->name, "USER", 4) == 0)
-		{
-			id = ft_strdup(temp->value);
-			break ;
-		}
-		temp = temp->next;
-	}
-	return (id);
+	user = get_value_by_name(env, "USER");
+	if (user == NULL || ft_strlen(user) > 41)
+		ft_strlcpy(info->id, "user", 5);
+	else
+		ft_strlcpy(info->id, user, ft_strlen(user) + 1);
 }
 
-char	*get_location(t_env *env)
+void	get_location(t_env *env, t_prompt *info)
 {
-	t_env	*temp;
-	char	*loc;
+	char	*session_manager;
+	int		i;
+	int		j;
 
-	loc = NULL;
-	if (env == NULL)
-		return ("somewhere");
-	temp = env;
-	while (temp != NULL)
+	session_manager = get_value_by_name(env, "SESSION_MANAGER");
+	if (session_manager == NULL)
 	{
-		if (ft_strncmp(temp->name, "SESSION_MANAGER", 15) == 0)
-		{
-			loc = ft_substr(temp->value, 6, 12);
-			break ;
-		}
-		temp = temp->next;
+		ft_strlcpy(info->hostname, "session_manager", 16);
+		return ;
 	}
-	return (loc);
+	i = 0;
+	while(session_manager[i] != '/' && session_manager[i])
+		i++;
+	i++;
+	j = i;
+	while(session_manager[j] != '.' && session_manager[j])
+		j++;
+	if (j - i + 1 > 42)
+		ft_strlcpy(info->hostname, "session_manager", 16);
+	else
+		ft_strlcpy(info->hostname, &session_manager[i], j - i + 1);
 }
 
-char	*get_pwd(t_env *env)
+void	get_pwd(t_prompt *info)
 {
-	t_env	*temp;
-	char	*pwd;
-
-	pwd = NULL;
-	if (env == NULL)
-		return ("home");
-	temp = env;
-	while (temp != NULL)
-	{
-		if (ft_strncmp(temp->name, "PWD", 3) == 0)
-		{
-			pwd = ft_strdup(temp->value);
-			break ;
-		}
-		temp = temp->next;
-	}
-	return (pwd);
+	if (getcwd(info->pwd, 420) == NULL)
+		ft_strlcpy(info->pwd, "here", 5);
 }
 
-t_prompt	*get_info(t_env *env)
+void	concat_prompt(t_prompt *info)
 {
-	t_prompt	*prompt_info;
+	info->prompt[0] = '\0';
 
-	prompt_info = malloc(sizeof(t_prompt));
-	prompt_info->id = get_id(env);
-	prompt_info->location = get_location(env);
-	prompt_info->pwd = get_pwd(env);
-	return (prompt_info);
+	ft_strlcat(info->prompt, info->id, sizeof(info->prompt));
+	ft_strlcat(info->prompt, "@", sizeof(info->prompt));
+	ft_strlcat(info->prompt, info->hostname, sizeof(info->prompt));
+	ft_strlcat(info->prompt, ":~", sizeof(info->prompt));
+	ft_strlcat(info->prompt, info->pwd, sizeof(info->prompt));
+	ft_strlcat(info->prompt, "$ ", sizeof(info->prompt));
+}
+
+
+void	get_info(t_env *env, t_prompt *info)
+{
+	get_id(env, info);
+	get_location(env, info);
+	get_pwd(info);
+	concat_prompt(info);
 }
 
 // dispaly_prompt(t_prompt *prompt_info)
 // prompt_info->id@prompt_info->location:~/prompt_info->pwd$ 
 // et merde
-
-char	*display_prompt(t_prompt *prompt_info)
-{
-	char	*prompt_line;
-
-	prompt_line = ft_strdup(prompt_info->id);
-	prompt_line = ft_strjoin(prompt_line, "@");
-	prompt_line = ft_strjoin(prompt_line, prompt_info->location);
-	prompt_line = ft_strjoin(prompt_line, ":~");
-	prompt_line = ft_strjoin(prompt_line, prompt_info->pwd);
-	prompt_line = ft_strjoin(prompt_line, "$ ");
-	return (prompt_line);
-}

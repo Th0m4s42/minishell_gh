@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 09:51:53 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/12 17:42:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/18 11:14:14 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@
 
 typedef struct s_prompt
 {
-	char	*id;
-	char	*location;
-	char	*pwd;
+	char	id[42];
+	char	hostname[42];
+	char	pwd[420];
+	char	prompt[509];
 }	t_prompt;
 
 ////////////////////////////////////////////////////////////////////////////////
 //								FONCTIONS									  //
 ////////////////////////////////////////////////////////////////////////////////
 
-t_prompt	*get_info(t_env *env);
-char		*get_id(t_env *env);
-char		*get_location(t_env *env);
-char		*get_pwd(t_env *env);
-char		*display_prompt(t_prompt *prompt_info);
+void	get_id(t_env *env, t_prompt *info);
+void	get_location(t_env *env, t_prompt *info);
+void	get_pwd(t_prompt *info);
+void	concat_prompt(t_prompt *info);
+void	get_info(t_env *env, t_prompt *info);
 
 #endif
