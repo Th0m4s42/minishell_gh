@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:13:03 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/12 09:53:38 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/18 16:51:53 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,6 @@
 # include "signal.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-//								ENUM										  //
-////////////////////////////////////////////////////////////////////////////////
-
-typedef enum s_redir_type
-{
-	IN,
-	HERE_DOC,
-	APPEND,
-	TRUNC
-}	t_redir_type;
-
-////////////////////////////////////////////////////////////////////////////////
 //								STRUCTURES									  //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -55,14 +43,14 @@ typedef struct s_cmd
 
 typedef struct s_token
 {
-	char			*string;
+	char			*value;
 	int				token;
 }	t_token;
 
 typedef struct s_redir
 {
 	char			*name;
-	t_redir_type	type;
+	t_token_type	type;
 	struct s_redir	*next;
 }	t_redir;
 
