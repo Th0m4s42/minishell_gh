@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:23 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/18 11:12:09 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/18 11:26:03 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	concat_prompt(t_prompt *info)
 	ft_strlcat(info->prompt, "$ ", sizeof(info->prompt));
 }
 
-
 void	get_info(t_env *env, t_prompt *info)
 {
 	get_id(env, info);
@@ -74,7 +73,3 @@ void	get_info(t_env *env, t_prompt *info)
 	get_pwd(info);
 	concat_prompt(info);
 }
-
-// dispaly_prompt(t_prompt *prompt_info)
-// prompt_info->id@prompt_info->location:~/prompt_info->pwd$ 
-// et merde
