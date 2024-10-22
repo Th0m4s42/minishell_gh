@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:23 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/18 11:26:03 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/22 17:31:50 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	get_location(t_env *env, t_prompt *info)
 		return ;
 	}
 	i = 0;
-	while(session_manager[i] != '/' && session_manager[i])
+	while (session_manager[i] != '/' && session_manager[i])
 		i++;
 	i++;
 	j = i;
-	while(session_manager[j] != '.' && session_manager[j])
+	while (session_manager[j] != '.' && session_manager[j])
 		j++;
 	if (j - i + 1 > 42)
 		ft_strlcpy(info->hostname, "session_manager", 16);
@@ -57,7 +57,6 @@ void	get_pwd(t_prompt *info)
 void	concat_prompt(t_prompt *info)
 {
 	info->prompt[0] = '\0';
-
 	ft_strlcat(info->prompt, info->id, sizeof(info->prompt));
 	ft_strlcat(info->prompt, "@", sizeof(info->prompt));
 	ft_strlcat(info->prompt, info->hostname, sizeof(info->prompt));
