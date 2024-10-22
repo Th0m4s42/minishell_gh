@@ -41,12 +41,6 @@ typedef struct s_cmd
 	struct s_line	*next;
 }	t_cmd;
 
-typedef struct s_token
-{
-	char			*value;
-	int				token;
-}	t_token;
-
 typedef struct s_redir
 {
 	char			*name;

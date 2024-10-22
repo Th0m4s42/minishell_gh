@@ -19,6 +19,8 @@
 
 typedef enum s_token_type
 {
+	COMM,
+	ARG,
 	IN,
 	HERE_DOC,
 	APPEND,
