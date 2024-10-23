@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/23 15:21:36 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/23 15:34:25 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ char	**ft_strtok(char *string, char *sep)
 		tok[t] = malloc((sizeof (char) * (tok_len + 1)));
 		if (tok[t] == NULL)
 			return (NULL);
-		ft_strlcpy(tok[t], string, tok_len);
-		tok[t][tok_len] = '\0';
+		ft_strlcpy(tok[t], string, tok_len + 1);
 		while (string[i] && is_sep(string[i], sep) == 0)
 			i++;
 		t++;
