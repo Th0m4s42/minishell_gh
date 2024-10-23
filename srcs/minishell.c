@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/18 10:44:47 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/23 15:13:27 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	main(int argc, char **argv, char **envp)
 		add_history(rl_value);
 		free(rl_value);
 	}
+	return (0);
+}
+
 	// to do before exit:
 	// free_env_list(&env);
 	// clear_history();
-	return (0);
-}

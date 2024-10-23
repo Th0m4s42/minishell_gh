@@ -6,21 +6,11 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/22 17:30:46 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/23 15:21:36 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static int	toklen(char *string, char *sep)
-{
-	int	i;
-
-	i = 0;
-	while (string[i] != '\0' && !is_sep(string[i], sep))
-		i++;
-	return (i);
-}
 
 static int	is_sep(char c, char *sep)
 {
@@ -31,6 +21,16 @@ static int	is_sep(char c, char *sep)
 		sep++;
 	}
 	return (0);
+}
+
+static int	toklen(char *string, char *sep)
+{
+	int	i;
+
+	i = 0;
+	while (string[i] != '\0' && !is_sep(string[i], sep))
+		i++;
+	return (i);
 }
 
 static int	tok_count(char *string, char *sep)
@@ -50,7 +50,7 @@ static int	tok_count(char *string, char *sep)
 	return (count);
 }
 
-char	**ft_strtok(char *string, const char *sep)
+char	**ft_strtok(char *string, char *sep)
 {
 	int		i;
 	int		t;
@@ -68,10 +68,16 @@ char	**ft_strtok(char *string, const char *sep)
 	{
 		while (is_sep(string[i], sep))
 			i++;
-		tok_len = toklen(string, sep);
+		tok_len = toklen(&string[i], sep);
+		tok[t] = malloc((sizeof (char) * (tok_len + 1)));
+		if (tok[t] == NULL)
+			return (NULL);
+		ft_strlcpy(tok[t], string, tok_len);
+		tok[t][tok_len] = '\0';
+		while (string[i] && is_sep(string[i], sep) == 0)
+			i++;
 		t++;
 	}
+	tok[t] = NULL;
 	return (tok);
 }
-
-	// A finir !!

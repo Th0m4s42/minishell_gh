@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/22 17:32:29 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/23 14:15:19 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 typedef enum s_token_type
 {
-	COMM,
+	CMD,
 	ARG,
+	PIPE,
 	IN,
 	HERE_DOC,
 	APPEND,

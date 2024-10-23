@@ -27,6 +27,8 @@ SRCS := \
 	$(SRC_DIR)$(ENV)env.c \
 	$(SRC_DIR)$(ENV)list_env_manip.c \
 	\
+	$(SRC_DIR)$(LEXER)lexer.c\
+	\
 	$(SRC_DIR)$(PROMPT)prompt.c \
 
 INCLUDES := -I includes
