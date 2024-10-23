@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:25:23 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/22 17:31:50 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/23 16:04:10 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	concat_prompt(t_prompt *info)
 	ft_strlcat(info->prompt, info->hostname, sizeof(info->prompt));
 	ft_strlcat(info->prompt, ":~", sizeof(info->prompt));
 	ft_strlcat(info->prompt, info->pwd, sizeof(info->prompt));
-	ft_strlcat(info->prompt, "$ ", sizeof(info->prompt));
+	ft_strlcat(info->prompt, "👾 ", sizeof(info->prompt));
 }
 
 void	get_info(t_env *env, t_prompt *info)
