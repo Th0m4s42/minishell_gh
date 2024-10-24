@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 13:13:08 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 14:19:32 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(int argc, char **argv, char **envp)
 	char		*rl_value;
 	t_env		*env;
 	t_prompt	prompt_info;
-	char		*line = "du fun \'pour toi\' \"du fun\" pour | moi";
-	char		**tok = ft_strtok(line, " |<>\"\'");
+	char		*line = "du fun \'pour toi\'du fun\"pour |moi\"";
+	char		**tok = ft_strtok(line, " |<>");
 	int			i = 0;
 
 	(void)argv;
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	while (tok[i])
 	{
 		printf("token: %s\n", tok[i]);
+		free(tok[i]);
 		i++;
 	}
 	free(tok);

@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 13:29:12 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 14:02:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int toklen(char *string, char *sep)
 	char quote;
 
 	len = 0;
-	if (string[0] == '\'' || string[0] == '\"') 
+	if (string[0] == '\'' || string[0] == '\"')
 	{
 		quote = string[0];
 		len++;
@@ -92,6 +92,7 @@ char	*extract_token(char *string, char *sep, int *index)
 	while (is_sep(string[*index], sep))
 		(*index)++;
 	tok_len = toklen(&string[*index], sep);
+	printf("tok_len: %d\n", tok_len);
 	if (tok_len == -1)
 		return (NULL);
 	token = malloc(sizeof(char) * (tok_len + 1));
