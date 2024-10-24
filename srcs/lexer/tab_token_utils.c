@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:31:55 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 16:33:21 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 16:45:53 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,17 @@ char	**allocate_tokens(char *string, char *sep)
 	if (tok == NULL)
 		return (NULL);
 	return (tok);
+}
+
+void	ft_free_tab(char **tab)
+{
+	int	index;
+
+	index = 0;
+	while (tab[index])
+	{
+		free(tab[index]);
+		index++;
+	}
+	free(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 16:36:22 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 16:46:35 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		is_sep(char c, char *sep);
 int		toklen(char *string, char *sep);
 int		tok_count(char *string, char *sep);
 char	**allocate_tokens(char *string, char *sep);
+void	ft_free_tab(char **tab);
 
 /* token.c */
 char	*extract_token(char *string, char *sep, int *index);

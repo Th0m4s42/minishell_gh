@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 16:32:48 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 16:46:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**ft_strtok(char *string, char *sep)
 		tok[t] = extract_token(string, sep, &index);
 		if (tok[t] == NULL)
 		{
-			free(tok);
+			ft_free_tab(tok);
 			return (NULL);
 		}
 		t++;
