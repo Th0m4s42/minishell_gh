@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/23 15:13:27 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:55:05 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ int	main(int argc, char **argv, char **envp)
 	char		*rl_value;
 	t_env		*env;
 	t_prompt	prompt_info;
+	char		**tok;
+	int			index;
 
 	(void)argv;
+	index = 0;
 	rl_value = NULL;
 	if (argc != 1)
 		return (EXIT_FAILURE);
@@ -30,6 +33,12 @@ int	main(int argc, char **argv, char **envp)
 		if (rl_value == NULL)
 			break ;
 		add_history(rl_value);
+		tok = ft_strtok(rl_value, " <>\'\"|");
+		while (tok)
+		{
+			printf("token: %s\n", tok[index]);
+			index++;
+		}
 		free(rl_value);
 	}
 	return (0);
