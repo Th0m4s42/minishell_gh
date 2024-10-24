@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 16:46:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 17:15:17 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*extract_token(char *string, char *sep, int *index)
 {
-	int tok_len;
-	char *token;
+	int		tok_len;
+	char	*token;
 
 	while (is_sep(string[*index], sep))
 		(*index)++;

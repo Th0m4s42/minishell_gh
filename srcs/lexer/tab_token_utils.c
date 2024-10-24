@@ -6,11 +6,11 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:31:55 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 16:45:53 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 17:16:54 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <minishell.h>
+#include <minishell.h>
 
 int	is_sep(char c, char *sep)
 {
@@ -25,8 +25,8 @@ int	is_sep(char c, char *sep)
 
 int	toklen(char *string, char *sep)
 {
-	int len;
-	char quote;
+	int		len;
+	char	quote;
 
 	len = 0;
 	quote = '\0';
@@ -40,7 +40,7 @@ int	toklen(char *string, char *sep)
 				quote = '\0';
 		}
 		else if (quote == '\0' && is_sep(string[len], sep))
-			break;
+			break ;
 		len++;
 	}
 	return (len);
@@ -72,8 +72,8 @@ int	tok_count(char *string, char *sep)
 
 char	**allocate_tokens(char *string, char *sep)
 {
-	int count;
-	char **tok;
+	int		count;
+	char	**tok;
 
 	count = tok_count(string, sep);
 	tok = malloc(sizeof(char *) * (count + 1));
