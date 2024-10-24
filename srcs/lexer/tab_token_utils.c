@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:31:55 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 17:16:54 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 17:25:23 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_sep(char c, char *sep)
 		sep++;
 	}
 	return (0);
-}
+} 
 
 int	toklen(char *string, char *sep)
 {
