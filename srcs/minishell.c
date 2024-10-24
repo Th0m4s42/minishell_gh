@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 15:57:18 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 16:14:36 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	t_env		*env;
 	t_prompt	prompt_info;
 	// char		*line = "du fun \'pour toi\'du fun\"pour |moi\"";
-	// char		**tok = ft_strtok(line, " |	\\<>");
+	// char		**tok = ft_strtok(line, " |\t\\<>");
 	// int			i = 0;
 
 	(void)argv;
