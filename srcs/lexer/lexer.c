@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/23 15:34:25 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 10:20:10 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,35 @@ static int	tok_count(char *string, char *sep)
 	return (count);
 }
 
+static char **allocate_tokens(char *string, char *sep)
+{
+	int count;
+	char **tok;
+
+	count = tok_count(string, sep);
+	tok = malloc(sizeof(char *) * (count + 1));
+	if (tok == NULL)
+		return (NULL);
+	return (tok);
+}
+
+char	*extract_token(char *string, char *sep, int *index)
+{
+	int tok_len;
+	char *token;
+
+	while (is_sep(string[*index], sep))
+		(*index)++;
+	tok_len = toklen(&string[*index], sep);
+	token = malloc(sizeof(char) * (tok_len + 1));
+		return (NULL);
+	ft_strlcpy(token, &string[*index], tok_len + 1);
+	while (string[*index] && !is_sep(string[*index], sep))
+		(*index)++;
+	
+	return (token);
+}
+
 char	**ft_strtok(char *string, char *sep)
 {
 	int		i;
@@ -59,22 +88,14 @@ char	**ft_strtok(char *string, char *sep)
 
 	if (string == NULL)
 		return (NULL);
-	tok = malloc(sizeof(char *) * (tok_count(string, sep) + 1));
-	if (tok == NULL)
-		return (NULL);
+	tok = allocate_tokens(string, sep);
 	i = 0;
 	t = 0;
 	while (t < tok_count(string, sep))
 	{
-		while (is_sep(string[i], sep))
-			i++;
-		tok_len = toklen(&string[i], sep);
-		tok[t] = malloc((sizeof (char) * (tok_len + 1)));
+		tok[t] = extract_token(string, sep, &i);
 		if (tok[t] == NULL)
 			return (NULL);
-		ft_strlcpy(tok[t], string, tok_len + 1);
-		while (string[i] && is_sep(string[i], sep) == 0)
-			i++;
 		t++;
 	}
 	tok[t] = NULL;
