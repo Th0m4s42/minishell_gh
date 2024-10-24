@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 12:46:43 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/24 13:29:12 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,13 @@ char	*extract_token(char *string, char *sep, int *index)
 	while (is_sep(string[*index], sep))
 		(*index)++;
 	tok_len = toklen(&string[*index], sep);
+	if (tok_len == -1)
+		return (NULL);
 	token = malloc(sizeof(char) * (tok_len + 1));
+	if (token == NULL)
 		return (NULL);
 	ft_strlcpy(token, &string[*index], tok_len + 1);
-	while (string[*index] && !is_sep(string[*index], sep))
-		(*index)++;
+	(*index) += tok_len;
 	return (token);
 }
 
