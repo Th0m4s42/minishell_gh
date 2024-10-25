@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 16:46:35 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/25 16:11:28 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef enum s_token_type
 {
 	CMD,
+	CMD_PATH,
 	ARG,
 	PIPE,
 	IN,
@@ -34,13 +35,16 @@ typedef enum s_token_type
 
 typedef struct s_token
 {
-	char			*string;
-	t_token_type	token;
+	char			*value;
+	t_token_type	type;
+	struct s_token	*next;
 }	t_token;
 
 ////////////////////////////////////////////////////////////////////////////////
 //								FONCTIONS									  //
 ////////////////////////////////////////////////////////////////////////////////
+
+typedef bool (*ptr_to_ft_array)(char *, t_token *);
 
 /* tab_token_utils.c */
 
@@ -51,7 +55,15 @@ char	**allocate_tokens(char *string, char *sep);
 void	ft_free_tab(char **tab);
 
 /* token.c */
+
 char	*extract_token(char *string, char *sep, int *index);
 char	**ft_strtok(char *string, char *sep);
+
+/* lexer.c */
+
+/* list_lex_manip.c */
+t_token	*new_env_node(char *value, t_token_type *type);
+void	free_env_list(t_token **first_node);
+void	add_back(t_token **first, t_token *new);
 
 #endif
