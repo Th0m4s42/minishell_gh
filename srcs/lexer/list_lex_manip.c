@@ -6,13 +6,13 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:29:43 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 14:08:07 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/28 17:17:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*new_env_node(char *value, t_token_type *type)
+t_token	*new_tok_node(char *value, t_token_type *type)
 {
 	t_token	*node;
 
@@ -25,7 +25,7 @@ t_token	*new_env_node(char *value, t_token_type *type)
 	return (node);
 }
 
-void	free_env_list(t_token **first_node)
+void	free_tok_list(t_token **first_node)
 {
 	t_token	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 17:14:01 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/28 17:17:31 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ t_token	*lexer(char *rl_value);
 
 /* list_lex_manip.c */
 
-t_token	*new_env_node(char *value, t_token_type *type);
-void	free_env_list(t_token **first_node);
+t_token	*new_tok_node(char *value, t_token_type *type);
+void	free_tok_list(t_token **first_node);
 void	add_back(t_token **first, t_token *new);
 
 #endif

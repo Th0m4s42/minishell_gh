@@ -6,16 +6,16 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 17:12:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/28 17:35:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/*
-	prendre les tokens
-	attribuer une valeur
-*/
+t_token	*new_node(char ** tok, t_token *new_node)
+{
+	return (new_node);
+}
 
 void	lexing(ft_array check_type, t_token **first_node, char **tok)
 {
@@ -32,8 +32,9 @@ void	lexing(ft_array check_type, t_token **first_node, char **tok)
 		{
 			if (check_type + j == true)
 			{
-				// fonction qui cree le new_node qui return le pointeur
+				// tmp = fonction qui cree le new_node qui return le pointeur
 				// vers le dernier noeud cree
+				break ;
 			}
 			j++;
 		}
@@ -52,4 +53,5 @@ t_token	*lexer(char *rl_value)
 		return (NULL);
 	first_node = NULL;
 	init_functionarray(&check_type);
+	lexing(&check_type, first_node, tok);
 }
