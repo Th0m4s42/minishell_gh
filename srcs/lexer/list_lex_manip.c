@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:29:43 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/25 15:33:48 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/28 14:08:07 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ void	add_back(t_token **first, t_token *new)
 		last = last->next;
 	last->next = new;
 }
-

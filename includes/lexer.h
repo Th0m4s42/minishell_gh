@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/25 16:11:28 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/28 17:14:01 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_token
 //								FONCTIONS									  //
 ////////////////////////////////////////////////////////////////////////////////
 
-typedef bool (*ptr_to_ft_array)(char *, t_token *);
+typedef bool (*ft_array)(char *, t_token *);
 
 /* tab_token_utils.c */
 
@@ -61,7 +61,20 @@ char	**ft_strtok(char *string, char *sep);
 
 /* lexer.c */
 
+void	init_functionarray(bool (**ft_array)(char *, t_token *));
+bool	check_cmd(char *token, t_token *type);
+bool	check_cmd_path(char *token, t_token *type);
+bool	check_arg(char *token, t_token *type);
+bool	check_pipe(char *token, t_token *type);
+bool	check_in(char *token, t_token *type);
+bool	check_heredoc(char *token, t_token *type);
+bool	check_append(char *token, t_token *type);
+bool	check_trunc(char *token, t_token *type);
+void	lexing(ft_array check_type, t_token **first_node, char **tok);
+t_token	*lexer(char *rl_value);
+
 /* list_lex_manip.c */
+
 t_token	*new_env_node(char *value, t_token_type *type);
 void	free_env_list(t_token **first_node);
 void	add_back(t_token **first, t_token *new);

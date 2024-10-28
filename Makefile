@@ -31,6 +31,9 @@ SRCS := \
 	$(SRC_DIR)$(LEXER)tab_token_utils.c\
 	$(SRC_DIR)$(LEXER)lexer.c\
 	$(SRC_DIR)$(LEXER)list_env_manip.c\
+	$(SRC_DIR)$(LEXER)check_cmds.c\
+	$(SRC_DIR)$(LEXER)check_redirictions.c\
+	$(SRC_DIR)$(LEXER)init_function_array.c\
 	\
 	$(SRC_DIR)$(PROMPT)prompt.c \
 

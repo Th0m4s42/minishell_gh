@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/24 17:15:17 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/10/28 16:10:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*extract_token(char *string, char *sep, int *index)
 	while (is_sep(string[*index], sep))
 		(*index)++;
 	tok_len = toklen(&string[*index], sep);
-	printf("tok_len: %d\n", tok_len);
 	if (tok_len == 0)
 		return (NULL);
 	token = malloc(sizeof(char) * (tok_len + 1));
