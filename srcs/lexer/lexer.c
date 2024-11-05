@@ -6,18 +6,19 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 17:35:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/05 17:12:30 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*new_node(char ** tok, t_token *new_node)
+t_token	*new_node(char **tok, t_token *new_node)
 {
+	(void)tok;
 	return (new_node);
 }
 
-void	lexing(ft_array check_type, t_token **first_node, char **tok)
+void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 {
 	t_token	*tmp;
 	int		i;
@@ -28,9 +29,10 @@ void	lexing(ft_array check_type, t_token **first_node, char **tok)
 	i = 0;
 	while (tok[i])
 	{
-		while ((check_type + j)(tok[i], tmp))
+		j = 0;
+		while ((check_type + j))
 		{
-			if (check_type + j == true)
+			if (check_type[j](tok[i], tmp) == true)
 			{
 				// tmp = fonction qui cree le new_node qui return le pointeur
 				// vers le dernier noeud cree
@@ -53,5 +55,6 @@ t_token	*lexer(char *rl_value)
 		return (NULL);
 	first_node = NULL;
 	init_functionarray(&check_type);
-	lexing(&check_type, first_node, tok);
+	lexing(check_type, &first_node, tok);
+	return (NULL);
 }
