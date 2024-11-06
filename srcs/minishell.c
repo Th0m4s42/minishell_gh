@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 15:15:49 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/06 16:29:28 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	main(int argc, char **argv, char **envp)
 		if (rl_value == NULL)
 			break ;
 		add_history(rl_value);
-		//lexer(rl_value);
 		free(rl_value);
 	}
 	return (0);
