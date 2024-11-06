@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 10:47:35 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:40:00 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum s_token_type
 
 typedef struct s_token
 {
+	struct s_token	*prev;
 	char			*value;
 	t_token_type	type;
 	struct s_token	*next;
@@ -62,7 +63,7 @@ char	**ft_strtok(char *string, char *sep);
 /* lexer.c */
 
 void	init_functionarray(ft_array (*funct_array)[8]);
-bool	check_cmd(char *token, t_token *type);
+bool	check_cmd(char *tok_str, t_token *tok);
 bool	check_cmd_path(char *token, t_token *type);
 bool	check_arg(char *token, t_token *type);
 bool	check_pipe(char *token, t_token *type);
@@ -77,6 +78,6 @@ t_token	*lexer(char *rl_value);
 
 t_token	*new_tok_node(char *value, t_token_type *type);
 void	free_tok_list(t_token **first_node);
- void	add_back_tok(t_token **first, t_token *new);
+void	add_back_tok(t_token **first, t_token *new);
 
 #endif

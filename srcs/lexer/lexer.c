@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 10:37:32 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/06 15:16:09 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 		{
 			if (check_type[j](tok[i], tmp) == true)
 			{
+				// printf("cmd or cmd_path\n");
 				// tmp = fonction qui cree le new_node qui return le pointeur
 				// vers le dernier noeud cree
 				break ;
 			}
+			else
+				break;
 			j++;
 		}
 		i++;
