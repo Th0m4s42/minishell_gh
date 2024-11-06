@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/11/06 15:16:40 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/06 15:32:42 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define	CMD 0
+# define	CMD_PATH 1
+# define	ARG 2
+# define	PIPE 3
+# define	IN 4
+# define	HERE_DOC 5
+# define	APPEND 6
+# define	TRUNC 7
 
 
 /* ************************************************************************** */
@@ -44,6 +53,12 @@ typedef struct	s_shell
 	// int				exit;
 	int				exec;
 }				t_shell;
+
+
+/* ************************************************************************** */
+
+t_token		next_sep(t_token *token);
+t_token		prev_sep(t_token *token);
 
 
 #endif
