@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:20:39 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 15:06:37 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/06 17:23:52 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,17 @@ bool	check_cmd_path(char *tok_str, t_token *tok)
 	return (true);
 }
 
-bool	check_arg(char *token, t_token *type)
+bool	check_arg(char *tok_str, t_token *tok)
 {
-	(void)token;
-	(void)type;
+	(void)tok_str;
+	if (tok->type == false)
+		return (true);
 	return (false);
 }
 
-bool	check_pipe(char *token, t_token *type)
+bool	check_pipe(char *tok_str, t_token *tok)
 {
-	(void)token;
-	(void)type;
+	(void)tok_str;
+	(void)tok;
 	return (false);
 }

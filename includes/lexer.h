@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 14:40:00 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/06 17:24:19 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ char	**ft_strtok(char *string, char *sep);
 
 void	init_functionarray(ft_array (*funct_array)[8]);
 bool	check_cmd(char *tok_str, t_token *tok);
-bool	check_cmd_path(char *token, t_token *type);
-bool	check_arg(char *token, t_token *type);
-bool	check_pipe(char *token, t_token *type);
+bool	check_cmd_path(char *tok_str, t_token *tok);
+bool	check_arg(char *tok_str, t_token *tok);
+bool	check_pipe(char *tok_str, t_token *tok);
 bool	check_in(char *token, t_token *type);
 bool	check_heredoc(char *token, t_token *type);
 bool	check_append(char *token, t_token *type);
