@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:29:43 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 17:17:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/06 10:48:28 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*new_tok_node(char *value, t_token_type *type)
 	if (node == NULL)
 		return (NULL);
 	node->value = value;
-	node->type = type;
+	node->type = *type;
 	node->next = NULL;
 	return (node);
 }
@@ -41,7 +41,7 @@ void	free_tok_list(t_token **first_node)
 	*first_node = NULL;
 }
 
-void	add_back(t_token **first, t_token *new)
+void	add_back_tok(t_token **first, t_token *new)
 {
 	t_token	*last;
 

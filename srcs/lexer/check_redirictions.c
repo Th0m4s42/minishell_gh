@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:21:00 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 15:08:57 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/06 10:52:31 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,28 @@
 
 bool	check_in(char *token, t_token *type)
 {
+	(void)token;
+	(void)type;
 	return (false);
 }
 
 bool	check_heredoc(char *token, t_token *type)
 {
+	(void)token;
+	(void)type;
 	return (false);
 }
 
 bool	check_append(char *token, t_token *type)
 {
+	(void)token;
+	(void)type;
 	return (false);
 }
 
 bool	check_trunc(char *token, t_token *type)
 {
+	(void)token;
+	(void)type;
 	return (false);
 }
