@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/11/06 15:07:11 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/06 15:20:12 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 	t_token	next;
 	t_token	prev;
 	int	pipe;
-
-	if 
+	return ;
+	//lol
 }
 
 void	exec(t_shell *shell)
