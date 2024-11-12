@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:31:55 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 14:06:48 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/12 13:21:36 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int	is_sep(char c, char *sep)
 		sep++;
 	}
 	return (0);
+}
+
+int	is_redirection(char c)
+{
+	return (c == '<' || c == '>');
 }
 
 int	toklen(char *string, char *sep)
@@ -39,8 +44,13 @@ int	toklen(char *string, char *sep)
 			else if (quote == string[len])
 				quote = '\0';
 		}
-		else if (quote == '\0' && is_sep(string[len], sep))
-			break ;
+		else if (quote == '\0')
+		{
+			if (string[len] == '|' || is_redirection(string[len]))
+				return (len == 0 ? 1 : len);
+			if (is_sep(string[len], sep))
+				break ;
+		}
 		len++;
 	}
 	return (len);
@@ -65,21 +75,12 @@ int	tok_count(char *string, char *sep)
 				return (-1);
 			count++;
 			index += len;
+			if (is_redirection(string[index - 1])
+				&& string[index] == string[index - 1])
+				index++;
 		}
 	}
 	return (count);
-}
-
-char	**allocate_tokens(char *string, char *sep)
-{
-	int		count;
-	char	**tok;
-
-	count = tok_count(string, sep);
-	tok = malloc(sizeof(char *) * (count + 1));
-	if (tok == NULL)
-		return (NULL);
-	return (tok);
 }
 
 void	ft_free_tab(char **tab)

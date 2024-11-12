@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 17:24:19 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/12 11:14:28 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ typedef bool (*ft_array)(char *, t_token *);
 /* tab_token_utils.c */
 
 int		is_sep(char c, char *sep);
+int		is_redirection(char c);
 int		toklen(char *string, char *sep);
 int		tok_count(char *string, char *sep);
-char	**allocate_tokens(char *string, char *sep);
 void	ft_free_tab(char **tab);
 
 /* token.c */
 
 char	*extract_token(char *string, char *sep, int *index);
+char	**allocate_tokens(char *string, char *sep);
 char	**ft_strtok(char *string, char *sep);
 
 /* lexer.c */
