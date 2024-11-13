@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/12 11:14:28 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 13:40:46 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ typedef enum s_token_type
 	CMD_PATH,
 	ARG,
 	PIPE,
-	IN,
-	HERE_DOC,
+	REDIRECTION,
+	INFILE,
+	HEREDOC,
 	APPEND,
-	TRUNC
+	OUTFILE
 }	t_token_type;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,15 +64,16 @@ char	**ft_strtok(char *string, char *sep);
 
 /* lexer.c */
 
-void	init_functionarray(ft_array (*funct_array)[8]);
-bool	check_cmd(char *tok_str, t_token *tok);
-bool	check_cmd_path(char *tok_str, t_token *tok);
-bool	check_arg(char *tok_str, t_token *tok);
+void	init_functionarray(ft_array (*funct_array)[9]);
+bool	check_redirection(char *tok_str, t_token *tok);
+bool	check_infile(char *token, t_token *tok);
+bool	check_heredoc(char *token, t_token *tok);
+bool	check_outfile(char *token, t_token *tok);
+bool	check_append(char *token, t_token *tok);
 bool	check_pipe(char *tok_str, t_token *tok);
-bool	check_in(char *token, t_token *type);
-bool	check_heredoc(char *token, t_token *type);
-bool	check_append(char *token, t_token *type);
-bool	check_trunc(char *token, t_token *type);
+bool	check_cmd_path(char *tok_str, t_token *tok);
+bool	check_cmd(char *tok_str, t_token *tok);
+bool	check_arg(char *tok_str, t_token *tok);
 void	lexing(ft_array *check_type, t_token **first_node, char **tok);
 t_token	*lexer(char *rl_value);
 

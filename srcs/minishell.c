@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/12 14:34:00 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 11:57:07 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 
 	while (tok[i])
 	{
-		printf("token: %s\n", tok[i]);
+		printf("token:%s\n", tok[i]);
 		free(tok[i]);
 		i++;
 	}

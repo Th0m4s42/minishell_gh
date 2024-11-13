@@ -6,11 +6,19 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:20:39 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/08 12:47:12 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 15:08:49 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+bool	check_pipe(char *tok_str, t_token *tok)
+{
+	(void)tok_str;
+	if (tok->type != PIPE && tok_str[0] == '|')
+		return (true);
+	return (false);
+}
 
 bool	check_cmd(char *tok_str, t_token *tok)
 {
@@ -57,15 +65,5 @@ bool	check_arg(char *tok_str, t_token *tok)
 	(void)tok_str;
 	if (tok->type == false)
 		return (true);
-	return (false);
-}
-
-bool	check_pipe(char *tok_str, t_token *tok)
-{
-	//check si pipe au dernier charactere du dernier token
-	//check si pipe au premier charactere de ce token
-	//
-	(void)tok_str;
-	(void)tok;
 	return (false);
 }
