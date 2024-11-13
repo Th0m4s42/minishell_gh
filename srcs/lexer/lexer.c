@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: maja <maja@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 17:45:25 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:55:35 by maja             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*new_node(char **tok, t_token *new_node, int type)
+t_token	*new_node(char **tok, t_token *last_node, int type)
 {
 	t_token	*node;
 
@@ -21,8 +21,8 @@ t_token	*new_node(char **tok, t_token *new_node, int type)
 		return (NULL);
 	node->value = *tok;
 	node->type = type;
-	node->prev = new_node;
-	node->next = NULL;
+	last_node->next = node;
+	node->prev = last_node;
 	return (node);
 }
 
@@ -43,6 +43,8 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			if (check_type[j](tok[i], tmp) == true)
 			{
 				tmp = new_node(tok, tmp, j);
+				if (tmp == NULL)
+					printf("Ne pas oublier de faire des trucs ici :)");
 				break ;
 			}
 			j++;
