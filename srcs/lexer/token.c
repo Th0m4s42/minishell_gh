@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 13:15:35 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:23:59 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,3 @@ char	**ft_strtok(char *string, char *sep)
 	tok[t] = NULL;
 	return (tok);
 }
-
-/* TO_DO_LIST
--------------------modifier ft_strtok----------------------
---->creer un index pour les pipe tel que
-	[C][M][D][1]
-	[|]
-	[C][M][D][2]
---->separrer les redirections puis les recoller
-	au prochain txt dans la meme ligne du tableau tel que
-	[<]
-	[F][I][L][E]
-	[<][<]
-	[F][I][L][E]
-	[>]
-	[F][I][L][E]
-	[>][>]
-	[F][I][L][E]
-*/

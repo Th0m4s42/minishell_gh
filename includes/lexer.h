@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 13:40:46 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:24:54 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 
 typedef enum s_token_type
 {
-	CMD,
-	CMD_PATH,
-	ARG,
-	PIPE,
 	REDIRECTION,
 	INFILE,
 	HEREDOC,
 	APPEND,
-	OUTFILE
+	OUTFILE,
+	PIPE,
+	CMD_PATH,
+	CMD,
+	ARG
 }	t_token_type;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +74,7 @@ bool	check_pipe(char *tok_str, t_token *tok);
 bool	check_cmd_path(char *tok_str, t_token *tok);
 bool	check_cmd(char *tok_str, t_token *tok);
 bool	check_arg(char *tok_str, t_token *tok);
+t_token	*new_node(char **tok, t_token *new_node, int type);
 void	lexing(ft_array *check_type, t_token **first_node, char **tok);
 t_token	*lexer(char *rl_value);
 

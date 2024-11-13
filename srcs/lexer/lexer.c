@@ -6,16 +6,24 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 14:23:48 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:45:25 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*new_node(char **tok, t_token *new_node)
+t_token	*new_node(char **tok, t_token *new_node, int type)
 {
-	(void)tok;
-	return (new_node);
+	t_token	*node;
+
+	node = malloc(sizeof(t_token));
+	if (node == NULL)
+		return (NULL);
+	node->value = *tok;
+	node->type = type;
+	node->prev = new_node;
+	node->next = NULL;
+	return (node);
 }
 
 void	lexing(ft_array *check_type, t_token **first_node, char **tok)
@@ -34,9 +42,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 		{
 			if (check_type[j](tok[i], tmp) == true)
 			{
-				printf("cmd or cmd_path\n");
-				// tmp = fonction qui cree le new_node qui return le pointeur
-				// vers le dernier noeud cree
+				tmp = new_node(tok, tmp, j);
 				break ;
 			}
 			j++;
