@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/14 15:13:46 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:32:06 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 	int		i;
 	int		j;
 
-	tmp = NULL;
-	*first_node = tmp;
+	if (*first_node == NULL)
+		tmp = *first_node;
 	i = 0;
 	while (tok[i])
 	{
@@ -44,9 +44,11 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 		{
 			if (check_type[j](tok[i], tmp) == true)
 			{
-				tmp = new_node(tok, tmp, j);
+				tmp = new_node(&tok[i], tmp, j);
 				if (tmp == NULL)
 					printf("/!\\Ne pas oublier de faire des trucs ici :)");
+				if (*first_node == NULL)
+					*first_node = tmp;
 				break ;
 			}
 			j++;
