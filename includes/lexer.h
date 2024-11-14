@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 17:24:54 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 18:48:00 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**ft_strtok(char *string, char *sep);
 
 /* lexer.c */
 
-void	init_functionarray(ft_array (*funct_array)[9]);
+void	init_functionarray(ft_array (*funct_array)[10]);
 bool	check_redirection(char *tok_str, t_token *tok);
 bool	check_infile(char *token, t_token *tok);
 bool	check_heredoc(char *token, t_token *tok);

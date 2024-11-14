@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maja <maja@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 17:55:35 by maja             ###   ########.fr       */
+/*   Updated: 2024/11/14 15:13:46 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ t_token	*new_node(char **tok, t_token *last_node, int type)
 		return (NULL);
 	node->value = *tok;
 	node->type = type;
-	last_node->next = node;
+	if (last_node != NULL)
+		last_node->next = node;
 	node->prev = last_node;
+	node->next = NULL;
 	return (node);
 }
 
@@ -44,7 +46,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			{
 				tmp = new_node(tok, tmp, j);
 				if (tmp == NULL)
-					printf("Ne pas oublier de faire des trucs ici :)");
+					printf("/!\\Ne pas oublier de faire des trucs ici :)");
 				break ;
 			}
 			j++;
@@ -55,7 +57,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 
 t_token	*lexer(char *rl_value)
 {
-	ft_array	check_type[9];
+	ft_array	check_type[10];
 	t_token		*first_node;
 	char		**tok;
 
@@ -65,5 +67,5 @@ t_token	*lexer(char *rl_value)
 	first_node = NULL;
 	init_functionarray(&check_type);
 	lexing(check_type, &first_node, tok);
-	return (NULL);
+	return (first_node);
 }
