@@ -6,16 +6,26 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 15:16:09 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/14 15:13:46 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*new_node(char **tok, t_token *new_node)
+t_token	*new_node(char **tok, t_token *last_node, int type)
 {
-	(void)tok;
-	return (new_node);
+	t_token	*node;
+
+	node = malloc(sizeof(t_token));
+	if (node == NULL)
+		return (NULL);
+	node->value = *tok;
+	node->type = type;
+	if (last_node != NULL)
+		last_node->next = node;
+	node->prev = last_node;
+	node->next = NULL;
+	return (node);
 }
 
 void	lexing(ft_array *check_type, t_token **first_node, char **tok)
@@ -30,17 +40,15 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 	while (tok[i])
 	{
 		j = 0;
-		while ((check_type + j))
+		while (check_type[j])
 		{
 			if (check_type[j](tok[i], tmp) == true)
 			{
-				// printf("cmd or cmd_path\n");
-				// tmp = fonction qui cree le new_node qui return le pointeur
-				// vers le dernier noeud cree
+				tmp = new_node(tok, tmp, j);
+				if (tmp == NULL)
+					printf("/!\\Ne pas oublier de faire des trucs ici :)");
 				break ;
 			}
-			else
-				break;
 			j++;
 		}
 		i++;
@@ -49,7 +57,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 
 t_token	*lexer(char *rl_value)
 {
-	ft_array	check_type[8];
+	ft_array	check_type[10];
 	t_token		*first_node;
 	char		**tok;
 
@@ -59,5 +67,5 @@ t_token	*lexer(char *rl_value)
 	first_node = NULL;
 	init_functionarray(&check_type);
 	lexing(check_type, &first_node, tok);
-	return (NULL);
+	return (first_node);
 }

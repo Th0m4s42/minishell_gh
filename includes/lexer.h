@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 14:40:00 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 18:48:00 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@
 
 typedef enum s_token_type
 {
-	CMD,
-	CMD_PATH,
-	ARG,
-	PIPE,
-	IN,
-	HERE_DOC,
+	REDIRECTION,
+	INFILE,
+	HEREDOC,
 	APPEND,
-	TRUNC
+	OUTFILE,
+	PIPE,
+	CMD_PATH,
+	CMD,
+	ARG
 }	t_token_type;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,27 +51,30 @@ typedef bool (*ft_array)(char *, t_token *);
 /* tab_token_utils.c */
 
 int		is_sep(char c, char *sep);
+int		is_redirection(char c);
 int		toklen(char *string, char *sep);
 int		tok_count(char *string, char *sep);
-char	**allocate_tokens(char *string, char *sep);
 void	ft_free_tab(char **tab);
 
 /* token.c */
 
 char	*extract_token(char *string, char *sep, int *index);
+char	**allocate_tokens(char *string, char *sep);
 char	**ft_strtok(char *string, char *sep);
 
 /* lexer.c */
 
-void	init_functionarray(ft_array (*funct_array)[8]);
+void	init_functionarray(ft_array (*funct_array)[10]);
+bool	check_redirection(char *tok_str, t_token *tok);
+bool	check_infile(char *token, t_token *tok);
+bool	check_heredoc(char *token, t_token *tok);
+bool	check_outfile(char *token, t_token *tok);
+bool	check_append(char *token, t_token *tok);
+bool	check_pipe(char *tok_str, t_token *tok);
+bool	check_cmd_path(char *tok_str, t_token *tok);
 bool	check_cmd(char *tok_str, t_token *tok);
-bool	check_cmd_path(char *token, t_token *type);
-bool	check_arg(char *token, t_token *type);
-bool	check_pipe(char *token, t_token *type);
-bool	check_in(char *token, t_token *type);
-bool	check_heredoc(char *token, t_token *type);
-bool	check_append(char *token, t_token *type);
-bool	check_trunc(char *token, t_token *type);
+bool	check_arg(char *tok_str, t_token *tok);
+t_token	*new_node(char **tok, t_token *new_node, int type);
 void	lexing(ft_array *check_type, t_token **first_node, char **tok);
 t_token	*lexer(char *rl_value);
 

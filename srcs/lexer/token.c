@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/28 16:10:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:23:59 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@ char	*extract_token(char *string, char *sep, int *index)
 
 	while (is_sep(string[*index], sep))
 		(*index)++;
-	tok_len = toklen(&string[*index], sep);
+	if (string[*index] == '|' || is_redirection(string[*index]))
+	{
+		if (is_redirection(string[*index]) && string[*index] == string[*index + 1])
+			tok_len = 2;
+		else
+			tok_len = 1;
+	}
+	else
+		tok_len = toklen(&string[*index], sep);
 	if (tok_len == 0)
 		return (NULL);
 	token = malloc(sizeof(char) * (tok_len + 1));
@@ -28,6 +36,18 @@ char	*extract_token(char *string, char *sep, int *index)
 	ft_strlcpy(token, &string[*index], tok_len + 1);
 	(*index) += tok_len;
 	return (token);
+}
+
+char	**allocate_tokens(char *string, char *sep)
+{
+	int		count;
+	char	**tok;
+
+	count = tok_count(string, sep);
+	tok = malloc(sizeof(char *) * (count + 1));
+	if (tok == NULL)
+		return (NULL);
+	return (tok);
 }
 
 char	**ft_strtok(char *string, char *sep)

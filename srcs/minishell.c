@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/06 15:15:49 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/13 18:52:27 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,37 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*rl_value;
+	//char		*rl_value;
 	t_env		*env;
 	t_prompt	prompt_info;
-	// char		*line = "du fun \'pour toi\'du fun\"pour |moi\"";
-	// char		**tok = ft_strtok(line, " |\t\\<>");
-	// int			i = 0;
+	char		*line = "du fun \'pour toi\'du fun\"pour |moi\" cmd1 | cmd2 <input>>> output |cmd";
+	t_token		*tok = lexer(line);
 
 	(void)argv;
-	rl_value = NULL;
+	//rl_value = NULL;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	env = get_env(envp);
+	env = get_env(envp); //a proteger
 	get_info(env, &prompt_info);
 
 	// test de la tokenisation
 
-	// while (tok[i])
-	// {
-	// 	printf("token: %s\n", tok[i]);
-	// 	free(tok[i]);
-	// 	i++;
-	// }
-	// free(tok);
-	// free_env_list(&env);
-	while (1)
+	while (tok)
 	{
-		rl_value = readline(prompt_info.prompt);
-		if (rl_value == NULL)
-			break ;
-		add_history(rl_value);
-		//lexer(rl_value);
-		free(rl_value);
+		printf("token type:%d value:%s\n", tok->type, tok->value);
+		tok = tok->next;
 	}
-	return (0);
+	free(tok);
+	free_env_list(&env);
+	// while (1)
+	// {
+	// 	rl_value = readline(prompt_info.prompt);
+	// 	if (rl_value == NULL)
+	// 		break ;
+	// 	add_history(rl_value);
+	// 	free(rl_value);
+	// }
+	// return (0);
 }
 
 	// to do before exit:
