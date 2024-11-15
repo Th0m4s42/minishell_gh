@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/15 09:53:59 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/15 19:07:46 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ t_token	*new_node(char **tok, t_token *last_node, int type)
 {
 	t_token	*node;
 
+	if (last_node != NULL && last_node->type == REDIRECTION)
+	{
+		last_node->value = *tok;
+		last_node->type = type;
+		return (last_node);
+	}
 	node = malloc(sizeof(t_token));
 	if (node == NULL)
 		return (NULL);
@@ -51,13 +57,13 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 					*first_node = tmp;
 				break ;
 			}
-			else
-			{
-				ft_putendl_fd("syntax error", 2);
-				return ;
-			}
 			j++;
 		}
+		// if (check_type[j](tok[i], tmp) != true)
+		// {
+		// 	ft_putendl_fd("syntax error", 2);
+		// 	return ;
+		// }
 		i++;
 	}
 }
