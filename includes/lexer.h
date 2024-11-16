@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 18:48:00 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/16 09:06:32 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef enum s_token_type
 	REDIRECTION,
 	INFILE,
 	HEREDOC,
-	APPEND,
 	OUTFILE,
+	APPEND,
 	PIPE,
 	CMD_PATH,
 	CMD,
