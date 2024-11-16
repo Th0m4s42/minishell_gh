@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:20:39 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/16 11:11:46 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/16 15:27:36 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 bool	check_pipe(char *tok_str, t_token *tok)
 {
 	(void)tok_str;
-	while(tok && tok->type >= 1 && tok->type <= 4)
-		tok = tok->prev;
 	if (tok != NULL && tok->type != PIPE && tok_str[0] == '|')
 		return (true);
 	return (false);
@@ -40,7 +38,7 @@ bool	check_cmd_path(char *tok_str, t_token *tok)
 	while (tok)
 	{
 		if (tok->type == PIPE && flag == 1)
-			break;
+			return (true);
 		if ((tok->type != CMD && tok->type != CMD_PATH) && flag == 1)
 			return (true);
 		tok = tok->prev;
@@ -55,21 +53,18 @@ bool	check_cmd(char *tok_str, t_token *tok)
 		return (true);
 	while(tok && tok->type >= 1 && tok->type <=4)
 		tok = tok->prev;
-	while (tok)
-	{
-		if (tok->type == PIPE)
-			break;
-		if (tok->type == CMD || tok->type == CMD_PATH)
-			return (false);
-		tok = tok->prev;
-	}
-	return (true);
+	if (tok->type == PIPE)
+		return (true);
+	if (tok->type != CMD && tok->type != CMD_PATH)
+		return (true);
+	return (false);
 }
 
 bool	check_arg(char *tok_str, t_token *tok)
 {
 	(void)tok_str;
-	if (tok->type == CMD || tok->type == CMD_PATH || tok->type == ARG)
+	if (tok != NULL &&
+		(tok->type == CMD || tok->type == CMD_PATH || tok->type == ARG))
 		return (true);
 	return (false);
 }

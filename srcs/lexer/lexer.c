@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/15 21:10:49 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/16 13:42:15 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,6 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 				break ;
 			}
 			j++;
-		}
-		if (tmp->prev != NULL && tmp->prev->type == REDIRECTION)
-		{
-			ft_putendl_fd("syntax error", 2);
-			return ;
 		}
 		i++;
 	}
