@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/20 15:11:07 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/20 15:30:38 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 	t_token	*tmp;
 	int		i;
 	int		j;
+	bool	found;
 
 	if (*first_node == NULL)
 		tmp = *first_node;
@@ -46,6 +47,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 	while (tok[i])
 	{
 		j = 0;
+		found = false;
 		while (check_type[j])
 		{
 			if (check_type[j](tok[i], tmp) == true)
@@ -55,14 +57,16 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 					printf("/!\\Ne pas oublier de faire des trucs ici :)");
 				if (*first_node == NULL)
 					*first_node = tmp;
+				found = true;
 				break ;
 			}
-			else
-			{
-				ft_putendl_fd("error syntax",2);
-				break;
-			}
 			j++;
+		}
+		if (!found)
+		{
+			ft_putstr_fd("syntax error near unexpected token '", 2);
+			ft_putstr_fd(tok[i], 2);
+			ft_putendl_fd("'", 2);
 		}
 		i++;
 	}
