@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:20:39 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/20 15:03:45 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/20 15:43:28 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ bool	check_arg(char *tok_str, t_token *tok)
 {
 	(void)tok_str;
 	if (tok != NULL &&
-		(tok->type == CMD || tok->type == CMD_PATH || tok->type == ARG) &&
-		(tok->type != PIPE && tok->type != REDIRECTION))
+		(tok->type == CMD || tok->type == CMD_PATH || tok->type == ARG))
 		return (true);
 	return (false);
 }
