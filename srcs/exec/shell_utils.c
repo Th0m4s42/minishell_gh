@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 22:30:49 by noam              #+#    #+#             */
-/*   Updated: 2024/11/21 22:44:29 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/27 17:16:11 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	close_fd(int fd)
 {
 	if (fd > 0)
+	{
 		close(fd);
-	fd = -1;
+		fd = -1;
+	}
 }
 void	close_reset_fd(t_shell *shell)
 {
@@ -45,12 +47,12 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->env = get_env(envp);
 	shell->in = dup(STDIN);
 	shell->out = dup(STDOUT);
-	shell->fdin = -1;
-	shell->fdout = -1;
+	shell->fdin = 0;
+	shell->fdout = 0;
 	shell->pipin = -1;
 	shell->pipout = -1;
 	shell->pid = 0;
 	shell->charge = 0;
-	shell->parent = 1;
+	shell->parent = 0;
 	shell->exec = 1;
 }

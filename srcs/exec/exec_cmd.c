@@ -6,13 +6,13 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/11/21 22:10:28 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/27 17:26:24 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exec.h>
-#include <env.h>
-#include <libft.h>
+// #include <env.h>
+// #include <libft.h>
 
 /* ************************************************************************** */
 
@@ -47,18 +47,40 @@ char	*bin_cmd_path(const char *path, const char *cmd)
 	char	*tmp;
 	char	*cmd_path;
 
-	tmp = ft_strjoin(path, '/');
-	path = ft_strjoin(tmp, cmd);
+	tmp = ft_strjoin(path, "/");
+	cmd_path = ft_strjoin(tmp, cmd);
 	free(tmp);
+	return (cmd_path);
 }
 
-int	process_cmd(char **cmd_arg, char *path, t_env *env,t_shell *shell)
+void	printcmd(char **cmd_arg, char *path, char **env_array)
 {
-	char **env_array;
-	int 	pid;
-	int 	ret;
+	int	i;
+
+	i = 0;
+	((void)env_array);
+	fprintf(stderr,"cmd: %s\n", path);
+	while (cmd_arg[i])
+	{
+		fprintf(stderr,"arg[%d]: %s\n", i, cmd_arg[i]);
+		i++;
+	}
+	i = 0;
+	// while (env_array[i])
+	// {
+	// 	printf("env[%d]: %s\n", i, env_array[i]);
+	// 	i++;
+	// }
+}
+
+int	process_cmd(char **cmd_arg, char *path, t_env *env)
+{
+	char	**env_array;
+	int		pid;
+	int		ret;
 
 	env_array = env_to_array(env);
+	// printcmd(cmd_arg, path, env_array);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -70,7 +92,6 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env,t_shell *shell)
 		waitpid(pid, &ret, 0);
 	ft_free_tab(env_array);
 	return (ret);
-		
 }
 
 
@@ -91,7 +112,7 @@ char 	*find_exec_path(const char *cmd_name, t_env *env)
 		if (!access(cmd_path, F_OK | X_OK))
 		{
 			ft_free_tab(bin_paths);
-			return(cmd_path);
+			return (cmd_path);
 		}
 		free(cmd_path);
 		i++;
@@ -101,14 +122,15 @@ char 	*find_exec_path(const char *cmd_name, t_env *env)
 }
 
 
-void	exec_bin(char **cmd_arg, t_env *env, t_shell *shell)
+void	exec_bin(char **cmd_arg, t_env *env)
 {
 	char	*path;
-	int		ret;
+	// int		ret;
 
+	path = NULL;
 	// if (cmd_arg && has_backslash(cmd_arg[0]))
 	// 	path = cmd_arg[0];
 	/*else */if (cmd_arg)
 		path = find_exec_path(cmd_arg[0], env);
-	ret = process_cmd(cmd_arg, path, env, shell);	
+	/*ret = */process_cmd(cmd_arg, path, env);	
 }
