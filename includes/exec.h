@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/11/14 16:32:13 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/21 22:42:39 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,82 @@
 
 
 # include "env.h"
-# include "lexer.h"
+# include "libft.h"
+// # include "lexer.h"
 # include "stdio.h"
 # include <fcntl.h>
 # include <stdbool.h>
+# include <errno.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <string.h>
 
 
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
 
-# define CMD 0
-# define CMD_PATH 1
-# define ARG 2
-# define PIPE 3
-# define IN 4
-# define HERE_DOC 5
-# define APPEND 6
-# define TRUNC 7
-# define END 8
+// # define CMD 0
+// # define CMD_PATH 1
+// # define ARG 2
+// # define PIPE 3
+// # define IN 4
+// # define HERE_DOC 5
+// # define APPEND 6
+// # define TRUNC 7
+// # define END 8
+
+
+# define	REDIRECTION 0
+# define	IN 1
+# define	HERE_DOC 2
+# define	APPEND 3
+# define	TRUNC 4
+# define	PIPE 5
+# define	CMD_PATH 6
+# define	CMD 7
+# define	ARG 8
+# define	END 9
+
+
+
+
+typedef enum s_token_type
+{
+	REDIRECTION_,
+	INFILE_,
+	HEREDOC_,
+	APPEND_,
+	OUTFILE_,
+	PIPE_,
+	CMD_PATH_,
+	CMD_,
+	ARG_
+}	t_token_type;
+
+////////////////////////////////////////////////////////////////////////////////
+//								STRUCTURES									  //
+////////////////////////////////////////////////////////////////////////////////
+
+typedef struct s_token
+{
+	struct s_token	*prev;
+	char			*value;
+	t_token_type	type;
+	struct s_token	*next;
+}	t_token;
+
+
+
+
+
+
+
 
 
 /* ************************************************************************** */
@@ -47,10 +104,10 @@ typedef struct	s_shell
 	int				out;
 	int				fdin;
 	int				fdout;
-	// int				pipin;
-	// int				pipout;
+	int				pipin;
+	int				pipout;
 	int				pid;
-	// int				charge;
+	int				charge;
 	int				parent;
 	// int				last;
 	// int				ret;
@@ -73,5 +130,16 @@ bool		has_dolla_sign(char *str);
 char		*replace_dolla_sign(char *str, t_env *env);
 
 void		redir(t_shell *shell, t_token *token, int type);
+int			pipe_n_fork(t_shell *shell);
+
+void		close_fd(int fd);
+void		close_reset_fd(t_shell *shell);
+void		reset_stds(t_shell *shell);
+void		init_shell(t_shell *shell, char **envp);
+
+void		exec_bin(char *cmd_arg, t_env *env, t_shell *shell);
+
+/* ************************************************************************** */
+
 
 #endif
