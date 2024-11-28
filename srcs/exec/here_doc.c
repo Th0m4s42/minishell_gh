@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/11/14 16:01:45 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/27 15:10:30 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	handle_here_docs(t_token *token, t_env *env)
 			// doc_file = create_doc_file(token->value, int nb);
 			free (token->value);
 			// if (!doc_file)
-				token->value == NULL;
+				token->value = NULL;
 			// token->value = doc_file;
 		}
 	}

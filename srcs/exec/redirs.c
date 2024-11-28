@@ -6,19 +6,31 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:20:41 by noam              #+#    #+#             */
-/*   Updated: 2024/11/14 16:13:41 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/27 17:41:04 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exec.h>
 #include <errno.h>
 
-void	redir(t_shell *shell, t_token *token, int type)
+void	input(t_shell *shell, t_token *token)
 {
-	int	err;
+	close_fd(shell->fdin);
+	shell->fdin = open(token->value, O_RDONLY);
+	if (shell->fdin == -1)
+	{
+		ft_putstr_fd("minishell : ", STDERR);
+		ft_putstr_fd(token->value, STDERR);
+		strerror(errno);
+		return ;
+	}
+	dup2(shell->fdin, STDIN);
+}
 
-	err = 0;
-	ft_close(shell->fdout);
+void	redir(t_shell *shell, t_token *token, t_token_type type)
+{
+	fprintf(stderr, "redir\n");
+	close_fd(shell->fdout);
 	if (type == TRUNC)
 		shell->fdout = open(token->value, O_CREAT | O_WRONLY
 				| O_TRUNC, S_IRWXU);
@@ -27,11 +39,10 @@ void	redir(t_shell *shell, t_token *token, int type)
 				| O_APPEND, S_IRWXU);
 	if (shell->fdout == -1)
 	{
-		err = errno;
 		ft_putstr_fd("minishell : ", STDERR);
-		strerror(err);
+		ft_putstr_fd(token->value, STDERR);
+		strerror(errno);
 		// write (STDERR, "minishell : ", 12);
-		// ft_putvalue_fd(token->value, STDERR);
 		// ft_putendl_fd(": No such file or directory", STDERR);
 		// shell->ret = 1;
 		// shell->no_exec = 1;
