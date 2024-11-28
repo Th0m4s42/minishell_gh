@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/11/24 04:19:03 by thbasse          ###   ########.fr       */
-=======
-/*   Updated: 2024/11/27 17:49:46 by noam             ###   ########.fr       */
->>>>>>> cb3963da1cad42065218d1a8b2fdd7368a53423a
+/*   Updated: 2024/11/28 14:34:43 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +29,8 @@ int	main(int argc, char **argv, char **envp)
 	//char		*rl_value;
 	t_env		*env;
 	t_prompt	prompt_info;
-<<<<<<< HEAD
-	char		*line = "d/u fun \'pour toi\'du fun\"pour |moi\" | cmd1 | cmd2 <<input>> output |cmd";
-=======
 	// char		*line = "d/u fun \'pour toi\'du fun\"pour |moi\" | cmd1 | cmd2 <input>> output |cmd";
 	char		*line = "| ls | cat | wc > output";
->>>>>>> cb3963da1cad42065218d1a8b2fdd7368a53423a
 	t_token		*tok = lexer(line);
 	
 	t_shell		shell;
@@ -54,9 +46,6 @@ int	main(int argc, char **argv, char **envp)
 	env = get_env(envp); //a proteger
 	get_info(env, &prompt_info);
 
-<<<<<<< HEAD
-	//------------test de la tokenisation------------------------------------
-=======
 	// TEST EXEC
 	init_shell(&shell, envp); // debut de init_shell (utilise get_env btw)
 	tok = tok->next;	// alors j'arrive pas a juste mettre "cmd 1, cmd 2" du coup je fais ca
@@ -67,7 +56,6 @@ int	main(int argc, char **argv, char **envp)
 
 	
 	// test de la tokenisation
->>>>>>> cb3963da1cad42065218d1a8b2fdd7368a53423a
 
 	while (tok)
 	{
