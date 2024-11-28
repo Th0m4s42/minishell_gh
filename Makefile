@@ -64,7 +64,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 
 $(NAME) : $(OBJS)
 	make -C libft/
-	@$(CC) $(FLAGS) $(INCLUDES) libft/libft.a $(OBJS) -o $(NAME) -lreadline -Llibft
+	@$(CC) $(FLAGS) $(INCLUDES) libft/libft.a $(OBJS) -o $(NAME) -lreadline -Llibft -l:libft.a
 	@echo "$(Green)$(NAME) CREATED $(White)"
 
 all : $(NAME)

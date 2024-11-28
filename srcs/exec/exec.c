@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/11/27 18:02:17 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/28 14:45:11 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 	if ((!prev || prev->type == END || prev->type == PIPE)
 		&& pipe != 1 && shell->exec && shell->charge)
 		exec_cmd(shell, token);
-		return ;
+	return ;
 }
 
 /* ************************************************************************** */
