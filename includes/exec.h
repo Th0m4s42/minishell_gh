@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/11/27 17:44:48 by noam             ###   ########.fr       */
+/*   Updated: 2024/11/28 16:55:28 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXEC_H
 
 
-# include "minishell.h"
+# include <minishell.h>
 // # include "env.h"
 // # include <libft.h>
 // # include "lexer.h"
