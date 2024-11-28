@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:20:39 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/20 15:43:28 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/24 11:58:33 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	check_cmd_path(char *tok_str, t_token *tok)
 		tok = tok->prev;
 	if (tok == NULL && flag == 1)
 		return (true);
-	if (tok->type == PIPE && flag == 1)
+	if (tok != NULL && tok->type == PIPE && flag == 1)
 		return (true);
 	return (false);
 }
