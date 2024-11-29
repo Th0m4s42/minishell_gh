@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 17:23:59 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/29 16:28:38 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*extract_token(char *string, char *sep, int *index)
 	if (token == NULL)
 		return (NULL);
 	ft_strlcpy(token, &string[*index], tok_len + 1);
+	// token = ft_strdup(&string[*index]);
 	(*index) += tok_len;
 	return (token);
 }

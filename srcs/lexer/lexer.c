@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/20 15:30:38 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/29 16:36:04 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ t_token	*new_node(char **tok, t_token *last_node, int type)
 
 	if (last_node != NULL && last_node->type == REDIRECTION)
 	{
-		last_node->value = *tok;
+		last_node->value = ft_strdup(*tok);
 		last_node->type = type;
 		return (last_node);
 	}
 	node = malloc(sizeof(t_token));
 	if (node == NULL)
 		return (NULL);
-	node->value = *tok;
+	node->value = ft_strdup(*tok);
 	node->type = type;
 	if (last_node != NULL)
 		last_node->next = node;
@@ -54,7 +54,11 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			{
 				tmp = new_node(&tok[i], tmp, j);
 				if (tmp == NULL)
-					printf("/!\\Ne pas oublier de faire des trucs ici :)");
+				{
+					free_list_lex(first_node);
+					ft_free_tab(tok);
+					printf("/!\\Ne pas oublier de faire des trucs ici :)"); // -> free tableau puis liste chainee
+				}
 				if (*first_node == NULL)
 					*first_node = tmp;
 				found = true;
@@ -67,6 +71,10 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			ft_putstr_fd("syntax error near unexpected token '", 2);
 			ft_putstr_fd(tok[i], 2);
 			ft_putendl_fd("'", 2);
+			free_list_lex(first_node);
+			ft_free_tab(tok);
+			// free tableau puis liste chainee
+			return ;
 		}
 		i++;
 	}

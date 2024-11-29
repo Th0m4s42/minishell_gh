@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:31:55 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/12 13:21:36 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/29 14:25:17 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,15 @@ void	ft_free_tab(char **tab)
 {
 	int	index;
 
+	if (tab == NULL)
+		return ;
 	index = 0;
 	while (tab[index])
 	{
 		free(tab[index]);
+		tab[index] = NULL;
 		index++;
 	}
 	free(tab);
+	tab = NULL;
 }
