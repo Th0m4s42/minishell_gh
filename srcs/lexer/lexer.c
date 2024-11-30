@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/29 16:36:04 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/11/30 19:07:43 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_token	*new_node(char **tok, t_token *last_node, int type)
 
 	if (last_node != NULL && last_node->type == REDIRECTION)
 	{
+		if (last_node->value != NULL)
+			free(last_node->value);
 		last_node->value = ft_strdup(*tok);
 		last_node->type = type;
 		return (last_node);
@@ -41,8 +43,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 	int		j;
 	bool	found;
 
-	if (*first_node == NULL)
-		tmp = *first_node;
+	tmp = NULL;
 	i = 0;
 	while (tok[i])
 	{
@@ -57,7 +58,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 				{
 					free_list_lex(first_node);
 					ft_free_tab(tok);
-					printf("/!\\Ne pas oublier de faire des trucs ici :)"); // -> free tableau puis liste chainee
+					return ;
 				}
 				if (*first_node == NULL)
 					*first_node = tmp;
