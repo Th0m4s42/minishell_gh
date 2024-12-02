@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/30 19:07:43 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:47:41 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 				tmp = new_node(&tok[i], tmp, j);
 				if (tmp == NULL)
 				{
-					free_list_lex(first_node);
+					free_tok_list(first_node);
 					ft_free_tab(tok);
 					return ;
 				}
@@ -72,9 +72,8 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			ft_putstr_fd("syntax error near unexpected token '", 2);
 			ft_putstr_fd(tok[i], 2);
 			ft_putendl_fd("'", 2);
-			free_list_lex(first_node);
+			free_tok_list(first_node);
 			ft_free_tab(tok);
-			// free tableau puis liste chainee
 			return ;
 		}
 		i++;
@@ -88,8 +87,11 @@ t_token	*lexer(char *rl_value)
 	char		**tok;
 
 	tok = ft_strtok(rl_value, " \t\v\n\r\f");
-	if (tok == NULL)
+	if (tok == NULL || *tok == NULL)
+	{
+		ft_free_tab(tok);
 		return (NULL);
+	}
 	first_node = NULL;
 	init_functionarray(&check_type);
 	lexing(check_type, &first_node, tok);

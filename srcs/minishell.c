@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/02 15:16:36 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:50:35 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
 	t_prompt	prompt_info;
-	char		*line = "ls >> fff";
+	char		*line = "ls";
 	// char		*line = "| ls | cat | wc > output";
 	t_token		*tok = lexer(line);
 	
@@ -86,8 +86,9 @@ int	main(int argc, char **argv, char **envp)
 		printf("token type:%d value:%s\n", tok->type, tok->value);
 		tok = tok->next;
 	}
-	free(tok);
 	free_env_list(&env);
+	free_tok_list(&tok);
+	free(tok);
 
 	return (0);
 }

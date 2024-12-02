@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/02 14:46:49 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:46:07 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,8 @@ char	**ft_strtok(char *string, char *sep)
 	int		t;
 	char	**tok;
 
-	if (string == NULL && *string == '\0')
-	{
-		free(string);
+	if (string == NULL)
 		return (NULL);
-	}
 	tok = allocate_tokens(string, sep);
 	if (tok == NULL)
 		return (NULL);

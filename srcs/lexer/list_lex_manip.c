@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:29:43 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/29 17:49:15 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:55:04 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ void	free_tok_list(t_token **first_node)
 {
 	t_token	*tmp;
 
-	if (first_node == NULL)
+	if (first_node == NULL || *first_node == NULL)
 		return ;
 	while (*first_node != NULL)
 	{
 		tmp = (*first_node)->next;
-		free((*first_node)->value);
+		if ((*first_node)->value)
+		{
+			free((*first_node)->value);
+			(*first_node)->value = NULL;
+		}
 		free(*first_node);
 		*first_node = tmp;
 	}
@@ -54,24 +58,4 @@ void	add_back_tok(t_token **first, t_token *new)
 	while (last->next != NULL)
 		last = last->next;
 	last->next = new;
-}
-
-void	free_list_lex(t_token **first_node)
-{
-	t_token	*tmp;
-
-	if (first_node == NULL)
-		return ;
-	while (*first_node != NULL)
-	{
-		tmp = (*first_node)->next;
-		if ((*first_node)->value)
-		{
-			free((*first_node)->value);
-			(*first_node)->value = NULL;
-		}
-		free(*first_node);
-		*first_node = tmp;
-	}
-	*first_node = NULL;
 }

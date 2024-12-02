@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/29 12:38:26 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 15:58:21 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,5 @@ t_token	*lexer(char *rl_value);
 t_token	*new_tok_node(char *value, t_token_type *type);
 void	free_tok_list(t_token **first_node);
 void	add_back_tok(t_token **first, t_token *new);
-void	free_list_lex(t_token **first_node);
 
 #endif
