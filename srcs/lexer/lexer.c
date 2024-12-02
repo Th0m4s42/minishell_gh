@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/02 17:07:51 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 17:44:36 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 				if (tmp == NULL)
 				{
 					free_tok_list(first_node);
+					//
 					ft_free_tab(tok);
 					return ;
 				}
