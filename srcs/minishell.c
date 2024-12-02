@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/02 17:52:27 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 18:13:34 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
 	t_prompt	prompt_info;
-	char		*line = "ls | ls";
+	char		*line = "l <<<< l";
 	// char		*line = "| ls | cat | wc > output";
 	t_token		*tok = lexer(line);
 	
@@ -81,10 +81,11 @@ int	main(int argc, char **argv, char **envp)
 	
 	// test de la tokenisation
 
-	while (tok)
+	t_token *tok_iter = tok;
+	while (tok_iter)
 	{
-		printf("token type:%d value:%s\n", tok->type, tok->value);
-		tok = tok->next;
+		printf("token type:%d value:%s\n", tok_iter->type, tok_iter->value);
+		tok_iter = tok_iter->next;
 	}
 
 	free_env_list(&env);
