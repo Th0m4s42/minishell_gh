@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/29 16:28:38 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 14:46:49 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*extract_token(char *string, char *sep, int *index)
 	if (token == NULL)
 		return (NULL);
 	ft_strlcpy(token, &string[*index], tok_len + 1);
-	// token = ft_strdup(&string[*index]);
 	(*index) += tok_len;
 	return (token);
 }
@@ -44,10 +43,18 @@ char	**allocate_tokens(char *string, char *sep)
 	int		count;
 	char	**tok;
 
+	if (string == NULL && *string == '\0')
+	{
+		free(string);
+		return (NULL);
+	}
 	count = tok_count(string, sep);
 	tok = malloc(sizeof(char *) * (count + 1));
-	if (tok == NULL)
+	if (tok == NULL && *(*tok) == '\0')
+	{
+		free(tok);
 		return (NULL);
+	}
 	return (tok);
 }
 
@@ -57,8 +64,11 @@ char	**ft_strtok(char *string, char *sep)
 	int		t;
 	char	**tok;
 
-	if (string == NULL)
+	if (string == NULL && *string == '\0')
+	{
+		free(string);
 		return (NULL);
+	}
 	tok = allocate_tokens(string, sep);
 	if (tok == NULL)
 		return (NULL);

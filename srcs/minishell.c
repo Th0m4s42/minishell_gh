@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/30 17:57:43 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 15:06:21 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
 	t_prompt	prompt_info;
-	char		*line = "d/u fun \'pour toi\'du fun\"pour |moi\" | cmd1 | cmd2 < <input>> output |cmd";
+	char		*line = "ls <<< fff";
 	// char		*line = "| ls | cat | wc > output";
 	t_token		*tok = lexer(line);
 	
