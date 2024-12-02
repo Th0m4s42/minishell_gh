@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/02 16:47:41 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/02 17:07:51 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ t_token	*lexer(char *rl_value)
 	first_node = NULL;
 	init_functionarray(&check_type);
 	lexing(check_type, &first_node, tok);
+	ft_free_tab(tok);
 	return (first_node);
 }
