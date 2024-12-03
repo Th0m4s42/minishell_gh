@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/03 18:25:30 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/03 20:19:48 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
 	t_prompt	prompt_info;
-	char		*line = "l | e";
+	char		*line = "ls >|> 4";
 	// char		*line = "| ls | cat | wc > output";
 	t_token		*tok = lexer(line);
 	

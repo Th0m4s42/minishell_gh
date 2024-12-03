@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/03 18:24:42 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/03 20:56:55 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			free_tok_list(first_node);
 			return ;
 		}
-		// printf("tok[i]: %s\n  type: %d\n", tok[i], tmp->type);
+		printf("tok[i]: %s\n  type: %d\n", tok[i], tmp->type);
 		i++;
 	}
 	if (tmp->type == PIPE || tmp->type == REDIRECTION)
