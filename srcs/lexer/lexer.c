@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/03 15:44:25 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/03 18:24:42 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,16 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			free_tok_list(first_node);
 			return ;
 		}
-		printf("tok[i]: %s\n  type: %d\n", tok[i], tmp->type);
+		// printf("tok[i]: %s\n  type: %d\n", tok[i], tmp->type);
 		i++;
+	}
+	if (tmp->type == PIPE || tmp->type == REDIRECTION)
+	{
+		ft_putstr_fd("syntax error near unexpected token '", 2);
+		ft_putstr_fd(tok[i - 1], 2);
+		ft_putendl_fd("'", 2);
+		free_tok_list(first_node);
+		return ;
 	}
 }
 
