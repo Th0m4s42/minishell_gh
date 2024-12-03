@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:20:39 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/24 11:58:33 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/03 12:36:38 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	check_pipe(char *tok_str, t_token *tok)
 {
 	if (tok_str[0] == '|' && tok_str[1] == '\0')
 	{
-		if (tok != NULL && tok->type == PIPE)
+		if (tok != NULL && tok->type == PIPE && tok->prev->type == PIPE)
 			return (false);
 		return (true);
 	}

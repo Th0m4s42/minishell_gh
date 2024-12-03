@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/03 12:21:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:44:25 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 	{
 		j = 0;
 		found = false;
+		if ((ft_strchr(tok[i], '<') != NULL || ft_strchr(tok[i], '>') != NULL) &&
+			(tok[i + 1] && (ft_strchr(tok[i + 1], '<') != NULL || ft_strchr(tok[i + 1], '>') != NULL)))
+			{
+			ft_putstr_fd("syntax error near unexpected token '", 2);
+			ft_putstr_fd(tok[i], 2);
+			ft_putendl_fd("'", 2);
+			free_tok_list(first_node);
+			return;
+		}
 		while (check_type[j])
 		{
 			if (check_type[j](tok[i], tmp) == true)
@@ -67,7 +76,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			}
 			j++;
 		}
-		if (!found)
+		if (found == false)
 		{
 			ft_putstr_fd("syntax error near unexpected token '", 2);
 			ft_putstr_fd(tok[i], 2);
@@ -75,6 +84,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 			free_tok_list(first_node);
 			return ;
 		}
+		printf("tok[i]: %s\n  type: %d\n", tok[i], tmp->type);
 		i++;
 	}
 }
