@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 14:50:59 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/04 14:59:02 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,10 @@ void		ft_exit(char **cmd_arg, t_env *env);
 void		exec_bin(char **cmd_arg, t_env *env);
 
 char		*replace_dolla_sign(char *str, t_env *env);
+int			until_dolla_sign(char *str, int i);
+bool		has_dolla_sign(char *str);
+int			until_space(char *str, int i);
+
 char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
 
 

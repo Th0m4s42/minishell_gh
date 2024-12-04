@@ -2,6 +2,6 @@
 testsperso/
 vgcore.*
 objs/
-libft/objs/
+libft/obj/
 libft/libft.a
 minishell
