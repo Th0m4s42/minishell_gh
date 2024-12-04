@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/11/28 14:45:11 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/04 14:40:09 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	exec_cmd(t_shell *shell, t_token *token)
 
 	cmd = format_cmd(token->value);
 	// i = 0;
-	// if (cmd && is_built_in(cmd[0]))
-		// exec_built_in(cmd, shell->env);
-	/*else */if (cmd)
+	if (cmd && is_built_in(cmd[0]))
+		exec_built_in(cmd, shell->env);
+	else if (cmd)
 		exec_bin(cmd, shell->env);
 	ft_free_tab(cmd);
 	close(shell->pipin);
@@ -55,6 +55,11 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 	next = next_sep(token);
 	prev = prev_sep(token);
 	pipe = 0;
+		if (prev)
+		fprintf(stderr, "prev %s\n", prev->value);
+	fprintf(stderr, "token %s\n", token->value);
+	if (next)
+	fprintf(stderr, "next %s\n", next->value);
 	// if (is_type(prev, TRUNC)
 	if (token->type == TRUNC)
 		redir(shell, token, TRUNC);

@@ -1,3 +1,7 @@
 .vscode
 testsperso/
 vgcore.*
+objs/
+libft/objs/
+libft/libft.a
+minishell

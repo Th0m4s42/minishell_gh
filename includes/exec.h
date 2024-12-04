@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/11/28 16:55:28 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/04 14:50:59 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,22 @@ void		close_reset_fd(t_shell *shell);
 void		reset_stds(t_shell *shell);
 void		init_shell(t_shell *shell, char **envp);
 
+bool		is_built_in(char *cmd);
+void		exec_built_in(char **cmd_arg, t_env *env);
+void		ft_echo(char **cmd_arg);
+void		ft_cd(char **cmd_arg, t_env *env);
+void		ft_pwd(void);
+void		ft_export(char **cmd_arg, t_env *env);
+void		ft_unset(char **cmd_arg, t_env *env);
+void		ft_env(t_env *env);
+void		ft_exit(char **cmd_arg, t_env *env);
+
 void		exec_bin(char **cmd_arg, t_env *env);
+
+char		*replace_dolla_sign(char *str, t_env *env);
+char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
+
+
 
 /* ************************************************************************** */
 

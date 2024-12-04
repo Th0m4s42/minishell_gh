@@ -20,6 +20,7 @@ PROMPT	:= prompt/
 SIGNALS	:= signals/
 UTILS	:= utils/
 EXEC	:= exec/
+BUILTIN := builtin/
 OBJ_DIR	:= objs/
 
 SRCS := \
@@ -43,6 +44,10 @@ SRCS := \
 	$(SRC_DIR)$(EXEC)pipe_n_utils.c \
 	$(SRC_DIR)$(EXEC)redirs.c \
 	$(SRC_DIR)$(EXEC)shell_utils.c \
+	$(SRC_DIR)$(BUILTIN)is_built_in.c \
+	$(SRC_DIR)$(BUILTIN)exec_built_in.c \
+	$(SRC_DIR)$(BUILTIN)ft_pwd.c\
+	$(SRC_DIR)$(BUILTIN)ft_cd.c\
 	# $(SRC_DIR)$(EXEC)here_doc.c \
 	# $(SRC_DIR)$(EXEC)here_doc_utils.c \
 
@@ -58,15 +63,17 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)/$(PROMPT)
 	@mkdir -p $(OBJ_DIR)/$(SIGNALS)
 	@mkdir -p $(OBJ_DIR)/$(EXEC)
+	@mkdir -p $(OBJ_DIR)/$(BUILTIN)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) $(INCLUDES) -c -o $@ $<
 	@echo "$(Cyan)Compiling $<...$(White)"
 
 $(NAME) : $(OBJS)
 	make -C libft/
-	@$(CC) $(FLAGS) $(INCLUDES) libft/libft.a $(OBJS) -o $(NAME) -lreadline -Llibft -l:libft.a
+	@$(CC) $(FLAGS) $(INCLUDES) libft/libft.a $(OBJS) -o $(NAME) -lreadline -Llibft 
 	@echo "$(Green)$(NAME) CREATED $(White)"
-
+# -l:libft.a
+	
 all : $(NAME)
 
 clean :

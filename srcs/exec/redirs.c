@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:20:41 by noam              #+#    #+#             */
-/*   Updated: 2024/11/27 17:41:04 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/02 22:36:09 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ void	redir(t_shell *shell, t_token *token, t_token_type type)
 	}
 	dup2(shell->fdout, STDOUT);
 }
-
