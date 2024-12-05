@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 14:40:09 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 00:12:05 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,42 +44,6 @@ void	exec_cmd(t_shell *shell, t_token *token)
 	shell->charge = 0;
 }
 
-/* ************************************************************************** */
-
-void	redir_and_exec(t_shell *shell, t_token *token)
-{
-	t_token	*next;
-	t_token	*prev;
-	int		pipe;
-
-	next = next_sep(token);
-	prev = prev_sep(token);
-	pipe = 0;
-		if (prev)
-		fprintf(stderr, "prev %s\n", prev->value);
-	fprintf(stderr, "token %s\n", token->value);
-	if (next)
-	fprintf(stderr, "next %s\n", next->value);
-	// if (is_type(prev, TRUNC)
-	if (token->type == TRUNC)
-		redir(shell, token, TRUNC);
-	else if (is_type(prev, APPEND))
-		redir(shell, token, APPEND);
-	else if (is_type(prev, IN))
-		input(shell, token);
-	else if (is_type(prev, HERE_DOC))
-		input(shell, token);
-	else if (is_type(prev, PIPE))
-		pipe = pipe_n_fork(shell);
-	if (next && next->type != END && pipe !=1)
-		redir_and_exec(shell, next->next);
-	if ((!prev || prev->type == END || prev->type == PIPE)
-		&& pipe != 1 && shell->exec && shell->charge)
-		exec_cmd(shell, token);
-	return ;
-}
-
-/* ************************************************************************** */
 
 void	print_shell(t_shell *shell)
 {
@@ -95,6 +59,52 @@ void	print_shell(t_shell *shell)
 	// fprintf(stderr, "last: %d\n", shell->last);
 	fprintf(stderr, "exec: %d\n", shell->exec);
 }
+/* ************************************************************************** */
+
+void	redir_and_exec(t_shell *shell, t_token *token)
+{
+	t_token	*next;
+	t_token	*prev;
+	int		pipe;
+
+	next = next_sep(token);
+	prev = prev_sep(token);
+	pipe = 0;
+	// 	if (prev)
+	// 	fprintf(stderr, "prev %s\n", prev->value);
+	// fprintf(stderr, "token %s\n", token->value);
+	// if (next)
+	// fprintf(stderr, "next %s\n", next->value);
+	// if (token->type == TRUNC)
+	if (is_type(prev, TRUNC))
+		redir(shell, prev, TRUNC);
+	else if (is_type(prev, APPEND))
+		redir(shell, token, APPEND);
+	else if (is_type(prev, IN))
+		input(shell, prev);
+	else if (is_type(prev, HERE_DOC))
+		input(shell, token);
+	else if (is_type(prev, PIPE))
+		pipe = pipe_n_fork(shell);
+	if (next && next->type != END && pipe !=1)
+		redir_and_exec(shell, next->next);
+	if ((!prev || prev->type == PIPE ||token->type == CMD)
+			&& pipe != 1 && shell->exec && shell->charge)
+		{
+		// fprintf(stderr, "\033[0;36m");
+
+		print_shell(shell);
+		// fprintf(stderr, "the token issss === %s\n", token->value);
+		// fprintf(stderr, "\033[0m");
+
+		exec_cmd(shell, token);
+		}
+	return ;
+}
+
+/* ************************************************************************** */
+
+
 
 void	exec(t_shell *shell)
 {

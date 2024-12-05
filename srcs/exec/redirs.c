@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:20:41 by noam              #+#    #+#             */
-/*   Updated: 2024/12/02 22:36:09 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/04 16:12:58 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 void	input(t_shell *shell, t_token *token)
 {
-	close_fd(shell->fdin);
+	if (close_fd(shell->fdin))
+		shell->fdin = -1;
 	shell->fdin = open(token->value, O_RDONLY);
 	if (shell->fdin == -1)
 	{
@@ -29,7 +30,7 @@ void	input(t_shell *shell, t_token *token)
 
 void	redir(t_shell *shell, t_token *token, t_token_type type)
 {
-	fprintf(stderr, "redir\n");
+	// fprintf(stderr, "redir\n");
 	close_fd(shell->fdout);
 	if (type == TRUNC)
 		shell->fdout = open(token->value, O_CREAT | O_WRONLY

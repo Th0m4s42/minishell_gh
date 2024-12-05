@@ -6,20 +6,23 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 22:30:49 by noam              #+#    #+#             */
-/*   Updated: 2024/11/27 17:16:11 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/04 16:13:50 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exec.h>
 
-void	close_fd(int fd)
+bool	close_fd(int fd)
 {
 	if (fd > 0)
 	{
 		close(fd);
-		fd = -1;
+		return (true);
 	}
+	else
+		return (false);
 }
+
 void	close_reset_fd(t_shell *shell)
 {
 	close_fd(shell->fdin);
@@ -31,6 +34,7 @@ void	close_reset_fd(t_shell *shell)
 	shell->pipin = -1;
 	shell->pipout = -1;
 }
+
 void	reset_stds(t_shell *shell)
 {
 	dup2(shell->in, STDIN);
