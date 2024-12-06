@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 19:44:17 by noam              #+#    #+#             */
-/*   Updated: 2024/12/03 23:12:10 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 01:06:07 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	exec_built_in(char **cmd, t_env *env)
 // 		ft_unset(cmd, env);
 // 	else if (!ft_strncmp(cmd[0], "env", 4))
 // 		ft_env(env);
-// 	else if (!ft_strncmp(cmd[0], "exit", 5))
-// 		ft_exit(cmd, env);
+	else if (!ft_strncmp(cmd[0], "exit", 5))
+		ft_exit(cmd, env);
 }

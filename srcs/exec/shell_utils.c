@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 22:30:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 16:13:50 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 01:01:05 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,3 @@ void	reset_stds(t_shell *shell)
 	shell->out = -1;
 }
 
-void	init_shell(t_shell *shell, char **envp)
-{
-	shell->start = NULL;
-	shell->env = get_env(envp);
-	shell->in = dup(STDIN);
-	shell->out = dup(STDOUT);
-	shell->fdin = 0;
-	shell->fdout = 0;
-	shell->pipin = -1;
-	shell->pipout = -1;
-	shell->pid = 0;
-	shell->charge = 0;
-	shell->parent = 0;
-	shell->exec = 1;
-}

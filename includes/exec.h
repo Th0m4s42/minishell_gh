@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 00:24:29 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 00:55:47 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,10 @@ typedef struct	s_shell
 
 char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
 
+
 /* ******-INIT************************************************************** */
 
-t_token		*add_end_tok(t_token *toks, t_token *end_tok);
+t_token		*add_end_tok(t_token *toks);
 void		init_shell(t_shell *shell, char **envp);
 void		exec(t_shell *shell);
 

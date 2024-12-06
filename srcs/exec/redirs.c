@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:20:41 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 16:12:58 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 01:30:39 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	input(t_shell *shell, t_token *token)
 	shell->fdin = open(token->value, O_RDONLY);
 	if (shell->fdin == -1)
 	{
-		ft_putstr_fd("minishell : ", STDERR);
-		ft_putstr_fd(token->value, STDERR);
-		strerror(errno);
+		// access(token->value, F_OK | R_OK);
+		ft_putstr_fd("minishell :", STDERR);
+		// ft_putstr_fd(token->value, STDERR);
+		// strerror("minishell: ");
+		perror(token->value);
 		return ;
 	}
 	dup2(shell->fdin, STDIN);
@@ -40,9 +42,9 @@ void	redir(t_shell *shell, t_token *token, t_token_type type)
 				| O_APPEND, S_IRWXU);
 	if (shell->fdout == -1)
 	{
-		ft_putstr_fd("minishell : ", STDERR);
-		ft_putstr_fd(token->value, STDERR);
-		strerror(errno);
+		ft_putstr_fd("minishell :", STDERR);
+		perror(token->value);
+
 		// write (STDERR, "minishell : ", 12);
 		// ft_putendl_fd(": No such file or directory", STDERR);
 		// shell->ret = 1;

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 00:12:05 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 11:37:24 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 		{
 		// fprintf(stderr, "\033[0;36m");
 
-		print_shell(shell);
+		// print_shell(shell);
 		// fprintf(stderr, "the token issss === %s\n", token->value);
 		// fprintf(stderr, "\033[0m");
 

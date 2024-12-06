@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/03 19:20:47 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 11:37:52 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	exec_bin(char **cmd_arg, t_env *env)
 	/*else */if (cmd_arg)
 		path = find_exec_path(cmd_arg[0], env);
 	/*ret = */process_cmd(cmd_arg, path, env);
-	fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);	
+	// fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);	
+	if (path)
+		free(path);
 
 }
