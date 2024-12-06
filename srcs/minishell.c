@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	rl_value = NULL;
+	tok = NULL;
 	if (argc != 1)
 		return (EXIT_FAILURE);
 	init_shell(&shell, envp); 
@@ -38,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 		tok = add_end_tok(tok);
 		shell.start = tok;
 		exec(&shell);
-		free_tok_list(&tok);
+		free_tok_list(&shell.start);
 		free(rl_value);
 	}
 	free_env_list(&shell.env);

@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-void	exec_built_in(char **cmd, t_env *env)
+void	exec_built_in(char **cmd, t_env *env, t_shell *shell)
 {
 	(void)env;
 	// if (!ft_strncmp(cmd[0], "echo", 5))
@@ -29,5 +29,5 @@ void	exec_built_in(char **cmd, t_env *env)
 // 	else if (!ft_strncmp(cmd[0], "env", 4))
 // 		ft_env(env);
 	else if (!ft_strncmp(cmd[0], "exit", 5))
-		ft_exit(cmd, env);
+		ft_exit(cmd, shell);
 }

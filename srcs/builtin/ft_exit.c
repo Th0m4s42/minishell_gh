@@ -12,9 +12,8 @@
 
 #include <minishell.h>
 
-void	ft_exit(char **cmd, t_env *env)
+void	ft_exit(char **cmd, t_shell *shell)
 {
-	(void)env;
 	if (cmd[1])
 	{
 		if (cmd[2])
@@ -22,7 +21,14 @@ void	ft_exit(char **cmd, t_env *env)
 			ft_putendl_fd("exit: too many arguments", STDERR);
 			return ;
 		}
-		exit(ft_atoi(cmd[1]));
+		
+		ft_free_tab(cmd);
+		free_tok_list(&shell->start);
+		free_env_list(&shell->env);
+		exit(ft_atoi(cmd[1]) % 256);
 	}
+	ft_free_tab(cmd);
+	free_tok_list(&shell->start);
+	free_env_list(&shell->env);
 	exit(0);
 }

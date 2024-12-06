@@ -41,13 +41,15 @@ SRCS := \
 	$(SRC_DIR)$(EXEC)exec.c \
 	$(SRC_DIR)$(EXEC)exc_utils.c \
 	$(SRC_DIR)$(EXEC)exec_cmd.c \
-	$(SRC_DIR)$(EXEC)pipe_n_utils.c \
 	$(SRC_DIR)$(EXEC)redirs.c \
 	$(SRC_DIR)$(EXEC)shell_utils.c \
+	$(SRC_DIR)$(EXEC)inits.c \
 	$(SRC_DIR)$(BUILTIN)is_built_in.c \
 	$(SRC_DIR)$(BUILTIN)exec_built_in.c \
-	$(SRC_DIR)$(BUILTIN)ft_pwd.c\
-	$(SRC_DIR)$(BUILTIN)ft_cd.c\
+	$(SRC_DIR)$(BUILTIN)ft_pwd.c \
+	$(SRC_DIR)$(BUILTIN)ft_cd.c \
+	$(SRC_DIR)$(BUILTIN)ft_exit.c \
+	# $(SRC_DIR)$(EXEC)pipe_n_utils.c \
 	# $(SRC_DIR)$(EXEC)here_doc.c \
 	# $(SRC_DIR)$(EXEC)here_doc_utils.c \
 
@@ -70,7 +72,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 
 $(NAME) : $(OBJS)
 	make -C libft/
-	@$(CC) $(FLAGS) $(INCLUDES) libft/libft.a $(OBJS) -o $(NAME) -lreadline -Llibft 
+	@$(CC) $(FLAGS) $(INCLUDES) libft/libft.a $(OBJS) -o $(NAME) -lreadline -Llibft -l:libft.a
 	@echo "$(Green)$(NAME) CREATED $(White)"
 # -l:libft.a
 	

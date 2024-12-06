@@ -33,7 +33,7 @@ void	exec_cmd(t_shell *shell, t_token *token)
 	cmd = format_cmd(token->value);
 	// i = 0;
 	if (cmd && is_built_in(cmd[0]))
-		exec_built_in(cmd, shell->env);
+		exec_built_in(cmd, shell->env, shell);
 	else if (cmd)
 		exec_bin(cmd, shell->env);
 	ft_free_tab(cmd);

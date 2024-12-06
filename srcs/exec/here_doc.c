@@ -98,37 +98,6 @@ char	*stdin_to_str(char *delimiter, t_env *env)
 	return (line);
 }
 
-// char	*stdin_to_str(const char *delimiter, t_env *env)
-// {
-// 	char	*line;
-// 	char	*tru_delimit;
-// 	char	newline[2];
-// 	char	*tmp_str;
-
-// 	line = NULL;
-// 	newline[0] = '\n';
-// 	newline[1] = '\0';
-// 	if (!delimiter)
-// 		tru_delimit = newline;
-// 	else
-// 		tru_delimit = delimiter;
-// 	write(2, "heredoc> ", 9);
-// 	tmp_str = get_next_line(0);
-// 	while (tmp_str)
-// 	{
-// 		if (!ft_strncmp(tmp_str, tru_delimit, ft_strlen(tru_delimit)))
-// 		{
-// 			free(tmp_str);
-// 			break;
-// 		}
-// 		line = ft_strjoin(line, tmp_str);
-// 		free(tmp_str);
-// 		write(2, "heredoc> ", 9);
-// 		tmp_str = get_next_line(0);
-// 	}
-// 	return (line);
-// }
-
 /* ************************************************************************** */
 
 void	handle_here_docs(t_token *token, t_env *env)

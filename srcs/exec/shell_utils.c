@@ -39,9 +39,9 @@ void	reset_stds(t_shell *shell)
 {
 	dup2(shell->in, STDIN);
 	dup2(shell->out, STDOUT);
-	close(shell->in);
-	close(shell->out);
-	shell->in = -1;
-	shell->out = -1;
+	// close(shell->in);
+	// close(shell->out);
+	// shell->in = -1;
+	// shell->out = -1;
 }
 

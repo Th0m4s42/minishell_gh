@@ -53,3 +53,30 @@ void	redir(t_shell *shell, t_token *token, t_token_type type)
 	}
 	dup2(shell->fdout, STDOUT);
 }
+
+int		pipe_n_fork(t_shell *shell)
+{
+	int		pipefd[2];
+	int		pid;
+
+	pipe(pipefd);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN);
+		shell->pipin = pipefd[0];
+		shell->parent = 0;
+		shell->pid = -1;
+		return (2);
+	}
+	else
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT);
+		shell->pipout = pipefd[1];
+		shell->pid = pid;
+		return (1);
+	}
+}
+
