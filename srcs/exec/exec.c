@@ -10,17 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
+#include <minishell.h>
 // #include <libft.h>
 
 /* ************************************************************************** */
 
-char	**format_cmd(const char *cmd_str)
+char	**format_cmd(t_token *cmd_tok)
 {
-	char	**cmd_n_args;
+	char		**format_cmd;
+	char		*tmp_str;
+	t_token		*tok;
 
-	cmd_n_args = ft_split(cmd_str, ' ');
-	return (cmd_n_args);
+	tmp_str = ft_strjoin(cmd_tok->value, " ");
+	tok = cmd_tok->next;
+	while (tok && tok->type == ARG)
+	{
+		tmp_str = ft_strjoin_free(tmp_str, tok->value, 1);
+		tmp_str = ft_strjoin_free(tmp_str, " ", 1);
+		tok = tok->next;
+	}
+	format_cmd = ft_split(tmp_str, ' ');
+	free(tmp_str);
+	return (format_cmd);
 }
 
 /* ************************************************************************** */
@@ -30,7 +41,7 @@ void	exec_cmd(t_shell *shell, t_token *token)
 	char	**cmd;
 	// int		i;
 
-	cmd = format_cmd(token->value);
+	cmd = format_cmd(token);
 	// i = 0;
 	if (cmd && is_built_in(cmd[0]))
 		exec_built_in(cmd, shell->env, shell);
