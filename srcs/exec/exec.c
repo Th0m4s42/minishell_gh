@@ -94,7 +94,7 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 	else if (is_type(prev, IN))
 		input(shell, prev);
 	else if (is_type(prev, HERE_DOC))
-		input(shell, token);
+		input(shell, prev);
 	else if (is_type(prev, PIPE))
 		pipe = pipe_n_fork(shell);
 	if (next && next->type != END && pipe !=1)
@@ -123,7 +123,7 @@ void	exec(t_shell *shell)
 	int		status;
 
 	token = shell->start;
-	// handle_here_docs(&token, shell->env);
+	token = handle_here_docs(token, shell->env);
 	// while (shell->exec && token)
 	// {
 		shell->parent = 1;

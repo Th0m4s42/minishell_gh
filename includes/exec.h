@@ -136,7 +136,7 @@ t_token		*prev_sep(t_token *token);
 
 /* ******-DOC N $VAR********************************************************* */
 
-void		handle_here_docs(t_token *token, t_env *env);
+t_token		*handle_here_docs(t_token *token, t_env *env);
 
 int			until_dolla_sign(char *str, int i);
 bool		has_dolla_sign(char *str);

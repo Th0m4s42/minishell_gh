@@ -15,30 +15,33 @@
 #include "../../libft/includes/get_next_line.h"
 
 
-// void	write_to_doc_file(const char *delimiter, int ret);
-// {
-// 	char	*line
+void	write_to_doc_file(char *file_content, int fd)
+{
+	// char	*line
 
-// 	line get_next_line(ret);
-// 	while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter)))
-// 		write(ret, &line, ft_strlen(line))
-// }
-
-// /* ************************************************************************** */
-
-// char	*create_doc_file(char *delimiter, int nb)
-// {
-// 	char	*name;
-// 	int		ret;
-// 	int		id;
-
-// 	id = ft_itoa(nb);
-// 	name = ft_strjoin("here_doc_nb", id);
-// 	free(id);
-// 	ret = open(name, O_WRONLY | O_CREAT | 0664);
-// 	write_to_doc_file(delimiter, ret);
+	// line get_next_line(ret);
+	// while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter)))
+	write(fd, file_content, (ft_strlen(file_content)));
 	
-// }
+}
+
+/* ************************************************************************** */
+
+char	*create_doc_file(int nb, char *file_content)
+{
+	char	*name;
+	int		fd;
+	// int		id;
+
+	// id = ft_itoa(nb);
+	name = ft_strjoin_free("here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(nb), 2);
+	// free(id);
+	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC,  0664);
+	write_to_doc_file(file_content, fd);
+	close (fd);
+	return (name);
+	
+}
 
 char	*replace_dolla_sign(char *str, t_env *env)
 {
@@ -57,7 +60,7 @@ char	*replace_dolla_sign(char *str, t_env *env)
 		{
 			i = until_dolla_sign(str, i);
 			new_str = ft_strjoin_free(new_str, ft_substr(str, j, i - j), 3);
-			printf("new_str: %s\n", new_str);
+			// printf("new_str: %s\n", new_str);
 			j = until_space(str, i);
 			env_name = ft_substr(str, i, j - i);
 			env_name = get_value_by_name(env, env_name);
@@ -83,6 +86,7 @@ char	*stdin_to_str(char *delimiter, t_env *env)
 		tru_delimit = newline;
 	else
 		tru_delimit = delimiter;
+	// fprintf(stderr, "the deli is %s\n" , delimiter);
 	write(2, "> ", 2);
 	tmp_str = get_next_line(0);
 	while (tmp_str && ft_strncmp(tmp_str, tru_delimit, ft_strlen(tru_delimit)))
@@ -100,27 +104,31 @@ char	*stdin_to_str(char *delimiter, t_env *env)
 
 /* ************************************************************************** */
 
-void	handle_here_docs(t_token *token, t_env *env)
+t_token	*handle_here_docs(t_token *token, t_env *env)
 {
-	// char	*doc_file;
-	int		nb;
-	char *captured_str;
+	char		*doc_name;
+	char	 *captured_str;
+	int					id;
+	t_token				*tmp;
 
-	nb = 0;
+	tmp = token;
+	id = 0;
 	captured_str = NULL;
 	// doc_file = NULL;
-	while (token && token->type != END)
+	while (tmp && tmp->type != END)
 	{
-		if (token->type == HERE_DOC)
+		if (tmp->type == HERE_DOC)
 		{
-			captured_str = stdin_to_str(token->value, env);
-			// doc_file = create_doc_file(token->value, int nb);
-			free (token->value);
-			// if (!doc_file)
-				token->value = NULL;
-			// token->value = doc_file;
+			captured_str = stdin_to_str(tmp->value, env);
+			doc_name = create_doc_file(id, captured_str);
+			free (tmp->value);
+			if (!doc_name)
+				tmp->value = NULL;
+			tmp->value = doc_name;
 		}
+		tmp = tmp->next;
 	}
+	return (token);
 }
 
 /* ************************************************************************** */

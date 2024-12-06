@@ -49,9 +49,9 @@ SRCS := \
 	$(SRC_DIR)$(BUILTIN)ft_pwd.c \
 	$(SRC_DIR)$(BUILTIN)ft_cd.c \
 	$(SRC_DIR)$(BUILTIN)ft_exit.c \
+	$(SRC_DIR)$(EXEC)here_doc.c \
+	$(SRC_DIR)$(EXEC)here_doc_utils.c \
 	# $(SRC_DIR)$(EXEC)pipe_n_utils.c \
-	# $(SRC_DIR)$(EXEC)here_doc.c \
-	# $(SRC_DIR)$(EXEC)here_doc_utils.c \
 
 INCLUDES := -I includes
 
