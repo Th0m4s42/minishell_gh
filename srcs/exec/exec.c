@@ -6,21 +6,32 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 14:40:09 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 11:37:24 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
+#include <minishell.h>
 // #include <libft.h>
 
 /* ************************************************************************** */
 
-char	**format_cmd(const char *cmd_str)
+char	**format_cmd(t_token *cmd_tok)
 {
-	char	**cmd_n_args;
+	char		**format_cmd;
+	char		*tmp_str;
+	t_token		*tok;
 
-	cmd_n_args = ft_split(cmd_str, ' ');
-	return (cmd_n_args);
+	tmp_str = ft_strjoin(cmd_tok->value, " ");
+	tok = cmd_tok->next;
+	while (tok && tok->type == ARG)
+	{
+		tmp_str = ft_strjoin_free(tmp_str, tok->value, 1);
+		tmp_str = ft_strjoin_free(tmp_str, " ", 1);
+		tok = tok->next;
+	}
+	format_cmd = ft_split(tmp_str, ' ');
+	free(tmp_str);
+	return (format_cmd);
 }
 
 /* ************************************************************************** */
@@ -30,10 +41,10 @@ void	exec_cmd(t_shell *shell, t_token *token)
 	char	**cmd;
 	// int		i;
 
-	cmd = format_cmd(token->value);
+	cmd = format_cmd(token);
 	// i = 0;
 	if (cmd && is_built_in(cmd[0]))
-		exec_built_in(cmd, shell->env);
+		exec_built_in(cmd, shell->env, shell);
 	else if (cmd)
 		exec_bin(cmd, shell->env);
 	ft_free_tab(cmd);
@@ -44,42 +55,6 @@ void	exec_cmd(t_shell *shell, t_token *token)
 	shell->charge = 0;
 }
 
-/* ************************************************************************** */
-
-void	redir_and_exec(t_shell *shell, t_token *token)
-{
-	t_token	*next;
-	t_token	*prev;
-	int		pipe;
-
-	next = next_sep(token);
-	prev = prev_sep(token);
-	pipe = 0;
-		if (prev)
-		fprintf(stderr, "prev %s\n", prev->value);
-	fprintf(stderr, "token %s\n", token->value);
-	if (next)
-	fprintf(stderr, "next %s\n", next->value);
-	// if (is_type(prev, TRUNC)
-	if (token->type == TRUNC)
-		redir(shell, token, TRUNC);
-	else if (is_type(prev, APPEND))
-		redir(shell, token, APPEND);
-	else if (is_type(prev, IN))
-		input(shell, token);
-	else if (is_type(prev, HERE_DOC))
-		input(shell, token);
-	else if (is_type(prev, PIPE))
-		pipe = pipe_n_fork(shell);
-	if (next && next->type != END && pipe !=1)
-		redir_and_exec(shell, next->next);
-	if ((!prev || prev->type == END || prev->type == PIPE)
-		&& pipe != 1 && shell->exec && shell->charge)
-		exec_cmd(shell, token);
-	return ;
-}
-
-/* ************************************************************************** */
 
 void	print_shell(t_shell *shell)
 {
@@ -95,6 +70,52 @@ void	print_shell(t_shell *shell)
 	// fprintf(stderr, "last: %d\n", shell->last);
 	fprintf(stderr, "exec: %d\n", shell->exec);
 }
+/* ************************************************************************** */
+
+void	redir_and_exec(t_shell *shell, t_token *token)
+{
+	t_token	*next;
+	t_token	*prev;
+	int		pipe;
+
+	next = next_sep(token);
+	prev = prev_sep(token);
+	pipe = 0;
+	// 	if (prev)
+	// 	fprintf(stderr, "prev %s\n", prev->value);
+	// fprintf(stderr, "token %s\n", token->value);
+	// if (next)
+	// fprintf(stderr, "next %s\n", next->value);
+	// if (token->type == TRUNC)
+	if (is_type(prev, TRUNC))
+		redir(shell, prev, TRUNC);
+	else if (is_type(prev, APPEND))
+		redir(shell, token, APPEND);
+	else if (is_type(prev, IN))
+		input(shell, prev);
+	else if (is_type(prev, HERE_DOC))
+		input(shell, token);
+	else if (is_type(prev, PIPE))
+		pipe = pipe_n_fork(shell);
+	if (next && next->type != END && pipe !=1)
+		redir_and_exec(shell, next->next);
+	if ((!prev || prev->type == PIPE ||token->type == CMD)
+			&& pipe != 1 && shell->exec && shell->charge)
+		{
+		// fprintf(stderr, "\033[0;36m");
+
+		// print_shell(shell);
+		// fprintf(stderr, "the token issss === %s\n", token->value);
+		// fprintf(stderr, "\033[0m");
+
+		exec_cmd(shell, token);
+		}
+	return ;
+}
+
+/* ************************************************************************** */
+
+
 
 void	exec(t_shell *shell)
 {

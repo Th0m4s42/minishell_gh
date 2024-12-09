@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 14:59:02 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/06 00:55:47 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct	s_shell
 {
 	t_token			*start;
 	t_env			*env;
-	// t_env			*secret_env;
+	// t_env			*fallback_env;
 	int				in;
 	int				out;
 	int				fdin;
@@ -117,48 +117,61 @@ typedef struct	s_shell
 }				t_shell;
 
 
-/* ************************************************************************** */
+/* ******-LIBFT + *********************************************************** */
 
+char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
+bool	has_backslash(char *str);
+
+/* ******-INIT************************************************************** */
+
+t_token		*add_end_tok(t_token *toks);
+void		init_shell(t_shell *shell, char **envp);
 void		exec(t_shell *shell);
 
+/* ******-NODE*************************************************************** */
+
+int			is_type(t_token *token, t_token_type type);
 t_token		*next_sep(t_token *token);
 t_token		*prev_sep(t_token *token);
 
-int			is_type(t_token *token, t_token_type type);
+/* ******-DOC N $VAR********************************************************* */
 
 void		handle_here_docs(t_token *token, t_env *env);
 
 int			until_dolla_sign(char *str, int i);
 bool		has_dolla_sign(char *str);
 char		*replace_dolla_sign(char *str, t_env *env);
+int			until_space(char *str, int i);
+
+/* ******-REDIR N EXEC****************************************************** */
 
 void		redir(t_shell *shell, t_token *token, t_token_type type);
-int			pipe_n_fork(t_shell *shell);
 void		input(t_shell *shell, t_token *token);
+int			pipe_n_fork(t_shell *shell);
 
-void		close_fd(int fd);
+void		exec_bin(char **cmd_arg, t_env *env);
+
+/* ******-FDs STDs CLEANUP************************************************** */
+
+bool		close_fd(int fd);
 void		close_reset_fd(t_shell *shell);
 void		reset_stds(t_shell *shell);
-void		init_shell(t_shell *shell, char **envp);
+
+/* ******-BUILT INS********************************************************* */
 
 bool		is_built_in(char *cmd);
-void		exec_built_in(char **cmd_arg, t_env *env);
+void		exec_built_in(char **cmd_arg, t_env *env, t_shell *shell);
 void		ft_echo(char **cmd_arg);
-void		ft_cd(char **cmd_arg, t_env *env);
+int			ft_cd(char **cmd_arg, t_env *env);
 void		ft_pwd(void);
 void		ft_export(char **cmd_arg, t_env *env);
 void		ft_unset(char **cmd_arg, t_env *env);
 void		ft_env(t_env *env);
-void		ft_exit(char **cmd_arg, t_env *env);
+void		ft_exit(char **cmd_arg, t_shell *shell);
 
-void		exec_bin(char **cmd_arg, t_env *env);
+/* ******-******************************************************************* */
 
-char		*replace_dolla_sign(char *str, t_env *env);
-int			until_dolla_sign(char *str, int i);
-bool		has_dolla_sign(char *str);
-int			until_space(char *str, int i);
 
-char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
 
 
 
@@ -166,3 +179,4 @@ char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
 
 
 #endif
+

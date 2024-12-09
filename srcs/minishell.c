@@ -3,96 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/04 11:52:52 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/06 11:40:02 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*add_end_tok(t_token *toks, t_token end_tok)
+int	main(int argc, char **argv, char **envp)
 {
-	t_token	*tmp;
+	char		*rl_value;
+	// t_env		*env;
+	t_prompt	prompt_info;
+	t_shell		shell;
+	t_token		*tok;
 
-	tmp = toks;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = &end_tok;
-	end_tok.prev = tmp;
-	return (toks);
+	(void)argv;
+	rl_value = NULL;
+	tok = NULL;
+	if (argc != 1)
+		return (EXIT_FAILURE);
+	init_shell(&shell, envp); 
+	// env = get_env(envp); //a proteger
+	get_info(shell.env, &prompt_info);
+
+	while (1)
+	{
+		rl_value = readline(prompt_info.prompt);
+		if (rl_value == NULL || !ft_strncmp(rl_value, "exit", 4))
+			break ;
+		add_history(rl_value);
+		tok = lexer(rl_value);
+		tok = add_end_tok(tok);
+		shell.start = tok;
+		exec(&shell);
+		free_tok_list(&shell.start);
+		free(rl_value);
+	}
+	free_env_list(&shell.env);
+	clear_history();
+	return (0);
 }
+
+/*---------------------------------TEST----------------------------------------------------*/
 
 // int	main(int argc, char **argv, char **envp)
 // {
-// 	char		*rl_value;
 // 	t_env		*env;
 // 	t_prompt	prompt_info;
+// 	// char		*line = "cd | echo blal << out";
+// 	char		*line = "< out ls | cat | wc";
+// 	t_token		*tok = lexer(line);
+	
+// 	//t_shell		shell;
+// 	// t_token		end_tok = {NULL, "end", END, NULL};
+
+// // 	tok = add_end_tok(tok);
+// 	// termine la liste chainée de tokens avec un token de type END == 9
 
 // 	(void)argv;
-// 	rl_value = NULL;
 // 	if (argc != 1)
 // 		return (EXIT_FAILURE);
 // 	env = get_env(envp); //a proteger
 // 	get_info(env, &prompt_info);
 
-// 	while (1)
+// 	// // TEST EXEC
+// //	init_shell(&shell, envp); // debut de init_shell (utilise get_env btw)
+// //	shell.start = tok;
+// 	// // printf("start:%s\n", shell.start->value);
+//	// exec(&shell); // exec.c marche que pour les cas simples tel que "ls | cat | wc"
+
+	
+// 	// test de la tokenisation
+
+// 	t_token *tok_iter = tok;
+// 	while (tok_iter)
 // 	{
-// 		rl_value = readline(prompt_info.prompt);
-// 		if (rl_value == NULL)
-// 			break ;
-// 		add_history(rl_value);
-// 		free(rl_value);
+// 		printf("token type:%d value:%s\n", tok_iter->type, tok_iter->value);
+// 		tok_iter = tok_iter->next;
 // 	}
+// 	free_env_list(&env);
+// 	free_tok_list(&tok);
+// 	// free(tok);
 // 	return (0);
 // }
-
-/*---------------------------------TEST----------------------------------------------------*/
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_env		*env;
-	t_prompt	prompt_info;
-	char		*line = "cd | echo blal << out";
-	// char		*line = "| ls | cat | wc > output";
-	t_token		*tok = lexer(line);
-	
-	// t_shell		shell;
-	// t_token		end_tok = {NULL, NULL, END, NULL};
-
-	// tok = add_end_tok(tok, end_tok);
-	// termine la liste chainée de tokens avec un token de type END == 9
-
-	(void)argv;
-	if (argc != 1)
-		return (EXIT_FAILURE);
-	env = get_env(envp); //a proteger
-	get_info(env, &prompt_info);
-
-	// // TEST EXEC
-	// init_shell(&shell, envp); // debut de init_shell (utilise get_env btw)
-	// tok = tok->next;	// alors j'arrive pas a juste mettre "cmd 1, cmd 2" du coup je fais ca
-	// tok->prev = NULL;	// pour que ca marche "/cmdpath ls | cat" -> "ls | cat"
-	// shell.start = tok;
-	// // printf("start:%s\n", shell.start->value);
-	// exec(&shell); // exec.c marche que pour les cas simples tel que "ls | cat | wc"
-
-	
-	// test de la tokenisation
-
-	t_token *tok_iter = tok;
-	while (tok_iter)
-	{
-		printf("token type:%d value:%s\n", tok_iter->type, tok_iter->value);
-		tok_iter = tok_iter->next;
-	}
-
-	free_env_list(&env);
-	free_tok_list(&tok);
-	free(tok);
-	return (0);
-}
 	// to do before exit:
 	// free_env_list(&env);
 	// clear_history();
