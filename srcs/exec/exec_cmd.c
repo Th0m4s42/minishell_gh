@@ -135,9 +135,9 @@ void	exec_bin(char **cmd_arg, t_env *env)
 	}
 	else if (cmd_arg)
 		path = find_exec_path(cmd_arg[0], env);
-	printcmd(cmd_arg, path, NULL);
+	// printcmd(cmd_arg, path, NULL);
 	/*ret = */process_cmd(cmd_arg, path, env);
-	fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);	
+	// fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);	
 	if (path)
 		free(path);
 

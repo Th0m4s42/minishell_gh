@@ -22,12 +22,12 @@ void	exec_built_in(char **cmd, t_env *env, t_shell *shell)
 	// else 
 	if (!ft_strncmp(cmd[0], "pwd", 4))
 		ft_pwd();
-// 	else if (!ft_strncmp(cmd[0], "export", 7))
-// 		ft_export(cmd, env);
+	else if (!ft_strncmp(cmd[0], "export", 7))
+		ft_export(cmd, shell);
 // 	else if (!ft_strncmp(cmd[0], "unset", 6))
 // 		ft_unset(cmd, env);
-// 	else if (!ft_strncmp(cmd[0], "env", 4))
-// 		ft_env(env);
+	else if (!ft_strncmp(cmd[0], "env", 4))
+		ft_env(shell->env);
 	else if (!ft_strncmp(cmd[0], "exit", 5))
 		ft_exit(cmd, shell);
 }

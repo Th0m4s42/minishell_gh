@@ -34,10 +34,38 @@ t_token	*add_end_tok(t_token *toks)
 
 /* ************************************************************************** */
 
+void	sort_tab(char **tab)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while (tab[i])
+	{
+		j = i + 1;
+		while (tab[j])
+		{
+			if (ft_strncmp(tab[i], tab[j], ft_strlen(tab[i])) > 0)
+			{
+				tmp = tab[i];
+				tab[i] = tab[j];
+				tab[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+/* ************************************************************************** */
+
 void	init_shell(t_shell *shell, char **envp)
 {
 	shell->start = NULL;
 	shell->env = get_env(envp);
+	sort_tab(envp);
+	shell->fallback_env = get_env(envp);
 	shell->in = dup(STDIN);
 	shell->out = dup(STDOUT);
 	shell->fdin = 0;
@@ -49,3 +77,5 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->parent = 0;
 	shell->exec = 1;
 }
+
+

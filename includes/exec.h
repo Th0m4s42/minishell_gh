@@ -30,6 +30,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <string.h>
+#include <limits.h>
 
 
 # define STDIN 0
@@ -100,7 +101,7 @@ typedef struct	s_shell
 {
 	t_token			*start;
 	t_env			*env;
-	// t_env			*fallback_env;
+	t_env			*fallback_env; 
 	int				in;
 	int				out;
 	int				fdin;
@@ -164,7 +165,7 @@ void		exec_built_in(char **cmd_arg, t_env *env, t_shell *shell);
 void		ft_echo(char **cmd_arg);
 int			ft_cd(char **cmd_arg, t_env *env);
 void		ft_pwd(void);
-void		ft_export(char **cmd_arg, t_env *env);
+void		ft_export(char **cmd, t_shell *shell);
 void		ft_unset(char **cmd_arg, t_env *env);
 void		ft_env(t_env *env);
 void		ft_exit(char **cmd_arg, t_shell *shell);
