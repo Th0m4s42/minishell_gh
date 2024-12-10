@@ -62,8 +62,10 @@ void	sort_tab(char **tab)
 
 void	init_shell(t_shell *shell, char **envp)
 {
+
 	shell->start = NULL;
 	shell->env = get_env(envp);
+	iter_shlvl(shell->env);
 	sort_tab(envp);
 	shell->fallback_env = get_env(envp);
 	shell->in = dup(STDIN);

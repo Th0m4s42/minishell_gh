@@ -73,6 +73,23 @@ void	printcmd(char **cmd_arg, char *path, char **env_array)
 	// }
 }
 
+void	print_env_array(char **array)
+{
+	int i = 0;
+	// int j = 0;
+	if (!array)
+	{
+		fprintf(stderr, "++\n");
+		return;
+	}
+	while (array[i])
+	{
+		fprintf(stderr, "-----%s\n", array[i]);
+		i++;
+	}
+	fprintf(stderr, "++\n");
+}
+
 int	process_cmd(char **cmd_arg, char *path, t_env *env)
 {
 	char	**env_array;
@@ -80,6 +97,7 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 	int		ret;
 
 	env_array = env_to_array(env);
+	// print_env_array(env_array);
 	// printcmd(cmd_arg, path, env_array);
 	pid = fork();
 	if (pid == 0)
@@ -128,7 +146,7 @@ void	exec_bin(char **cmd_arg, t_env *env)
 	// int		ret;
 
 	path = NULL;
-	if (cmd_arg && !has_backslash(cmd_arg[0]))
+	if (cmd_arg && has_backslash(cmd_arg[0]))
 	{
 		path = cmd_arg[0];
 		cmd_arg[0] = ft_substr(ft_strrchr(cmd_arg[0], '/'), 1 , ft_strlen(ft_strrchr(cmd_arg[0], '/')));
