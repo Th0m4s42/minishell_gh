@@ -32,7 +32,7 @@ static void one_liner(char **av, char **envp)
 	t_token		*tok;
 
 	str = d_to_str(av);
-	fprintf(stderr, "\n%s\n",str);
+	// fprintf(stderr, "\n%s\n",str);
 	init_shell(&shell, envp);
 	tok = lexer(str);
 	tok = add_end_tok(tok);

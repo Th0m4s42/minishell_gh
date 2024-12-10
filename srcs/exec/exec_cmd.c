@@ -20,10 +20,12 @@ char	**env_to_array(t_env *env)
 {
 	char	**env_array;
 	t_env	*tmp;
+	char 	*tmp_str;
 	int		i;
 
 	i = 0;
 	tmp = env;
+	tmp_str = NULL;
 	while (tmp)
 	{
 		i++;
@@ -34,7 +36,10 @@ char	**env_to_array(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		env_array[i] = ft_strjoin(tmp->name, tmp->value);
+		tmp_str = ft_strjoin(tmp->name, "=");
+		env_array[i] = ft_strjoin_free(tmp_str, tmp->value, 1);
+		// free(tmp_str);
+		// env_array[i] = ft_strjoin(tmp->name, tmp->value);
 		i++;
 		tmp = tmp->next;
 	}
