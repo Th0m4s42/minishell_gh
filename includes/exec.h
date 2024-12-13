@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 00:55:47 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/13 18:19:53 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct	s_shell
 	int				charge;
 	int				parent;
 	// int				last;
-	// int				ret;
+	int				ret;
 	// int				exit;
 	int				exec;
 }				t_shell;
@@ -137,12 +137,14 @@ t_token		*prev_sep(t_token *token);
 
 /* ******-DOC N $VAR********************************************************* */
 
-t_token		*handle_here_docs(t_token *token, t_env *env);
+t_token		*handle_here_docs(t_token *token, t_env *env, int *doc_nb);
 
 int			until_dolla_sign(char *str, int i);
 bool		has_dolla_sign(char *str);
 char		*replace_dolla_sign(char *str, t_env *env);
 int			until_space(char *str, int i);
+
+void	del_docs(int *doc_nb, int doc_from_parent);
 
 /* ******-REDIR N EXEC****************************************************** */
 
@@ -165,8 +167,8 @@ void		exec_built_in(char **cmd_arg, t_env *env, t_shell *shell);
 void		ft_echo(char **cmd_arg);
 int			ft_cd(char **cmd_arg, t_env *env);
 void		ft_pwd(void);
-void		ft_export(char **cmd, t_shell *shell);
-void		ft_unset(char **cmd_arg, t_env *env);
+int		ft_export(char **cmd, t_shell *shell);
+int		ft_unset(char **cmd_arg, t_env *env);
 void		ft_env(t_env *env);
 void		ft_exit(char **cmd_arg, t_shell *shell);
 

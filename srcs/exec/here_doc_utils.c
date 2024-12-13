@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:06:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 14:50:39 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/13 18:16:26 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	until_space(char *str, int i)
 		&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r')
 		i++;
 	while (str[i] && (str[i] != '\t' && str[i] != ' ' && str[i] != '\n'
-			&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r'))
+			&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r' && str[i] != '$'))
 		i++;
 	return (i);
 }
@@ -44,6 +44,22 @@ int	until_dolla_sign(char *str, int i)
 	return (i);
 }
 
+
+void	del_docs(int *doc_nb, int initial_doc_nb)
+{
+	char	*name;
+
+	name = NULL;
+	if (*doc_nb == 0)
+		return ;
+	while (*doc_nb >= initial_doc_nb)
+	{
+		name = ft_strjoin_free("here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*doc_nb), 2);	
+		unlink(name);
+		(*doc_nb)--;
+		free(name);
+	}
+}
 // char	*ft_strjoin_free(char *s1, char *s2, int free_ss)
 // {
 // 	char	*ptr;

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 11:37:52 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/13 18:20:43 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,21 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 	int		ret;
 
 	env_array = env_to_array(env);
-	// print_env_array(env_array);
-	// printcmd(cmd_arg, path, env_array);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd_arg[0], 2);
+		ft_putendl_fd(": command not found", 2);
+		ft_free_tab(env_array);
+		return (127);
+	}
 	pid = fork();
 	if (pid == 0)
 	{
 		ret = execve(path, cmd_arg, env_array);
-		perror("minishell");
-		exit(ret);
+		ft_putstr_fd("minishell: ", 2);
+		perror(cmd_arg[0]);
+		exit(126);
 	}
 	else
 		waitpid(pid, &ret, 0);
