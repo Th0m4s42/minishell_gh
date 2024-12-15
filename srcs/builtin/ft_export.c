@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:06:45 by noam              #+#    #+#             */
-/*   Updated: 2024/12/14 19:38:38 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/15 16:31:36 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ bool	already_set(t_env *env, char *name, int len, char *var_value)
 		return (false);
 	while (tmp)
 	{
-		if (ft_strncmp(name, tmp->name, len) == 0)
+		if (ft_strncmp(name, tmp->name, len + 1) == 0)
 		{
-			if (tmp->name[len] == '\0')
+			if (!var_value)
 			{
-				switch_value(tmp, var_value);
 				free(name);
-				return(true);
-			}	
+				return(true);	
+			}
+			switch_value(tmp, var_value);
+			free(name);
+			return(true);	
 		}
 		tmp = tmp->next;
 	}
