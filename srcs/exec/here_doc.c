@@ -6,12 +6,11 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/13 18:55:33 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/15 01:21:08 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
-#include "../../libft/includes/libft.h"
+#include <minishell.h>
 #include "../../libft/includes/get_next_line.h"
 
 

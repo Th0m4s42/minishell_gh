@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:06:45 by noam              #+#    #+#             */
-/*   Updated: 2024/12/11 13:45:56 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/14 19:38:38 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,12 @@ void add_in_lex_order(t_env **first, t_env *new_var)
 
     var_name = new_var->name;
     // if (*first == NULL || ft_strncmp(var_name, (*first)->name, ft_strlen(var_name)) < 0) {
-    if (*first == NULL || ft_strncmp(var_name, (*first)->name, INT_MAX) < 0)
+    if (*first == NULL || (ft_strncmp(var_name, (*first)->name, INT_MAX) < 0))
 	{
+		// fprintf(stderr, "flipfront=%s=\n",new_var->name);
         new_var->next = *first;
         *first = new_var;
+		// fprintf(stderr, "abckflip-%s-\n",(*first)->name);
         return;
     }
     tmp = *first;
@@ -143,19 +145,27 @@ static inline int	export_error(char *arg)
 }
 
 
-void	set_var(t_env *env, char *var_name, int name_len, char *var_value, int exp_env)
+void	set_var(t_env **env, char *var_name, int name_len, char *var_value, int exp_env)
 {
 	t_env	*new_var;
 
 	new_var = NULL;
-	if (!already_set(env, var_name, name_len, var_value))
+		// fprintf(stderr, "IN SET VAR THE VAR NAME N VALUE IS-%s- AND -%s-\n",(var_name), var_value);
+	if (!exp_env)
+	{
+		var_name = ft_strdup(var_name);
+		var_value = ft_strdup(var_value);
+	}
+	if (!already_set(*env, var_name, name_len, var_value))
 	{
 		new_var = new_env_node(var_name, var_value);
 		if (exp_env)
-			add_in_lex_order(&env, new_var);
+			add_in_lex_order(env, new_var);
 		else
-			add_back(&env, new_var);
+			add_back(env, new_var);
 	}
+		// fprintf(stderr, "IN SET VAR-%s-\n",((*env)->name));
+
 }
 
 int	ft_exp_displ(t_env *env)
@@ -203,16 +213,20 @@ int	ft_export(char **cmd, t_shell *shell)
 			return (export_error(cmd[i]));
 		name_len = ft_strlen(cmd[i]) - ft_strlen(var_value);
 		if (!var_value)
-			set_var(shell->fallback_env, ft_strdup(cmd[i]), name_len, var_value, 1);
+		{
+			set_var(&shell->env, ft_strdup(cmd[i]), name_len, NULL, 0);
+			set_var(&shell->fallback_env, ft_strdup(cmd[i]), name_len, NULL, 1);
+		}
 		else
 		{
 			var_name = ft_substr(cmd[i], 0, name_len);
 			var_value = ft_strdup(var_value + 1);
-			set_var(shell->fallback_env, var_name, name_len, var_value, 1);
-			// set_var(shell->env, var_name, name_len, var_value, 0);
+			set_var(&shell->env, var_name, name_len, var_value, 0);
+			set_var(&shell->fallback_env, var_name, name_len, var_value, 1);
 		}
 		i++;
 	}
+		// fprintf(stderr, "IN FT_XPORT-%s-\n",(shell->fallback_env->name));
 	return(0);
 }
 /* ************************************************************************** */

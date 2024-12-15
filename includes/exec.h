@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/13 18:19:53 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/14 20:06:18 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,12 @@ typedef struct	s_shell
 	int				charge;
 	int				parent;
 	// int				last;
-	int				ret;
 	// int				exit;
 	int				exec;
+	int				ret;
+	char			*hiddn_pwd;
+	char			*hiddn_oldpwd;
+	
 }				t_shell;
 
 
@@ -164,17 +167,17 @@ void		reset_stds(t_shell *shell);
 
 bool		is_built_in(char *cmd);
 void		exec_built_in(char **cmd_arg, t_env *env, t_shell *shell);
-void		ft_echo(char **cmd_arg);
-int			ft_cd(char **cmd_arg, t_env *env);
+int			ft_echo(char **cmd_arg, t_shell *shell);
+int			ft_cd(char **cmd, t_shell *shell);
 void		ft_pwd(void);
-int		ft_export(char **cmd, t_shell *shell);
-int		ft_unset(char **cmd_arg, t_env *env);
+int			ft_export(char **cmd, t_shell *shell);
+int			ft_unset(char **cmd_arg, t_shell *shell);
 void		ft_env(t_env *env);
 void		ft_exit(char **cmd_arg, t_shell *shell);
 
 /* ******-******************************************************************* */
 
-
+bool	already_set(t_env *env, char *name, int len, char *var_value);
 
 
 

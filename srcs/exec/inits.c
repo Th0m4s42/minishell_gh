@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 01:00:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/13 18:20:14 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/14 16:17:22 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->parent = 0;
 	shell->exec = 1;
 	shell->ret = 0;
+	shell->hiddn_oldpwd = NULL;
+	shell->hiddn_pwd = NULL;
 }
 
 

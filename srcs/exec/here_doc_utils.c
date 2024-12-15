@@ -6,11 +6,11 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:06:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/13 18:16:26 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/13 18:59:10 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
+#include <minishell.h>
 
 int	until_space(char *str, int i)
 {
