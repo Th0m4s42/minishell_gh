@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:13:03 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/27 14:49:07 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/10 11:57:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <parser.h>
 # include <prompt.h>
 # include <exec.h>
-# include "signal.h"
+# include <signals.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 //								STRUCTURES									  //

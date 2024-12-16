@@ -17,7 +17,7 @@ EXEC	:= exec/
 LEXER	:= lexer/
 PARSING := parsing/
 PROMPT	:= prompt/
-SIGNALS	:= signals/
+SIGNALS	:= signal/
 UTILS	:= utils/
 EXEC	:= exec/
 BUILTIN := builtin/
@@ -36,6 +36,8 @@ SRCS := \
 	$(SRC_DIR)$(LEXER)check_cmds.c \
 	$(SRC_DIR)$(LEXER)check_redirections.c \
 	$(SRC_DIR)$(LEXER)init_function_array.c \
+	\
+	$(SRC_DIR)$(SIGNALS)signal.c \
 	\
 	$(SRC_DIR)$(PROMPT)prompt.c \
 	$(SRC_DIR)$(EXEC)exec.c \
