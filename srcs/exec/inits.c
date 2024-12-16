@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 01:00:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 01:03:08 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/14 16:17:22 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,40 @@ t_token	*add_end_tok(t_token *toks)
 
 /* ************************************************************************** */
 
+void	sort_tab(char **tab)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while (tab[i])
+	{
+		j = i + 1;
+		while (tab[j])
+		{
+			if (ft_strncmp(tab[i], tab[j], ft_strlen(tab[i])) > 0)
+			{
+				tmp = tab[i];
+				tab[i] = tab[j];
+				tab[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+/* ************************************************************************** */
+
 void	init_shell(t_shell *shell, char **envp)
 {
+
 	shell->start = NULL;
 	shell->env = get_env(envp);
+	iter_shlvl(shell->env);
+	sort_tab(envp);
+	shell->fallback_env = get_env(envp);
 	shell->in = dup(STDIN);
 	shell->out = dup(STDOUT);
 	shell->fdin = 0;
@@ -48,4 +78,9 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->charge = 0;
 	shell->parent = 0;
 	shell->exec = 1;
+	shell->ret = 0;
+	shell->hiddn_oldpwd = NULL;
+	shell->hiddn_pwd = NULL;
 }
+
+

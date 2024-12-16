@@ -63,7 +63,7 @@ bool	has_backslash(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '/')
+		if (str[i] == '/')
 			return (true);
 		i++;
 	}

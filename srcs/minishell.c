@@ -12,8 +12,46 @@
 
 #include <minishell.h>
 
+static char *d_to_str(char **array)
+{
+	char *new_str = NULL;
+	int i = 1;
+	while (array[i])
+	{
+		new_str = ft_strjoin_free(new_str, array[i], 1);
+		i++;
+	}
+	return (new_str);
+}
+
+
+static void one_liner(char **av, char **envp)
+{
+	char		*str;
+	t_shell		shell;
+	t_token		*tok;
+
+	str = d_to_str(av);
+	// fprintf(stderr, "\n%s\n",str);
+	init_shell(&shell, envp);
+	tok = lexer(str);
+	tok = add_end_tok(tok);
+	shell.start = tok;
+	exec(&shell);
+	free_tok_list(&shell.start);
+	free_env_list(&shell.env);
+	free_env_list(&shell.fallback_env);
+	free(str);
+
+
+
+}
+
+
 int	main(int argc, char **argv, char **envp)
 {
+	if (argc > 1)
+		one_liner(argv,envp);
 	char		*rl_value;
 	// t_env		*env;
 	t_prompt	prompt_info;
@@ -23,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	rl_value = NULL;
 	tok = NULL;
-	if (argc != 1)
+ 	if (argc != 1)
 		return (EXIT_FAILURE);
 	init_shell(&shell, envp); 
 	// env = get_env(envp); //a proteger
@@ -32,17 +70,18 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		rl_value = readline(prompt_info.prompt);
-		if (rl_value == NULL || !ft_strncmp(rl_value, "exit", 4))
+		if (rl_value == NULL)
 			break ;
 		add_history(rl_value);
 		tok = lexer(rl_value);
+		free(rl_value);
 		tok = add_end_tok(tok);
 		shell.start = tok;
 		exec(&shell);
 		free_tok_list(&shell.start);
-		free(rl_value);
 	}
 	free_env_list(&shell.env);
+	free_env_list(&shell.fallback_env);
 	clear_history();
 	return (0);
 }
@@ -54,7 +93,8 @@ int	main(int argc, char **argv, char **envp)
 // 	t_env		*env;
 // 	t_prompt	prompt_info;
 // 	// char		*line = "cd | echo blal << out";
-// 	char		*line = "< out ls | cat | wc";
+// 	// char		*line = "< out ls | cat | wc";
+// 	char		*line = "/ls | grep Makefile";
 // 	t_token		*tok = lexer(line);
 	
 // 	//t_shell		shell;
@@ -73,7 +113,7 @@ int	main(int argc, char **argv, char **envp)
 // //	init_shell(&shell, envp); // debut de init_shell (utilise get_env btw)
 // //	shell.start = tok;
 // 	// // printf("start:%s\n", shell.start->value);
-//	// exec(&shell); // exec.c marche que pour les cas simples tel que "ls | cat | wc"
+// 	// exec(&shell); // exec.c marche que pour les cas simples tel que "ls | cat | wc"
 
 	
 // 	// test de la tokenisation

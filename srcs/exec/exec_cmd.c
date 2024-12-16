@@ -6,13 +6,11 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 11:37:52 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/13 18:59:24 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
-// #include <env.h>
-// #include <libft.h>
+#include <minishell.h>
 
 /* ************************************************************************** */
 
@@ -20,10 +18,12 @@ char	**env_to_array(t_env *env)
 {
 	char	**env_array;
 	t_env	*tmp;
+	char 	*tmp_str;
 	int		i;
 
 	i = 0;
 	tmp = env;
+	tmp_str = NULL;
 	while (tmp)
 	{
 		i++;
@@ -34,7 +34,10 @@ char	**env_to_array(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		env_array[i] = ft_strjoin(tmp->name, tmp->value);
+		tmp_str = ft_strjoin(tmp->name, "=");
+		env_array[i] = ft_strjoin_free(tmp_str, tmp->value, 1);
+		// free(tmp_str);
+		// env_array[i] = ft_strjoin(tmp->name, tmp->value);
 		i++;
 		tmp = tmp->next;
 	}
@@ -73,6 +76,23 @@ void	printcmd(char **cmd_arg, char *path, char **env_array)
 	// }
 }
 
+void	print_env_array(char **array)
+{
+	int i = 0;
+	// int j = 0;
+	if (!array)
+	{
+		fprintf(stderr, "++\n");
+		return;
+	}
+	while (array[i])
+	{
+		fprintf(stderr, "-----%s\n", array[i]);
+		i++;
+	}
+	fprintf(stderr, "++\n");
+}
+
 int	process_cmd(char **cmd_arg, char *path, t_env *env)
 {
 	char	**env_array;
@@ -80,13 +100,21 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 	int		ret;
 
 	env_array = env_to_array(env);
-	// printcmd(cmd_arg, path, env_array);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd_arg[0], 2);
+		ft_putendl_fd(": command not found", 2);
+		ft_free_tab(env_array);
+		return (127);
+	}
 	pid = fork();
 	if (pid == 0)
 	{
 		ret = execve(path, cmd_arg, env_array);
-		perror("minishell");
-		exit(ret);
+		ft_putstr_fd("minishell: ", 2);
+		perror(cmd_arg[0]);
+		exit(126);
 	}
 	else
 		waitpid(pid, &ret, 0);
@@ -135,9 +163,9 @@ void	exec_bin(char **cmd_arg, t_env *env)
 	}
 	else if (cmd_arg)
 		path = find_exec_path(cmd_arg[0], env);
-	printcmd(cmd_arg, path, NULL);
+	// printcmd(cmd_arg, path, NULL);
 	/*ret = */process_cmd(cmd_arg, path, env);
-	fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);	
+	// fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);	
 	if (path)
 		free(path);
 

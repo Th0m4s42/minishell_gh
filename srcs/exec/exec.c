@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 11:37:24 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/13 18:17:36 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 	else if (is_type(prev, IN))
 		input(shell, prev);
 	else if (is_type(prev, HERE_DOC))
-		input(shell, token);
+		input(shell, prev);
 	else if (is_type(prev, PIPE))
 		pipe = pipe_n_fork(shell);
 	if (next && next->type != END && pipe !=1)
@@ -121,9 +121,12 @@ void	exec(t_shell *shell)
 {
 	t_token	*token;
 	int		status;
+	int		current_doc_nb;
+	static int	doc_nb;
 
 	token = shell->start;
-	// handle_here_docs(&token, shell->env);
+	current_doc_nb = doc_nb;
+	token = handle_here_docs(token, shell->env, &doc_nb);
 	// while (shell->exec && token)
 	// {
 		shell->parent = 1;
@@ -134,6 +137,8 @@ void	exec(t_shell *shell)
 		waitpid(shell->pid, &status, 0);
 		if (shell->charge == 0 && shell->parent == 0)
 			exit(0);
+	// fprintf(stderr ,"nb doc = %d-\n", doc_nb);
+		del_docs(&doc_nb, current_doc_nb);
 		// we should be catching the last child status here but idk how yet
 	// }
 }
