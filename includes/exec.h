@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/14 20:06:18 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/15 19:35:05 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct	s_shell
 /* ******-LIBFT + *********************************************************** */
 
 char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
-bool	has_backslash(char *str);
+bool		has_backslash(char *str);
 
 /* ******-INIT************************************************************** */
 
@@ -147,7 +147,7 @@ bool		has_dolla_sign(char *str);
 char		*replace_dolla_sign(char *str, t_env *env);
 int			until_space(char *str, int i);
 
-void	del_docs(int *doc_nb, int doc_from_parent);
+void		del_docs(int *doc_nb, int doc_from_parent);
 
 /* ******-REDIR N EXEC****************************************************** */
 
@@ -177,7 +177,10 @@ void		ft_exit(char **cmd_arg, t_shell *shell);
 
 /* ******-******************************************************************* */
 
-bool	already_set(t_env *env, char *name, int len, char *var_value);
+bool		already_set(t_env *env, char *name, int len, char *var_value);
+void	 	add_in_lex_order(t_env **first, t_env *new_var);
+void	set_var(t_env **env, char *name, int name_len, char *value, int exp_env);
+
 
 
 

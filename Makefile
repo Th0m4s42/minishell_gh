@@ -48,6 +48,7 @@ SRCS := \
 	$(SRC_DIR)$(EXEC)inits.c \
 	$(SRC_DIR)$(BUILTIN)is_built_in.c \
 	$(SRC_DIR)$(BUILTIN)exec_built_in.c \
+	$(SRC_DIR)$(BUILTIN)var_utils.c \
 	$(SRC_DIR)$(BUILTIN)ft_echo.c \
 	$(SRC_DIR)$(BUILTIN)ft_pwd.c \
 	$(SRC_DIR)$(BUILTIN)ft_cd.c \
