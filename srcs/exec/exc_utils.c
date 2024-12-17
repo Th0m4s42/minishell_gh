@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:22:32 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 00:42:20 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/17 19:35:12 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 t_token	*next_sep(t_token *token)
 {
+	t_token	*tmp;
+
+	tmp = token;
 	while (token && token->type > PIPE && token->type != END)
+		token = token->next;
+	if (token == tmp)
 		token = token->next;
 	return (token);
 }
