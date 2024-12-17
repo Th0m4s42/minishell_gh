@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/13 18:17:36 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/16 14:08:23 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	exec_cmd(t_shell *shell, t_token *token)
 	else if (cmd)
 		exec_bin(cmd, shell->env);
 	ft_free_tab(cmd);
-	close(shell->pipin);
-	close(shell->pipout);
+	fd_close(shell->pipin);
+	fd_close(shell->pipout);
 	shell->pipin = -1;
 	shell->pipout = -1;
 	shell->charge = 0;
@@ -99,8 +99,8 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 		pipe = pipe_n_fork(shell);
 	if (next && next->type != END && pipe !=1)
 		redir_and_exec(shell, next->next);
-	if ((!prev || prev->type == PIPE ||token->type == CMD)
-			&& pipe != 1 && shell->exec && shell->charge)
+	if ((!prev || prev->type == PIPE )
+			&& token->type == CMD && pipe != 1 && shell->exec && shell->charge)
 		{
 		// fprintf(stderr, "\033[0;36m");
 
