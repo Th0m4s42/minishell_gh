@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/16 11:52:58 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/17 11:38:49 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ char	*handle_quotes(char *str, char **envp)
 char	*substitute_variables(char *str, char **env)
 {
 	char	*result;
-	char	*cmd_output;
+	char	*var_name;
+	char	*var_value;
+	int		start;
 	int		i;
 
 	result = ft_strdup("");
@@ -46,11 +48,23 @@ char	*substitute_variables(char *str, char **env)
 	{
 		if (str[i] == '$')
 		{
-			char *var_name = get_variable_name(&str[i + 1]);
-			char *var_value = get_env_value(env, var_name);
-			result = ft_strjoin_free(result, var_value);
+			i++;
+			start = i;
+			while (!ft_isprint)
+				i++;
+			var_name = get_variable_name(&str[i + 1]);
+			var_value = get_env_value(env, var_name);
+			result = ft_strjoin_free(result, var_value, 1);
 			free(var_name);
-			i += ft_strlen(var_name);
+			if (var_value)
+				result = ft_strjoin(result, var_value);
+			else
+				result = ft_strjoin(result, "");
+		}
+		else
+		{
+			result = ft_strlcat(result, str[i], 1);
+			i++;
 		}
 	}
 	return (result);
