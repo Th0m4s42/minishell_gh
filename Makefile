@@ -36,6 +36,7 @@ SRCS := \
 	$(SRC_DIR)$(LEXER)check_cmds.c \
 	$(SRC_DIR)$(LEXER)check_redirections.c \
 	$(SRC_DIR)$(LEXER)init_function_array.c \
+	$(SRC_DIR)$(LEXER)handle_errors.c \
 	\
 	$(SRC_DIR)$(SIGNALS)signal.c \
 	\

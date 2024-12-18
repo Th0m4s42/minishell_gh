@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/02 15:58:21 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 12:46:52 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,16 @@ bool	check_pipe(char *tok_str, t_token *tok);
 bool	check_cmd_path(char *tok_str, t_token *tok);
 bool	check_cmd(char *tok_str, t_token *tok);
 bool	check_arg(char *tok_str, t_token *tok);
-t_token	*new_node(char **tok, t_token *new_node, int type);
+t_token	*process_token(ft_array *check_type, t_token **first_node, char *token,
+			t_token *last_node);
 void	lexing(ft_array *check_type, t_token **first_node, char **tok);
 t_token	*lexer(char *rl_value);
+
+/* handle_errors.c*/
+
+bool	is_invalid_final_token(t_token *last_node, char *last_token);
+void	handle_syntax_error(char *token, t_token **first_node);
+bool	has_syntax_error(char **tok, int i);
 
 /* list_lex_manip.c */
 
