@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 16:06:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:44:32 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(rl_value);
 		tok = lexer(rl_value);
-		final_process(tok, envp);
+		final_process(tok, shell.env);
 		free(rl_value);
 		tok = add_end_tok(tok);
 		shell.start = tok;
