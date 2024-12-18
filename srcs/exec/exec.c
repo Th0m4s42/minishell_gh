@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/17 19:45:07 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/18 01:49:19 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 
 	next = next_sep(token);
 	prev = prev_sep(token);
+	// if (prev)
+	// 	fprintf(stderr, "prev---- %s\n", prev->value);
+	// if (next)
+	// 	fprintf(stderr, "next++++ %s\n", next->value);
 	pipe = 0;
 	if (is_type(prev, TRUNC))
 		redir(shell, prev, TRUNC);
@@ -89,13 +93,26 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 		input(shell, prev);
 	else if (is_type(prev, HERE_DOC))
 		input(shell, prev);
-	else if (is_type(prev, PIPE))
+	else if (is_type(token, PIPE))
 		pipe = pipe_n_fork(shell);
 	if (next && next->type != END && pipe !=1)
 		redir_and_exec(shell, next);
-	if ((!prev || prev->type == PIPE )
-			&& token->type == CMD && pipe != 1 && shell->exec && shell->charge)
+						// fprintf(stderr, "\033[0;36m");
+
+		// print_shell(shell);
+		// fprintf(stderr, "the token issss === %s", token->value);
+		// fprintf(stderr, "%d\n", token->type);
+		// fprintf(stderr, "\033[0m");
+	if ((!prev || prev->type == PIPE || token->type == CMD || token->type == CMD_PATH)
+			&& (token->type == CMD_PATH || token->type == CMD ) && pipe != 1 && shell->exec && shell->charge)
 		{
+					// fprintf(stderr, "\033[0;35m");
+
+		// print_shell(shell);
+		// fprintf(stderr, "the token is === %s\n", token->value);
+		// fprintf(stderr, "\033[0m");
+
+
 		exec_cmd(shell, token);
 		}
 	return ;

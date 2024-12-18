@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/13 18:59:24 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/17 20:57:15 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,42 +56,42 @@ char	*bin_cmd_path(const char *path, const char *cmd)
 	return (cmd_path);
 }
 
-void	printcmd(char **cmd_arg, char *path, char **env_array)
-{
-	int	i;
+// void	printcmd(char **cmd_arg, char *path, char **env_array)
+// {
+// 	int	i;
 
-	i = 0;
-	((void)env_array);
-	fprintf(stderr,"cmd: %s\n", path);
-	while (cmd_arg[i])
-	{
-		fprintf(stderr,"arg[%d]: %s\n", i, cmd_arg[i]);
-		i++;
-	}
-	i = 0;
-	// while (env_array[i])
-	// {
-	// 	printf("env[%d]: %s\n", i, env_array[i]);
-	// 	i++;
-	// }
-}
+// 	i = 0;
+// 	((void)env_array);
+// 	fprintf(stderr,"cmd: %s\n", path);
+// 	while (cmd_arg[i])
+// 	{
+// 		fprintf(stderr,"arg[%d]: %s\n", i, cmd_arg[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	// while (env_array[i])
+// 	// {
+// 	// 	printf("env[%d]: %s\n", i, env_array[i]);
+// 	// 	i++;
+// 	// }
+// }
 
-void	print_env_array(char **array)
-{
-	int i = 0;
-	// int j = 0;
-	if (!array)
-	{
-		fprintf(stderr, "++\n");
-		return;
-	}
-	while (array[i])
-	{
-		fprintf(stderr, "-----%s\n", array[i]);
-		i++;
-	}
-	fprintf(stderr, "++\n");
-}
+// void	print_env_array(char **array)
+// {
+// 	int i = 0;
+// 	// int j = 0;
+// 	if (!array)
+// 	{
+// 		fprintf(stderr, "++\n");
+// 		return;
+// 	}
+// 	while (array[i])
+// 	{
+// 		fprintf(stderr, "-----%s\n", array[i]);
+// 		i++;
+// 	}
+// 	fprintf(stderr, "++\n");
+// }
 
 int	process_cmd(char **cmd_arg, char *path, t_env *env)
 {

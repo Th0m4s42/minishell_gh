@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:20:41 by noam              #+#    #+#             */
-/*   Updated: 2024/12/06 01:30:39 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/17 20:40:55 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int		pipe_n_fork(t_shell *shell)
 	else
 	{
 		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT);
+		if(shell->fdout < 1)
+			dup2(pipefd[1], STDOUT);
 		shell->pipout = pipefd[1];
 		shell->pid = pid;
 		return (1);

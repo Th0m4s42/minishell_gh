@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/15 01:21:08 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/18 01:51:37 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*create_doc_file(char *file_content, int *nb)
 	name = ft_strjoin_free("here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*nb), 2);
 	(*nb)++;
 	// free(id);
-	fprintf(stderr, "okkk%d-\n", *nb);
+	// fprintf(stderr, "okkk%d-\n", *nb);
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC,  0664);
 	write_to_doc_file(file_content, fd);
 	close (fd);
