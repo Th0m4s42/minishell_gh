@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/18 01:49:19 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/18 11:19:29 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ char	**format_cmd(t_token *cmd_tok)
 	while (tok && tok->type == ARG)
 	{
 		tmp_str = ft_strjoin_free(tmp_str, tok->value, 1);
-		tmp_str = ft_strjoin_free(tmp_str, " ", 1);
+		tmp_str = ft_strjoin_free(tmp_str, "\\", 1);
 		tok = tok->next;
 	}
-	format_cmd = ft_split(tmp_str, ' ');
+	format_cmd = ft_split(tmp_str, '\\');
 	free(tmp_str);
 	return (format_cmd);
 }
