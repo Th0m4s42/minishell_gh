@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 17:52:06 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 18:29:03 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*handle_variable_substitution(char *result, char *str, int *i, t_env*env)
 
 	(*i)++;
 	start = *i;
-	while (!ft_isalnum(str[*i]) && str[*i] != '_')
+	while (!ft_isalnum(str[*i]) || str[*i] != '_')
 		(*i)++;
 	var_name = ft_substr(str, start, *i - start);
 	var_value = get_value_by_name(env, var_name);
