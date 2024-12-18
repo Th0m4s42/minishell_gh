@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/18 11:19:29 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/18 11:50:57 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**format_cmd(t_token *cmd_tok)
 	char		*tmp_str;
 	t_token		*tok;
 
-	tmp_str = ft_strjoin(cmd_tok->value, " ");
+	tmp_str = ft_strjoin(cmd_tok->value, "\\");
 	tok = cmd_tok->next;
 	while (tok && tok->type == ARG)
 	{
