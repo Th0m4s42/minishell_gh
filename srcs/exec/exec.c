@@ -6,31 +6,46 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/18 11:50:57 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/18 14:05:59 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-// #include <libft.h>
+
+/* ************************************************************************** */
+
 
 /* ************************************************************************** */
 
 char	**format_cmd(t_token *cmd_tok)
 {
 	char		**format_cmd;
-	char		*tmp_str;
 	t_token		*tok;
+	int			tab_len;
+	int			i;
 
-	tmp_str = ft_strjoin(cmd_tok->value, "\\");
-	tok = cmd_tok->next;
-	while (tok && tok->type == ARG)
+	// tmp_str = ft_strjoin(cmd_tok->value, "\\");
+	// fprintf(stderr,"le tok ====%s\n",cmd_tok->value);
+	i = 0;
+	tab_len = 0;
+	tok = cmd_tok;
+	while (tok && (tok->type == ARG || !tab_len))
 	{
-		tmp_str = ft_strjoin_free(tmp_str, tok->value, 1);
-		tmp_str = ft_strjoin_free(tmp_str, "\\", 1);
+		tab_len++;
 		tok = tok->next;
 	}
-	format_cmd = ft_split(tmp_str, '\\');
-	free(tmp_str);
+	format_cmd = (char **)malloc(sizeof(char*) * (tab_len + 1));
+	tok = cmd_tok;
+	while (tok && (tok->type == ARG || i == 0))
+	{
+		format_cmd[i] = ft_strdup(tok->value);
+	// fprintf(stderr,"le truc = %s\n", format_cmd[i]);
+		i++;
+		tok = tok->next;
+
+	}
+	format_cmd[i] = NULL;
+	// fprintf(stderr,"le truc = %s\n", format_cmd[i]);
 	return (format_cmd);
 }
 
@@ -39,15 +54,14 @@ char	**format_cmd(t_token *cmd_tok)
 void	exec_cmd(t_shell *shell, t_token *token)
 {
 	char	**cmd;
-	// int		i;
 
 	cmd = format_cmd(token);
-	// i = 0;
 	if (cmd && is_built_in(cmd[0]))
 		exec_built_in(cmd, shell->env, shell);
 	else if (cmd)
 		exec_bin(cmd, shell->env);
 	ft_free_tab(cmd);
+	// fprintf(stderr,"AAAAH\n");
 	close_fd(shell->pipin);
 	close_fd(shell->pipout);
 	shell->pipin = -1;
