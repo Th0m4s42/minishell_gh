@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 17:35:24 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 17:43:30 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*handle_quotes(char *str, t_env *envp)
 		free(temp);
 	}
 	else
-		result = ft_strdup(str);
+		result = substitute_variables(str, envp);
 	return (result);
 }
 
