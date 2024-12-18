@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:42:19 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 12:45:31 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 14:30:56 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	handle_syntax_error(char *token, t_token **first_node)
 	free_tok_list(first_node);
 }
 
-bool	is_invalid_final_token(t_token *last_node, char *last_token)
+bool	is_invalid_final_token(t_token *last_node)
 {
 	if (last_node && (last_node->type == PIPE || last_node->type == REDIRECTION))
 		return (true);
