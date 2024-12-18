@@ -6,92 +6,68 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/17 11:50:03 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 12:39:20 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*new_node(char **tok, t_token *last_node, int type)
+t_token	*process_token(ft_array *check_type, t_token **first_node, char *token,
+	t_token *last_node)
 {
-	t_token	*node;
+	t_token	*new_node_result;
+	int		j;
+	bool	found;
 
-	if (last_node != NULL && last_node->type == REDIRECTION)
+	j = 0;
+	found = false;
+	while (check_type[j])
 	{
-		if (last_node->value != NULL)
-			free(last_node->value);
-		last_node->value = ft_strdup(*tok);
-		last_node->type = type;
-		return (last_node);
+		if (check_type[j](token, last_node) == true)
+		{
+			new_node_result = new_node(&token, last_node, j);
+			if (new_node_result == NULL)
+				return (NULL);
+			if (*first_node == NULL)
+				*first_node = new_node_result;
+			return (new_node_result);
+		}
+		j++;
 	}
-	node = malloc(sizeof(t_token));
-	if (node == NULL)
+	if (!found)
+	{
+		handle_syntax_error(token, first_node);
 		return (NULL);
-	node->value = ft_strdup(*tok);
-	node->type = type;
-	if (last_node != NULL)
-		last_node->next = node;
-	node->prev = last_node;
-	node->next = NULL;
-	return (node);
+	}
+	return (last_node);
 }
 
 void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 {
 	t_token	*tmp;
 	int		i;
-	int		j;
-	bool	found;
 
 	tmp = NULL;
 	i = 0;
 	while (tok[i])
 	{
-		j = 0;
-		found = false;
-		if ((ft_strchr(tok[i], '<') != NULL || ft_strchr(tok[i], '>') != NULL) &&
-			(tok[i + 1] && (ft_strchr(tok[i + 1], '<') != NULL || ft_strchr(tok[i + 1], '>') != NULL)))
-			{
-			ft_putstr_fd("syntax error near unexpected token '", 2);
-			ft_putstr_fd(tok[i], 2);
-			ft_putendl_fd("'", 2);
-			free_tok_list(first_node);
-			return;
-		}
-		while (check_type[j])
+		if (has_syntax_error(tok, i))
 		{
-			if (check_type[j](tok[i], tmp) == true)
-			{
-				tmp = new_node(&tok[i], tmp, j);
-				if (tmp == NULL)
-				{
-					free_tok_list(first_node);
-					ft_free_tab(tok);
-					return ;
-				}
-				if (*first_node == NULL)
-					*first_node = tmp;
-				found = true;
-				break ;
-			}
-			j++;
+			handle_syntax_error(tok[i], first_node);
+			return ;
 		}
-		if (found == false)
+		tmp = process_token(check_type, first_node, tok[i], tmp);
+		if (tmp == NULL)
 		{
-			ft_putstr_fd("syntax error near unexpected token '", 2);
-			ft_putstr_fd(tok[i], 2);
-			ft_putendl_fd("'", 2);
 			free_tok_list(first_node);
+			ft_free_tab(tok);
 			return ;
 		}
 		i++;
 	}
-	if (tmp->type == PIPE || tmp->type == REDIRECTION)
+	if (is_invalid_final_token(tmp, tok[i - 1]))
 	{
-		ft_putstr_fd("syntax error near unexpected token '", 2);
-		ft_putstr_fd(tok[i - 1], 2);
-		ft_putendl_fd("'", 2);
-		free_tok_list(first_node);
+		handle_syntax_error(tok[i - 1], first_node);
 		return ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/17 11:38:49 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 12:03:33 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*substitute_variables(char *str, char **env)
 				i++;
 			var_name = get_variable_name(&str[i + 1]);
 			var_value = get_env_value(env, var_name);
-			result = ft_strjoin_free(result, var_value, 1);
+			result = ft_strjoin(result, var_value);
 			free(var_name);
 			if (var_value)
 				result = ft_strjoin(result, var_value);
