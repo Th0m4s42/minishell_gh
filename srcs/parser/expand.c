@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 17:12:53 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 17:35:24 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*handle_quotes(char *str, t_env *envp)
 		result = substitute_variables(temp, envp);
 		free(temp);
 	}
+	else
+		result = ft_strdup(str);
 	return (result);
 }
 
@@ -97,6 +99,7 @@ void	final_process(t_token *tokens, t_env *envp)
 		if (current->value)
 		{
 			processed_value = handle_quotes(current->value, envp);
+			free(current->value);
 			current->value = processed_value;
 		}
 		current = current->next;
