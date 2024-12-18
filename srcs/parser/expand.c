@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 16:39:52 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 17:12:53 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	final_process(t_token *tokens, t_env *envp)
 		if (current->value)
 		{
 			processed_value = handle_quotes(current->value, envp);
-			free(current->value);
 			current->value = processed_value;
 		}
 		current = current->next;
