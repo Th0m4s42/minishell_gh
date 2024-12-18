@@ -15,7 +15,7 @@ SRC_DIR	:= srcs/
 ENV		:= env/
 EXEC	:= exec/
 LEXER	:= lexer/
-PARSING := parsing/
+PARSING := parser/
 PROMPT	:= prompt/
 SIGNALS	:= signal/
 UTILS	:= utils/
@@ -37,6 +37,8 @@ SRCS := \
 	$(SRC_DIR)$(LEXER)check_redirections.c \
 	$(SRC_DIR)$(LEXER)init_function_array.c \
 	$(SRC_DIR)$(LEXER)handle_errors.c \
+	\
+	$(SRC_DIR)$(PARSING)expand.c \
 	\
 	$(SRC_DIR)$(SIGNALS)signal.c \
 	\

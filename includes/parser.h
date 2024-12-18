@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/10/23 15:19:45 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:36:58 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 # define PARSER_H
 
 ////////////////////////////////////////////////////////////////////////////////
-//								STRUCTURES									  //
-////////////////////////////////////////////////////////////////////////////////
-
-typedef struct s_parse
-{
-	char	*cmd;
-	char	**arg_or_args_or_nothing;
-}	t_parse;
-
-////////////////////////////////////////////////////////////////////////////////
 //								FONCTIONS									  //
 ////////////////////////////////////////////////////////////////////////////////
 
 char	**ft_strtok(char *string, char *sep);
+char	*handle_quotes(char *str, t_env *envp);
+char	*substitute_variables(char *str, t_env*env);
+char	*handle_variable_substitution(char *result, char *str, int *i,
+	t_env *env);
+char	*handle_regular_char(char *result, char c);
+void	final_process(t_token *tokens, t_env *envp);
 
 #endif
