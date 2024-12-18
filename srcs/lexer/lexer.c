@@ -6,11 +6,35 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 12:39:20 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/18 14:32:07 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+t_token	*new_node(char **tok, t_token *last_node, int type)
+{
+	t_token	*node;
+
+	if (last_node != NULL && last_node->type == REDIRECTION)
+	{
+		if (last_node->value != NULL)
+			free(last_node->value);
+		last_node->value = ft_strdup(*tok);
+		last_node->type = type;
+		return (last_node);
+	}
+	node = malloc(sizeof(t_token));
+	if (node == NULL)
+		return (NULL);
+	node->value = ft_strdup(*tok);
+	node->type = type;
+	if (last_node != NULL)
+		last_node->next = node;
+	node->prev = last_node;
+	node->next = NULL;
+	return (node);
+}
 
 t_token	*process_token(ft_array *check_type, t_token **first_node, char *token,
 	t_token *last_node)
@@ -65,7 +89,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 		}
 		i++;
 	}
-	if (is_invalid_final_token(tmp, tok[i - 1]))
+	if (is_invalid_final_token(tmp))
 	{
 		handle_syntax_error(tok[i - 1], first_node);
 		return ;
