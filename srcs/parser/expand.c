@@ -6,10 +6,9 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 18:29:03 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:03:49 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 
@@ -58,7 +57,8 @@ char	*substitute_variables(char *str, t_env *env)
 	return (result);
 }
 
-char	*handle_variable_substitution(char *result, char *str, int *i, t_env*env)
+char	*handle_variable_substitution(char *result, char *str, int *i,
+t_env*env)
 {
 	char	*var_name;
 	char	*var_value;

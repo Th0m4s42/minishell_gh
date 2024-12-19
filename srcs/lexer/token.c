@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:37:38 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/03 12:05:46 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:10:10 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*extract_token(char *string, char *sep, int *index)
 		(*index)++;
 	if (string[*index] == '|' || is_redirection(string[*index]))
 	{
-		if (is_redirection(string[*index]) && string[*index] == string[*index + 1])
+		if (is_redirection(string[*index])
+			&& string[*index] == string[*index + 1])
 			tok_len = 2;
 		else
 			tok_len = 1;
