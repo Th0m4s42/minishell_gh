@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:42:19 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 14:30:56 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:11:59 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 bool	has_syntax_error(char **tok, int i)
 {
-	if ((ft_strchr(tok[i], '<') != NULL || ft_strchr(tok[i], '>') != NULL) &&
-		(tok[i + 1] && (ft_strchr(tok[i + 1], '<') != NULL
-		|| ft_strchr(tok[i + 1], '>') != NULL)))
+	if ((ft_strchr(tok[i], '<') != NULL || ft_strchr(tok[i], '>') != NULL)
+		&& (tok[i + 1] && (ft_strchr(tok[i + 1], '<') != NULL
+				|| ft_strchr(tok[i + 1], '>') != NULL)))
 		return (true);
 	return (false);
 }
@@ -31,7 +31,8 @@ void	handle_syntax_error(char *token, t_token **first_node)
 
 bool	is_invalid_final_token(t_token *last_node)
 {
-	if (last_node && (last_node->type == PIPE || last_node->type == REDIRECTION))
+	if (last_node && (last_node->type == PIPE
+			|| last_node->type == REDIRECTION))
 		return (true);
 	return (false);
 }

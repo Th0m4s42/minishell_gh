@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/21 13:23:48 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 13:37:00 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,6 @@ int main(int argc, char **argv, char **envp)
 // 	// free(tok);
 // 	return (0);
 // }
-// to do before exit:
-// free_env_list(&env);
-// clear_history();
+	// to do before exit:
+	// free_env_list(&env);
+	// clear_history();
