@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/18 01:51:37 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 13:30:38 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*create_doc_file(char *file_content, int *nb)
 	// int		id;
 
 	// id = ft_itoa(nb);
-	name = ft_strjoin_free("here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*nb), 2);
+	name = ft_strjoin_free(".here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*nb), 2);
 	(*nb)++;
 	// free(id);
 	// fprintf(stderr, "okkk%d-\n", *nb);
@@ -94,7 +94,8 @@ char	*stdin_to_str(char *delimiter, t_env *env, int expand)
 	// fprintf(stderr, "the deli is %s\n" , delimiter);
 	write(2, "> ", 2);
 	tmp_str = get_next_line(0);
-	while (tmp_str && ft_strncmp(tmp_str, tru_delimit, ft_strlen(tru_delimit)))
+	while (tmp_str && ft_strncmp(tmp_str, tru_delimit, ft_strlen(tru_delimit))
+				&& glob.exit_code == 0)
 	{
 		if (has_dolla_sign(tmp_str) && expand)
 			tmp_str = replace_dolla_sign(tmp_str, env);
@@ -144,7 +145,7 @@ t_token	*handle_here_docs(t_token *token, t_env *env, int *doc_nb)
 	tmp = token;
 	// id = 0;
 	captured_str = NULL;
-	while (tmp && tmp->type != END)
+	while (tmp && tmp->type != END && glob.exit_code == 0)
 	{
 		if (tmp->type == HERE_DOC)
 		{

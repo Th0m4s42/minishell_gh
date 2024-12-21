@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/17 20:57:15 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 13:23:48 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /* ************************************************************************** */
 
-char	**env_to_array(t_env *env)
+char **env_to_array(t_env *env)
 {
-	char	**env_array;
-	t_env	*tmp;
-	char 	*tmp_str;
-	int		i;
+	char **env_array;
+	t_env *tmp;
+	char *tmp_str;
+	int i;
 
 	i = 0;
 	tmp = env;
@@ -45,10 +45,10 @@ char	**env_to_array(t_env *env)
 	return (env_array);
 }
 
-char	*bin_cmd_path(const char *path, const char *cmd)
+char *bin_cmd_path(const char *path, const char *cmd)
 {
-	char	*tmp;
-	char	*cmd_path;
+	char *tmp;
+	char *cmd_path;
 
 	tmp = ft_strjoin(path, "/");
 	cmd_path = ft_strjoin(tmp, cmd);
@@ -93,11 +93,12 @@ char	*bin_cmd_path(const char *path, const char *cmd)
 // 	fprintf(stderr, "++\n");
 // }
 
-int	process_cmd(char **cmd_arg, char *path, t_env *env)
+int process_cmd(char **cmd_arg, char *path, t_env *env)
 {
-	char	**env_array;
-	int		pid;
-	int		ret;
+	char **env_array;
+	int pid;
+	int ret;
+	// int exit_code;
 
 	env_array = env_to_array(env);
 	if (!path)
@@ -106,6 +107,7 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 		ft_putstr_fd(cmd_arg[0], 2);
 		ft_putendl_fd(": command not found", 2);
 		ft_free_tab(env_array);
+		glob.exit_code = 127; // JK
 		return (127);
 	}
 	pid = fork();
@@ -114,22 +116,35 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 		ret = execve(path, cmd_arg, env_array);
 		ft_putstr_fd("minishell: ", 2);
 		perror(cmd_arg[0]);
+		glob.exit_code = 126; // JK
 		exit(126);
 	}
 	else
+	{
 		waitpid(pid, &ret, 0);
+	}
 	ft_free_tab(env_array);
+	/************************* begin JK ****************** */
+	// 
+	if (WIFSIGNALED(ret))
+		glob.exit_code = 128 + WTERMSIG(ret);
+	else if (WIFEXITED(ret))
+		glob.exit_code = WEXITSTATUS(ret);
+	else
+		glob.exit_code = 0;
+		// 
+	/************************* end JK ****************** */
 	return (ret);
+	 
 }
-
 
 /* ************************************************************************** */
 
-char 	*find_exec_path(const char *cmd_name, t_env *env)
+char *find_exec_path(const char *cmd_name, t_env *env)
 {
-	char	**bin_paths;
-	char	*cmd_path;
-	int		i;
+	char **bin_paths;
+	char *cmd_path;
+	int i;
 
 	i = 0;
 	cmd_path = NULL;
@@ -149,24 +164,22 @@ char 	*find_exec_path(const char *cmd_name, t_env *env)
 	return (NULL);
 }
 
-
-void	exec_bin(char **cmd_arg, t_env *env)
+void exec_bin(char **cmd_arg, t_env *env)
 {
-	char	*path;
+	char *path;
 	// int		ret;
 
 	path = NULL;
 	if (cmd_arg && has_backslash(cmd_arg[0]))
 	{
 		path = cmd_arg[0];
-		cmd_arg[0] = ft_substr(ft_strrchr(cmd_arg[0], '/'), 1 , ft_strlen(ft_strrchr(cmd_arg[0], '/')));
+		cmd_arg[0] = ft_substr(ft_strrchr(cmd_arg[0], '/'), 1, ft_strlen(ft_strrchr(cmd_arg[0], '/')));
 	}
 	else if (cmd_arg)
 		path = find_exec_path(cmd_arg[0], env);
 	// printcmd(cmd_arg, path, NULL);
-	/*ret = */process_cmd(cmd_arg, path, env);
-	// fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);	
+	/*ret = */ process_cmd(cmd_arg, path, env);
+	// fprintf(stderr, "path = %s : cmd_arg = %s\n", path, cmd_arg[0]);
 	if (path)
 		free(path);
-
 }

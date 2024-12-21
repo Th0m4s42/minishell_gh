@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/18 14:05:59 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 13:23:48 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ char	**format_cmd(t_token *cmd_tok)
 	int			tab_len;
 	int			i;
 
-	// tmp_str = ft_strjoin(cmd_tok->value, "\\");
-	// fprintf(stderr,"le tok ====%s\n",cmd_tok->value);
 	i = 0;
 	tab_len = 0;
 	tok = cmd_tok;
@@ -39,13 +37,11 @@ char	**format_cmd(t_token *cmd_tok)
 	while (tok && (tok->type == ARG || i == 0))
 	{
 		format_cmd[i] = ft_strdup(tok->value);
-	// fprintf(stderr,"le truc = %s\n", format_cmd[i]);
 		i++;
 		tok = tok->next;
 
 	}
 	format_cmd[i] = NULL;
-	// fprintf(stderr,"le truc = %s\n", format_cmd[i]);
 	return (format_cmd);
 }
 
@@ -145,9 +141,11 @@ void	exec(t_shell *shell)
 
 	token = shell->start;
 	current_doc_nb = doc_nb;
+	glob.exit_code = 0;
 	token = handle_here_docs(token, shell->env, &doc_nb);
-	// while (shell->exec && token)
-	// {
+	glob.is_child = 1;
+	if(glob.exit_code == 0)
+	{
 		shell->parent = 1;
 		shell->charge = 1;
 		redir_and_exec(shell, token);
@@ -156,8 +154,8 @@ void	exec(t_shell *shell)
 		waitpid(shell->pid, &status, 0);
 		if (shell->charge == 0 && shell->parent == 0)
 			exit(0);
+	}
 	// fprintf(stderr ,"nb doc = %d-\n", doc_nb);
 		del_docs(&doc_nb, current_doc_nb);
 		// we should be catching the last child status here but idk how yet
-	// }
 }

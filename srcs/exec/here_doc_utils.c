@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:06:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/13 18:59:10 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 13:32:06 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	del_docs(int *doc_nb, int initial_doc_nb)
 		return ;
 	while (*doc_nb >= initial_doc_nb)
 	{
-		name = ft_strjoin_free("here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*doc_nb), 2);	
+		name = ft_strjoin_free(".here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*doc_nb), 2);	
 		unlink(name);
 		(*doc_nb)--;
 		free(name);

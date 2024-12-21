@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:18:59 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/10 13:20:17 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/21 13:23:48 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,25 @@ void	sign_handler(int sig_num)
 	{
 		ft_putstr_fd("Quit: \n", 1);
 	}
+}
+
+void    ft_handle_sigint(int sig)
+{
+    (void)sig;
+    if (glob.is_child)
+        return ;
+    printf("\n");
+    // printf("\n");
+    rl_replace_line("", 1);
+    rl_on_new_line();
+    rl_redisplay();
+    glob.exit_code = 130;
+}
+
+void    signal_handler(void)
+{
+    glob.is_child = 0;
+    signal(SIGQUIT, SIG_IGN);
+    signal(SIGINT, ft_handle_sigint);
+    signal(SIGTSTP, SIG_IGN);
 }

@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/18 16:44:32 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/21 13:23:48 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+/* ******************************** begin JK ****************************************** */
+t_glob glob;
+// int is_child = 0;
+// int glob->global_exit_code = 0;
+// void ft_handle_sigint(int sig)
+// {
+// 	(void)sig;
+// 	if (is_child)
+// 		return;
+// 	printf("\n");
+// 	rl_replace_line("", 1);
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// 	glob->global_exit_code = 130;
+// }
+
+// void signal_handler(void)
+// {
+// 	is_child = 0;
+// 	signal(SIGQUIT, SIG_IGN);
+// 	signal(SIGINT, ft_handle_sigint);
+// 	signal(SIGTSTP, SIG_IGN);
+// }
+/* ******************************** end JK ****************************************** */
 
 static char *d_to_str(char **array)
 {
@@ -24,15 +49,13 @@ static char *d_to_str(char **array)
 	return (new_str);
 }
 
-
 static void one_liner(char **av, char **envp)
 {
-	char		*str;
-	t_shell		shell;
-	t_token		*tok;
+	char *str;
+	t_shell shell;
+	t_token *tok;
 
 	str = d_to_str(av);
-	// fprintf(stderr, "\n%s\n",str);
 	init_shell(&shell, envp);
 	tok = lexer(str);
 	tok = add_end_tok(tok);
@@ -42,36 +65,36 @@ static void one_liner(char **av, char **envp)
 	free_env_list(&shell.env);
 	free_env_list(&shell.fallback_env);
 	free(str);
-
-
-
 }
 
-
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
 	if (argc > 1)
-		one_liner(argv,envp);
-	char		*rl_value;
+		one_liner(argv, envp);
+	char *rl_value;
 	// t_env		*env;
-	t_prompt	prompt_info;
-	t_shell		shell;
-	t_token		*tok;
+	t_prompt prompt_info;
+	t_shell shell;
+	t_token *tok;
 
 	(void)argv;
 	rl_value = NULL;
 	tok = NULL;
- 	if (argc != 1)
+	if (argc != 1)
 		return (EXIT_FAILURE);
-	init_shell(&shell, envp); 
+
+	signal_handler(); // global struct a faire
+	init_shell(&shell, envp);
 	// env = get_env(envp); //a proteger
 	get_info(shell.env, &prompt_info);
 
 	while (1)
 	{
+		glob.is_child = 0; // global struct a faire
 		rl_value = readline(prompt_info.prompt);
 		if (rl_value == NULL)
-			break ;
+			break;
+		// is_child = 1; // global struct a faire
 		add_history(rl_value);
 		tok = lexer(rl_value);
 		final_process(tok, shell.env);
@@ -80,6 +103,7 @@ int	main(int argc, char **argv, char **envp)
 		shell.start = tok;
 		exec(&shell);
 		free_tok_list(&shell.start);
+		printf("exit code: %d\n", glob.exit_code); // Test
 	}
 	free_env_list(&shell.env);
 	free_env_list(&shell.fallback_env);
@@ -97,7 +121,7 @@ int	main(int argc, char **argv, char **envp)
 // 	// char		*line = "< out ls | cat | wc";
 // 	char		*line = "/ls | grep Makefile";
 // 	t_token		*tok = lexer(line);
-	
+
 // 	//t_shell		shell;
 // 	// t_token		end_tok = {NULL, "end", END, NULL};
 
@@ -116,7 +140,6 @@ int	main(int argc, char **argv, char **envp)
 // 	// // printf("start:%s\n", shell.start->value);
 // 	// exec(&shell); // exec.c marche que pour les cas simples tel que "ls | cat | wc"
 
-	
 // 	// test de la tokenisation
 
 // 	t_token *tok_iter = tok;
@@ -130,6 +153,6 @@ int	main(int argc, char **argv, char **envp)
 // 	// free(tok);
 // 	return (0);
 // }
-	// to do before exit:
-	// free_env_list(&env);
-	// clear_history();
+// to do before exit:
+// free_env_list(&env);
+// clear_history();
