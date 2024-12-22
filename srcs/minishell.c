@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 22:53:32 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 23:13:57 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,14 @@ int main(int argc, char **argv, char **envp)
 		rl_value = readline(prompt_info.prompt);
 			// rl_value = ft_strdup("\n");
 		// is_child = 1; // global struct a faire
-		if (*rl_value != '\0')
+		if (rl_value == NULL)
+			break;
+		if (*rl_value == '\0')
 		{
+			free(rl_value);
+			continue;
+		}
+		// {
 			add_history(rl_value);
 			tok = lexer(rl_value);
 			final_process(tok, shell.env);
@@ -108,12 +114,8 @@ int main(int argc, char **argv, char **envp)
 			exec(&shell);
 			free_tok_list(&shell.start);
 			printf("exit code: %d\n", global_exit_code); // Test
-		}
+		// }
 			// free(rl_value); 
-
-
-
-			
 	}
 	free_env_list(&shell.env);
 	free_env_list(&shell.fallback_env);
