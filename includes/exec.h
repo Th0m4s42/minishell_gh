@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/15 19:35:05 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 02:20:25 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct	s_shell
 
 char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
 bool		has_backslash(char *str);
+bool		eradicate_quotes(char *str);
 
 /* ******-INIT************************************************************** */
 
@@ -142,8 +143,8 @@ t_token		*prev_sep(t_token *token);
 
 t_token		*handle_here_docs(t_token *token, t_env *env, int *doc_nb);
 
-int			until_dolla_sign(char *str, int i);
 bool		has_dolla_sign(char *str);
+int			until_dolla_sign(char *str, int i);
 char		*replace_dolla_sign(char *str, t_env *env);
 int			until_space(char *str, int i);
 
@@ -166,20 +167,20 @@ void		reset_stds(t_shell *shell);
 /* ******-BUILT INS********************************************************* */
 
 bool		is_built_in(char *cmd);
-void		exec_built_in(char **cmd_arg, t_env *env, t_shell *shell);
+int			exec_built_in(char **cmd_arg, t_env *env, t_shell *shell);
 int			ft_echo(char **cmd_arg, t_shell *shell);
 int			ft_cd(char **cmd, t_shell *shell);
-void		ft_pwd(void);
+int			ft_pwd(void);
 int			ft_export(char **cmd, t_shell *shell);
 int			ft_unset(char **cmd_arg, t_shell *shell);
-void		ft_env(t_env *env);
-void		ft_exit(char **cmd_arg, t_shell *shell);
+int			ft_env(t_env *env);
+int			ft_exit(char **cmd_arg, t_shell *shell);
 
 /* ******-******************************************************************* */
 
 bool		already_set(t_env *env, char *name, int len, char *var_value);
 void	 	add_in_lex_order(t_env **first, t_env *new_var);
-void	set_var(t_env **env, char *name, int name_len, char *value, int exp_env);
+void	set_var(t_env **env, char *name, char *value, int exp_env);
 
 
 

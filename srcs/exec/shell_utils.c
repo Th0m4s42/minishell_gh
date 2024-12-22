@@ -6,11 +6,13 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 22:30:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/11 16:02:49 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 17:17:34 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exec.h>
+
+/* ************************************************************************** */
 
 bool	close_fd(int fd)
 {
@@ -22,6 +24,8 @@ bool	close_fd(int fd)
 	else
 		return (false);
 }
+
+/* ************************************************************************** */
 
 void	close_reset_fd(t_shell *shell)
 {
@@ -35,13 +39,11 @@ void	close_reset_fd(t_shell *shell)
 	shell->pipout = -1;
 }
 
+/* ************************************************************************** */
+
 void	reset_stds(t_shell *shell)
 {
 	dup2(shell->in, STDIN);
 	dup2(shell->out, STDOUT);
-	// close(shell->in);
-	// close(shell->out);
-	// shell->in = -1;
-	// shell->out = -1;
 }
 

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:06:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/21 13:32:06 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 00:02:52 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	until_space(char *str, int i)
 		&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r')
 		i++;
 	while (str[i] && (str[i] != '\t' && str[i] != ' ' && str[i] != '\n'
-			&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r' && str[i] != '$'))
+			&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r' 
+			&& str[i] != '$'))
 		i++;
 	return (i);
 }
@@ -60,6 +61,31 @@ void	del_docs(int *doc_nb, int initial_doc_nb)
 		free(name);
 	}
 }
+
+bool	eradicate_quotes(char *str)
+{
+	int		i;
+	int		j;
+	bool	boo;
+
+	i = 0;
+	j = 0;
+	boo = false;
+	while (str[i])
+	{
+		while (str[i] && (str[i] == '\'' || str[i] == '\"'))
+		{
+			i++;
+			boo = true;
+		}
+		str[j] = str[i];
+		j++;
+		i++;
+	}
+	str[j] = '\0';
+	return (boo);
+}
+
 // char	*ft_strjoin_free(char *s1, char *s2, int free_ss)
 // {
 // 	char	*ptr;

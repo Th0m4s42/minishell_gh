@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 12:02:14 by noam              #+#    #+#             */
-/*   Updated: 2024/12/14 19:23:07 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 23:31:24 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static inline void	free_node(t_env *node)
 {
 	if (!node)
-		return;
+		return ;
 	if (node->name)
 		free(node->name);
 	if (node->value)
@@ -28,7 +28,7 @@ void	del_var(t_env **env, char *var)
 	t_env	*tmp;
 	t_env	*current_var;
 	int		var_len;
-	
+
 	var_len = ft_strlen(var) + 1;
 	tmp = *env;
 	if (*env == NULL || ft_strncmp(var, (*env)->name, var_len) == 0)
@@ -40,20 +40,17 @@ void	del_var(t_env **env, char *var)
 	current_var = (*env)->next;
 	while (current_var)
 	{
-			// fprintf(stderr, "something\n");
 		if (ft_strncmp(var, current_var->name, var_len) == 0)
 		{
-			// fprintf(stderr, "AAAAH\n");
 			tmp->next = current_var->next;
 			free_node(current_var);
 			current_var = tmp->next;
-			return;
+			return ;
 		}
 		tmp = current_var;
 		current_var = current_var->next;
 	}
 }
-				
 
 int	ft_unset(char **cmd, t_shell *shell)
 {
@@ -64,12 +61,12 @@ int	ft_unset(char **cmd, t_shell *shell)
 	{
 		while (cmd[i])
 		{
-			if(!ft_strncmp(cmd[i], "PWD", 3))
+			if (!ft_strncmp(cmd[i], "PWD", 3))
 			{
 				free(shell->hiddn_pwd);
 				shell->hiddn_pwd = NULL;
 			}
-			if(!ft_strncmp(cmd[i], "OLDPWD", 6))
+			if (!ft_strncmp(cmd[i], "OLDPWD", 6))
 			{
 				free(shell->hiddn_oldpwd);
 				shell->hiddn_oldpwd = NULL;

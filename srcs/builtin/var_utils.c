@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 19:28:23 by noam              #+#    #+#             */
-/*   Updated: 2024/12/15 19:37:36 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 23:43:23 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ bool	already_set(t_env *env, char *name, int len, char *value)
 			if (!value)
 			{
 				free(name);
-				return(true);	
+				return (true);
 			}
 			switch_value(tmp, value);
 			free(name);
-			return(true);	
+			return (true);
 		}
 		tmp = tmp->next;
 	}
@@ -49,18 +49,17 @@ bool	already_set(t_env *env, char *name, int len, char *value)
 
 /* ************************************************************************** */
 
-void	set_var(t_env **env, char *name, int name_len, char *value, int exp_env)
+void	set_var(t_env **env, char *name, char *value, int exp_env)
 {
 	t_env	*new_var;
 
 	new_var = NULL;
-		// fprintf(stderr, "IN SET VAR THE VAR NAME N VALUE IS-%s- AND -%s-\n",(name), value);
 	if (!exp_env)
 	{
 		name = ft_strdup(name);
 		value = ft_strdup(value);
 	}
-	if (!already_set(*env, name, name_len, value))
+	if (!already_set(*env, name, ft_strlen(name), value))
 	{
 		new_var = new_env_node(name, value);
 		if (exp_env)
@@ -68,6 +67,4 @@ void	set_var(t_env **env, char *name, int name_len, char *value, int exp_env)
 		else
 			add_back(env, new_var);
 	}
-		// fprintf(stderr, "IN SET VAR-%s-\n",((*env)->name));
-
 }

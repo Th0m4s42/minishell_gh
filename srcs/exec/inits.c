@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 01:00:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/17 20:41:07 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 22:44:10 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	sort_tab(char **tab)
 
 void	init_shell(t_shell *shell, char **envp)
 {
-
 	shell->start = NULL;
 	shell->env = get_env(envp);
 	iter_shlvl(shell->env);
@@ -82,5 +81,3 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->hiddn_oldpwd = NULL;
 	shell->hiddn_pwd = NULL;
 }
-
-

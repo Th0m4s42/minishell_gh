@@ -6,13 +6,13 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:07:52 by noam              #+#    #+#             */
-/*   Updated: 2024/12/04 14:40:43 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 02:05:31 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	*pwd;
 
@@ -24,4 +24,5 @@ void	ft_pwd(void)
 	}
 	else
 		perror("minishell : pwd :");
+	return (0);
 }

@@ -1,14 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/21 23:30:03 by noam              #+#    #+#             */
+/*   Updated: 2024/12/22 02:06:21 by noam             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-void	ft_env(t_env *env)
+int	ft_env(t_env *env)
 {
 	t_env	*var;
 
 	var = env;
-	// fprintf(stderr, "uhhh\n");
 	while (var)
 	{
-		// ft_printf("%s=",var->name);
 		if (var->value)
 		{
 			ft_putstr_fd(var->name, STDOUT);
@@ -18,4 +28,5 @@ void	ft_env(t_env *env)
 		}
 		var = var->next;
 	}
+	return (0);
 }

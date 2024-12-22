@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/21 13:37:00 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 17:34:19 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		glob.is_child = 0; // global struct a faire
+		// glob.is_child = 0; // global struct a faire
+		signal(SIGINT, ft_handle_sigint);
 		rl_value = readline(prompt_info.prompt);
 		if (rl_value == NULL)
 			break;

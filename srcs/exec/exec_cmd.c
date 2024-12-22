@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/21 13:23:48 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 16:54:40 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,16 +124,14 @@ int process_cmd(char **cmd_arg, char *path, t_env *env)
 		waitpid(pid, &ret, 0);
 	}
 	ft_free_tab(env_array);
-	/************************* begin JK ****************** */
-	// 
+	// needs to go elsewhere
 	if (WIFSIGNALED(ret))
 		glob.exit_code = 128 + WTERMSIG(ret);
 	else if (WIFEXITED(ret))
 		glob.exit_code = WEXITSTATUS(ret);
 	else
 		glob.exit_code = 0;
-		// 
-	/************************* end JK ****************** */
+		// need to go elsewhere
 	return (ret);
 	 
 }

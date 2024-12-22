@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:44:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/15 01:58:38 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/21 23:29:21 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	update_hiddn_pwds(t_shell *shell)
 {
-	if(shell->hiddn_oldpwd)
+	if (shell->hiddn_oldpwd)
 		free(shell->hiddn_oldpwd);
 	if (shell->hiddn_pwd)
 	{
@@ -31,14 +31,14 @@ void	update_env_pwds(t_env **env, t_shell *shell)
 	char	*new_old_pwd;
 	char	*pwd;
 	char	*oldpwd;
-	
+
 	new_pwd = ft_strdup(shell->hiddn_pwd);
 	new_old_pwd = ft_strdup(shell->hiddn_oldpwd);
 	pwd = ft_strdup("PWD");
 	oldpwd = ft_strdup("OLDPWD");
 	if (already_set(*env, pwd, 3, new_pwd))
 	{
-		if(!already_set(*env, oldpwd, 6, new_old_pwd))
+		if (!already_set(*env, oldpwd, 6, new_old_pwd))
 		{
 			free(oldpwd);
 			free(new_old_pwd);
@@ -55,7 +55,8 @@ void	update_env_pwds(t_env **env, t_shell *shell)
 
 static inline int	cd_err_message(char *path)
 {
-	struct stat path_state;
+	struct stat	path_state;
+
 	lstat(path, &path_state);
 	if (!S_ISDIR(path_state.st_mode))
 	{
@@ -66,7 +67,7 @@ static inline int	cd_err_message(char *path)
 	return (1);
 }
 
-int		go_to_home(char *home_path)
+int	go_to_home(char *home_path)
 {
 	if (!home_path)
 	{
@@ -74,10 +75,10 @@ int		go_to_home(char *home_path)
 		return (1);
 	}
 	else if (chdir(home_path) == -1)
-		return(cd_err_message(home_path));
+		return (cd_err_message(home_path));
 	return (0);
 }
-		
+
 int	ft_cd(char **cmd, t_shell *shell)
 {
 	int	ret;
