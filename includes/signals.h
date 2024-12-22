@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:05 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 17:42:36 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 22:37:21 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 //								STRUCTURES									  //
 ////////////////////////////////////////////////////////////////////////////////
-typedef struct s_glob
-{
-int 	is_child;
-int 	exit_code;
-} t_glob;
+// typedef struct s_glob
+// {
+// int 	is_child;
+// int 	exit_code;
+// } t_glob;
 
 
-extern t_glob glob;
+// extern t_glob glob;
+extern volatile sig_atomic_t	global_exit_code;
+
 // extern int is_child;
 // extern int glob->global_exit_code;
 
@@ -33,6 +35,7 @@ extern t_glob glob;
 
 void    ft_handle_sigint(int sig);
 void    ft_handle_sigint_child(int sig);
+void	ft_handle_sigint_doc(int sig);
 void    signal_handler(void);
 
 

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:18:59 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 17:46:15 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 22:50:41 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,26 @@ void	ft_handle_sigint(int sig)
 {
 	(void)sig;
 	// if (glob.is_child)
-		return ;
-	printf("UNTRUC \n");
+		// return ;
+	printf("\n");
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
-	glob.exit_code = 130;
+	global_exit_code = 130;
+}
+
+void	ft_handle_sigint_doc(int sig)
+{
+	(void)sig;
+	// if (glob.is_child)
+		// return ;
+	printf("on HERE\n");
+    // write(1,"\n\0\0", 3);
+	printf("\n");
+	rl_replace_line("", 1);
+	rl_on_new_line();
+	rl_redisplay();
+	global_exit_code = 130;
 }
 
 void	ft_handle_sigint_child(int sig)
@@ -45,7 +59,7 @@ void	ft_handle_sigint_child(int sig)
 
 void	signal_handler(void)
 {
-	glob.is_child = 0;
+    global_exit_code = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_handle_sigint);
 	signal(SIGTSTP, SIG_IGN);

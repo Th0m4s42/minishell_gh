@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/22 17:46:06 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 22:47:22 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ void	exec(t_shell *shell)
 
 	token = shell->start;
 	current_doc_nb = doc_nb;
-	// glob.exit_code = 0;
-	// signal(SIGINT, ft_handle_sigint);
+	// global_exit_code = 0;
+	signal(SIGINT, ft_handle_sigint_doc);
 	token = handle_here_docs(token, shell->env, &doc_nb);
 	signal(SIGINT, ft_handle_sigint_child);
 	// glob.is_child = 1;
-	// if (glob.exit_code == 0)
+	// if (global_exit_code == 0)
 	// {
 		shell->parent = 1;
 		shell->charge = 1;
@@ -116,6 +116,7 @@ void	exec(t_shell *shell)
 		waitpid(shell->pid, &status, 0);
 		if (shell->charge == 0 && shell->parent == 0)
 			exit(0);
+			
 	// }
 	del_docs(&doc_nb, current_doc_nb);
 }

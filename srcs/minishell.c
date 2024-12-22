@@ -6,14 +6,16 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 17:34:19 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 22:53:32 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 /* ******************************** begin JK ****************************************** */
-t_glob glob;
+// t_glob glob;
+volatile sig_atomic_t	global_exit_code;
+
 // int is_child = 0;
 // int glob->global_exit_code = 0;
 // void ft_handle_sigint(int sig)
@@ -86,25 +88,32 @@ int main(int argc, char **argv, char **envp)
 	signal_handler(); // global struct a faire
 	init_shell(&shell, envp);
 	// env = get_env(envp); //a proteger
-	get_info(shell.env, &prompt_info);
 
 	while (1)
 	{
 		// glob.is_child = 0; // global struct a faire
+		get_info(shell.env, &prompt_info);
 		signal(SIGINT, ft_handle_sigint);
 		rl_value = readline(prompt_info.prompt);
-		if (rl_value == NULL)
-			break;
+			// rl_value = ft_strdup("\n");
 		// is_child = 1; // global struct a faire
-		add_history(rl_value);
-		tok = lexer(rl_value);
-		final_process(tok, shell.env);
-		free(rl_value);
-		tok = add_end_tok(tok);
-		shell.start = tok;
-		exec(&shell);
-		free_tok_list(&shell.start);
-		printf("exit code: %d\n", glob.exit_code); // Test
+		if (*rl_value != '\0')
+		{
+			add_history(rl_value);
+			tok = lexer(rl_value);
+			final_process(tok, shell.env);
+			free(rl_value);
+			tok = add_end_tok(tok);
+			shell.start = tok;
+			exec(&shell);
+			free_tok_list(&shell.start);
+			printf("exit code: %d\n", global_exit_code); // Test
+		}
+			// free(rl_value); 
+
+
+
+			
 	}
 	free_env_list(&shell.env);
 	free_env_list(&shell.fallback_env);

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/22 02:10:27 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 22:56:19 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*stdin_to_str(char *limiter, t_env *env, int expand)
 	write(2, "> ", 2);
 	tmp_str = get_next_line(0);
 	while (tmp_str && ft_strncmp(tmp_str, tru_limit, ft_strlen(tru_limit))
-		&& glob.exit_code == 0)
+		&& global_exit_code == 0)
 	{
 		if (has_dolla_sign(tmp_str) && expand)
 			tmp_str = replace_dolla_sign(tmp_str, env);
@@ -103,7 +103,7 @@ t_token	*handle_here_docs(t_token *token, t_env *env, int *doc_nb)
 
 	tmp = token;
 	captured_str = NULL;
-	while (tmp && tmp->type != END && glob.exit_code == 0)
+	while (tmp && tmp->type != END && global_exit_code == 0)
 	{
 		if (tmp->type == HERE_DOC)
 		{
