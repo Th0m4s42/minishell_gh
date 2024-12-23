@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/22 22:47:22 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 12:16:31 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 		pipe = pipe_n_fork(shell);
 	if (next && next->type != END && pipe != 1)
 		redir_and_exec(shell, next);
-	if ((!prev || prev->type == PIPE || token->type == CMD 
-			|| token->type == CMD_PATH) && (token->type == CMD_PATH 
+	if ((!prev || prev->type == PIPE || token->type == CMD
+			|| token->type == CMD_PATH) && (token->type == CMD_PATH
 			|| token->type == CMD) && pipe != 1 && shell->exec && shell->charge)
 		exec_cmd(shell, token);
 	return ;
@@ -101,22 +101,17 @@ void	exec(t_shell *shell)
 
 	token = shell->start;
 	current_doc_nb = doc_nb;
-	// global_exit_code = 0;
 	signal(SIGINT, ft_handle_sigint_doc);
 	token = handle_here_docs(token, shell->env, &doc_nb);
 	signal(SIGINT, ft_handle_sigint_child);
-	// glob.is_child = 1;
-	// if (global_exit_code == 0)
-	// {
-		shell->parent = 1;
-		shell->charge = 1;
-		redir_and_exec(shell, token);
-		reset_stds(shell);
-		close_reset_fd(shell);
-		waitpid(shell->pid, &status, 0);
-		if (shell->charge == 0 && shell->parent == 0)
-			exit(0);
-			
-	// }
+	// current_doc_nb = doc_nb;
+	shell->parent = 1;
+	shell->charge = 1;
+	redir_and_exec(shell, token);
+	reset_stds(shell);
+	close_reset_fd(shell);
+	waitpid(shell->pid, &status, 0);
+	if (shell->charge == 0 && shell->parent == 0)
+		exit (0);
 	del_docs(&doc_nb, current_doc_nb);
 }

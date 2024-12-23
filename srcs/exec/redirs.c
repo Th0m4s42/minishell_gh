@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:20:41 by noam              #+#    #+#             */
-/*   Updated: 2024/12/17 20:40:55 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 01:23:51 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	input(t_shell *shell, t_token *token)
 	shell->fdin = open(token->value, O_RDONLY);
 	if (shell->fdin == -1)
 	{
-		// access(token->value, F_OK | R_OK);
 		ft_putstr_fd("minishell :", STDERR);
-		// ft_putstr_fd(token->value, STDERR);
-		// strerror("minishell: ");
 		perror(token->value);
 		return ;
 	}
@@ -32,7 +29,6 @@ void	input(t_shell *shell, t_token *token)
 
 void	redir(t_shell *shell, t_token *token, t_token_type type)
 {
-	// fprintf(stderr, "redir\n");
 	close_fd(shell->fdout);
 	if (type == TRUNC)
 		shell->fdout = open(token->value, O_CREAT | O_WRONLY
@@ -44,17 +40,12 @@ void	redir(t_shell *shell, t_token *token, t_token_type type)
 	{
 		ft_putstr_fd("minishell :", STDERR);
 		perror(token->value);
-
-		// write (STDERR, "minishell : ", 12);
-		// ft_putendl_fd(": No such file or directory", STDERR);
-		// shell->ret = 1;
-		// shell->no_exec = 1;
 		return ;
 	}
 	dup2(shell->fdout, STDOUT);
 }
 
-int		pipe_n_fork(t_shell *shell)
+int	pipe_n_fork(t_shell *shell)
 {
 	int		pipefd[2];
 	int		pid;
@@ -73,11 +64,10 @@ int		pipe_n_fork(t_shell *shell)
 	else
 	{
 		close(pipefd[0]);
-		if(shell->fdout < 1)
+		if (shell->fdout < 1)
 			dup2(pipefd[1], STDOUT);
 		shell->pipout = pipefd[1];
 		shell->pid = pid;
 		return (1);
 	}
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 13:16:59 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 12:09:10 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ char	*handle_quotes(char *str, t_env *envp)
 	int		len;
 
 	result = NULL;
-	temp = NULL;
 	len = ft_strlen(str);
-	if (len < 2)
-		return (ft_strdup(str));
 	if (str[0] == '\'' && str[len - 1] == '\'')
 	{
 		result = ft_substr(str, 1, len - 2);
@@ -30,8 +27,6 @@ char	*handle_quotes(char *str, t_env *envp)
 	else if (str[0] == '\"' && str[len - 1] == '\"')
 	{
 		temp = ft_substr(str, 1, len - 2);
-		if (!temp)
-			return (NULL);
 		result = substitute_variables(temp, envp);
 		free(temp);
 	}
@@ -45,23 +40,24 @@ char	*substitute_variables(char *str, t_env *env)
 	char	*result;
 	int		i;
 
-	result = ft_strdup("");
+	result = NULL;
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && str[i+1] == '?')
+		if (str[i] == '$' && str[i + 1] == '?')
 		{
-			free (result);
 			result = ft_itoa(global_exit_code);
-			i += 2;
+			i++;
 		}
-		else if (str[i] == '$')
+		else if (str[i] == '$' && str[i + 1])
+		{
 			result = handle_variable_substitution(result, str, &i, env);
+		}
 		else
 		{
 			result = handle_regular_char(result, str[i]);
-			i++;
 		}
+		i++;
 	}
 	return (result);
 }
@@ -76,7 +72,7 @@ t_env*env)
 
 	(*i)++;
 	start = *i;
-	while (!ft_isalnum(str[*i]) || str[*i] != '_')
+	while (str[*i] && (!ft_isalnum(str[*i]) || str[*i] != '_'))
 		(*i)++;
 	var_name = ft_substr(str, start, *i - start);
 	if (!var_name)
@@ -97,7 +93,7 @@ char	*handle_regular_char(char *result, char c)
 	char	*char_as_str;
 
 	char_as_str = ft_substr(&c, 0, 1);
-	result = ft_strjoin(result, char_as_str);
+	result = ft_strjoin_free(result, char_as_str, 1);
 	free(char_as_str);
 	return (result);
 }
@@ -108,19 +104,13 @@ void	final_process(t_token *tokens, t_env *envp)
 	char	*processed_value;
 
 	current = tokens;
-	processed_value = NULL;
 	while (current)
 	{
-		processed_value = handle_quotes(current->value, envp);
 		if (current->type != HEREDOC)
 		{
+			processed_value = handle_quotes(current->value, envp);
 			free(current->value);
 			current->value = processed_value;
-		}
-		else
-		{
-			ft_putendl_fd("Erreur : échec de traitement des quotes\n", 2);
-			break ;
 		}
 		current = current->next;
 	}

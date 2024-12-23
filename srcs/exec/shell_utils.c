@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 22:30:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/21 17:17:34 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 01:56:53 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ void	reset_stds(t_shell *shell)
 	dup2(shell->in, STDIN);
 	dup2(shell->out, STDOUT);
 }
-

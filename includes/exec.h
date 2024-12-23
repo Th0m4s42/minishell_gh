@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/22 02:20:25 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 01:30:28 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void		redir(t_shell *shell, t_token *token, t_token_type type);
 void		input(t_shell *shell, t_token *token);
 int			pipe_n_fork(t_shell *shell);
 
-void		exec_bin(char **cmd_arg, t_env *env);
+int		exec_bin(char **cmd_arg, t_env *env);
 
 /* ******-FDs STDs CLEANUP************************************************** */
 

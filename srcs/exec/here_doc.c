@@ -6,13 +6,12 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 00:04:28 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 12:28:50 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include "../../libft/includes/get_next_line.h"
-
 
 void	write_to_doc_file(char *file_content, int fd)
 {
@@ -26,10 +25,12 @@ char	*create_doc_file(char *file_content, int *nb)
 	char	*name;
 	int		fd;
 
-	name = ft_strjoin_free(".here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*nb), 2);
 	(*nb)++;
+	name = ft_strjoin_free(".here_doc_sOme_nAme_ThATwOn'T_cOnfLict_.tmp",
+			ft_itoa(*nb), 2);
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	write_to_doc_file(file_content, fd);
+	free(file_content);
 	close (fd);
 	return (name);
 }
@@ -66,31 +67,28 @@ char	*replace_dolla_sign(char *str, t_env *env)
 char	*stdin_to_str(char *limiter, t_env *env, int expand)
 {
 	char	*line;
-	char	*tru_limit;
-	char	newline[2];
+	// char	*tru_limit;
+	// char	newline[1];
 	char	*tmp_str;
 
 	line = NULL;
-	newline[0] = '\n';
-	newline[1] = '\0';
-	if (!limiter)
-		tru_limit = newline;
-	else
-		tru_limit = limiter;
-	// write(2, "> ", 2);
-	printf("okokokok");
-	global_exit_code=0;
+	// newline[0] = '\n';
+	// newline[0] = '\0';
+	// if (!limiter)`
+		// tru_limit = newline;
+	// else
+		// tru_limit = limiter;
+	global_exit_code = 0;
 	tmp_str = readline(">> ");
-	while (tmp_str && ft_strncmp(tmp_str, tru_limit, ft_strlen(tru_limit)))
+	while (tmp_str && ft_strncmp(tmp_str, limiter, ft_strlen(tmp_str)))
 	{
-		// free(tmp_str);
+		tmp_str = ft_strjoin_free(tmp_str, "\n", 1);
 		if (has_dolla_sign(tmp_str) && expand)
 			tmp_str = replace_dolla_sign(tmp_str, env);
-		if(global_exit_code==130) break;
+		if (global_exit_code == 130)
+			break ;
 		line = ft_strjoin_free(line, tmp_str, 3);
 		tmp_str = readline("> ");
-		// write(2, "> ", 2);
-		// tmp_str = get_next_line(0);
 	}
 	if (tmp_str)
 		free(tmp_str);

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:22:32 by noam              #+#    #+#             */
-/*   Updated: 2024/12/21 17:18:01 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 11:51:30 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ char	*ft_strjoin_free(char *s1, char *s2, int free_ss)
 		free(s1);
 	else if (free_ss == 2 && s2)
 		free(s2);
-	else if (free_ss == 3 && s1 && s2)
+	else if (free_ss == 3 && (s1 || s2))
 	{
-		free(s1);
-		free(s2);
+		if (s1)
+			free(s1);
+		if (s2)
+			free(s2);
 	}
 	return (ptr);
 }
@@ -71,7 +73,3 @@ bool	has_backslash(char *str)
 	}
 	return (false);
 }
-
-
-
-

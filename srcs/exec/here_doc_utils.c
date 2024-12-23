@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:06:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/22 00:02:52 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 12:34:45 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	until_space(char *str, int i)
 		&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r')
 		i++;
 	while (str[i] && (str[i] != '\t' && str[i] != ' ' && str[i] != '\n'
-			&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r' 
+			&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r'
 			&& str[i] != '$'))
 		i++;
 	return (i);
@@ -45,7 +45,6 @@ int	until_dolla_sign(char *str, int i)
 	return (i);
 }
 
-
 void	del_docs(int *doc_nb, int initial_doc_nb)
 {
 	char	*name;
@@ -53,9 +52,10 @@ void	del_docs(int *doc_nb, int initial_doc_nb)
 	name = NULL;
 	if (*doc_nb == 0)
 		return ;
-	while (*doc_nb >= initial_doc_nb)
+	while (*doc_nb > initial_doc_nb)
 	{
-		name = ft_strjoin_free(".here_doc_LfFDdSUeiGYvevCciTtyciTyicTCXirxexYXQMo_", ft_itoa(*doc_nb), 2);	
+		name = ft_strjoin_free(".here_doc_sOme_nAme_ThATwOn'T_cOnfLict_.tmp",
+				ft_itoa(*doc_nb), 2);
 		unlink(name);
 		(*doc_nb)--;
 		free(name);
@@ -71,6 +71,8 @@ bool	eradicate_quotes(char *str)
 	i = 0;
 	j = 0;
 	boo = false;
+	if (!str)
+		return (boo);
 	while (str[i])
 	{
 		while (str[i] && (str[i] == '\'' || str[i] == '\"'))
@@ -78,27 +80,13 @@ bool	eradicate_quotes(char *str)
 			i++;
 			boo = true;
 		}
-		str[j] = str[i];
-		j++;
-		i++;
+		if (str[i])
+		{
+			str[j] = str[i];
+			j++;
+			i++;
+		}
 	}
 	str[j] = '\0';
 	return (boo);
 }
-
-// char	*ft_strjoin_free(char *s1, char *s2, int free_ss)
-// {
-// 	char	*ptr;
-
-// 	ptr = ft_strjoin(s1, s2);
-// 	if (free_ss == 1 && s1)
-// 		free(s1);
-// 	else if (free_ss == 2 && s2)
-// 		free(s2);
-// 	else if (free_ss == 3 && s1 && s2)
-// 	{
-// 		free(s1);
-// 		free(s2);
-// 	}
-// 	return (ptr);
-// }
