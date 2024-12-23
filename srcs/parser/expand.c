@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 14:27:44 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 14:29:12 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*substitute_variables(char *str, t_env *env)
 		if (str[i] == '$' && str[i + 1] == '?')
 		{
 			result = ft_itoa(g_lobal_exit_code);
-			i++;
+			i += 2;
 		}
 		else if (str[i] == '$' && str[i + 1])
 		{
