@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/19 15:03:49 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 11:46:06 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ char	*substitute_variables(char *str, t_env *env)
 		if (str[i] == '$')
 		{
 			result = handle_variable_substitution(result, str, &i, env);
+		}
+		else if (str[i] == '$' && str[i+1] == '?')
+		{
+			result = ft_itoa(global_exit_code);
 		}
 		else
 		{
@@ -96,7 +100,7 @@ void	final_process(t_token *tokens, t_env *envp)
 	current = tokens;
 	while (current)
 	{
-		if (current->value)
+		if (current->type != HEREDOC)
 		{
 			processed_value = handle_quotes(current->value, envp);
 			free(current->value);
