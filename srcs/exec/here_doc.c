@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 14:22:15 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 16:01:29 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,14 @@ char	*replace_dolla_sign(char *str, t_env *env)
 			j = until_space(str, i);
 			var_name = ft_substr(str, i + 1, j - i - 1);
 			env_name = get_value_by_name(env, var_name);
+			free(var_name);
+			var_name = NULL;
 			new_str = ft_strjoin_free(new_str, env_name, 1);
 			i++;
 			env_name = NULL;
 		}
 	}
+	free(str);
 	return (new_str);
 }
 

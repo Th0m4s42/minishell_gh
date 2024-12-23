@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:06:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 12:34:45 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 16:09:14 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ int	until_space(char *str, int i)
 	if (str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n'
 		&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r')
 		i++;
-	while (str[i] && (str[i] != '\t' && str[i] != ' ' && str[i] != '\n'
-			&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r'
-			&& str[i] != '$'))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_') && str[i] != '$')
 		i++;
 	return (i);
 }

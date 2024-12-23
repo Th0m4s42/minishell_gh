@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 12:16:31 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 15:16:55 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	**format_cmd(t_token *cmd_tok)
 	i = 0;
 	tab_len = 0;
 	tok = cmd_tok;
+	if (!tok->value)
+		return (NULL);
 	while (tok && (tok->type == ARG || !tab_len))
 	{
 		tab_len++;
@@ -33,7 +35,10 @@ char	**format_cmd(t_token *cmd_tok)
 	tok = cmd_tok;
 	while (tok && (tok->type == ARG || i == 0))
 	{
-		format_cmd[i] = ft_strdup(tok->value);
+		if (tok->value)
+			format_cmd[i] = ft_strdup(tok->value);
+		else
+			format_cmd[i] = ft_strdup("\0");
 		i++;
 		tok = tok->next;
 	}
