@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 13:03:34 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 13:06:45 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ char	*handle_quotes(char *str, t_env *envp)
 	char	*temp;
 	int		len;
 
+	result = NULL;
+	temp = NULL;
 	len = ft_strlen(str);
 	if (len < 2)
 		return (ft_strdup(str));
-	result = NULL;
 	if (str[0] == '\'' && str[len - 1] == '\'')
 	{
 		result = ft_substr(str, 1, len - 2);
