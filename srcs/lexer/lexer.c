@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 14:12:18 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 16:33:03 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token	*new_node(char **tok, t_token *last_node, int type)
 	return (node);
 }
 
-t_token	*process_token(ft_array *check_type, t_token **first_node, char *token,
+t_token	*process_token(t_array *check_type, t_token **first_node, char *token,
 	t_token *last_node)
 {
 	t_token	*new_node_result;
@@ -66,7 +66,7 @@ t_token	*process_token(ft_array *check_type, t_token **first_node, char *token,
 	return (last_node);
 }
 
-void	lexing(ft_array *check_type, t_token **first_node, char **tok)
+void	lexing(t_array *check_type, t_token **first_node, char **tok)
 {
 	t_token	*tmp;
 	int		i;
@@ -98,7 +98,7 @@ void	lexing(ft_array *check_type, t_token **first_node, char **tok)
 
 t_token	*lexer(char *rl_value)
 {
-	ft_array	check_type[10];
+	t_array		check_type[10];
 	t_token		*first_node;
 	char		**tok;
 
