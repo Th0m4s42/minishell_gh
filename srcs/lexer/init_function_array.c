@@ -6,13 +6,13 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:21:37 by thbasse           #+#    #+#             */
-/*   Updated: 2024/11/13 18:47:31 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 15:54:56 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	init_functionarray(ft_array (*funct_array)[10])
+void	init_functionarray(t_array (*funct_array)[10])
 {
 	(*funct_array)[0] = check_redirection;
 	(*funct_array)[1] = check_infile;
