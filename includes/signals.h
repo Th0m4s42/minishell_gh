@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:05 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 22:37:21 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 23:23:23 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 
 // extern t_glob glob;
-extern volatile sig_atomic_t	global_exit_code;
+extern int	global_exit_code;
 
 // extern int is_child;
 // extern int glob->global_exit_code;

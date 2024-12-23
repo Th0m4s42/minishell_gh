@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 23:13:57 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/22 23:23:28 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* ******************************** begin JK ****************************************** */
 // t_glob glob;
-volatile sig_atomic_t	global_exit_code;
+int	global_exit_code;
 
 // int is_child = 0;
 // int glob->global_exit_code = 0;

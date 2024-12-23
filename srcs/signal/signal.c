@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:18:59 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 23:08:11 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 00:07:30 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ void	ft_handle_sigint_doc(int sig)
 	(void)sig;
 	// if (glob.is_child)
 		// return ;
-	printf("on HERE\n");
+	// printf("-on HERE-\n");
     // write(1,"\n\0\0", 3);
-	printf("\n");
+    // write(1,"\0", 1);
+	// printf("\n");
 	rl_replace_line("", 1);
 	rl_on_new_line();
+    close(STDIN_FILENO);
 	rl_redisplay();
+    // printf("prompt:");
 	global_exit_code = 130;
 }
 

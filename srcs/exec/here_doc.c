@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/22 23:04:30 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 00:04:28 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,15 @@ char	*stdin_to_str(char *limiter, t_env *env, int expand)
 	else
 		tru_limit = limiter;
 	// write(2, "> ", 2);
-	tmp_str = readline("> ");
-	while (tmp_str && ft_strncmp(tmp_str, tru_limit, ft_strlen(tru_limit))
-		&& global_exit_code == 0)
+	printf("okokokok");
+	global_exit_code=0;
+	tmp_str = readline(">> ");
+	while (tmp_str && ft_strncmp(tmp_str, tru_limit, ft_strlen(tru_limit)))
 	{
-		free(tmp_str);
+		// free(tmp_str);
 		if (has_dolla_sign(tmp_str) && expand)
 			tmp_str = replace_dolla_sign(tmp_str, env);
+		if(global_exit_code==130) break;
 		line = ft_strjoin_free(line, tmp_str, 3);
 		tmp_str = readline("> ");
 		// write(2, "> ", 2);
@@ -105,7 +107,7 @@ t_token	*handle_here_docs(t_token *token, t_env *env, int *doc_nb)
 
 	tmp = token;
 	captured_str = NULL;
-	while (tmp && tmp->type != END && global_exit_code == 0)
+	while (tmp && tmp->type != END)
 	{
 		if (tmp->type == HERE_DOC)
 		{
