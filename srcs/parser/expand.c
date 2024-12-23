@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 13:25:39 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 14:21:34 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ t_env*env)
 
 char	*handle_regular_char(char *result, char c)
 {
-	char	*char_as_str;
+	char	char_as_str[2];
 
-	char_as_str = ft_substr(&c, 0, 1);
+	char_as_str[0] = c;
+	char_as_str[1] = '\0';
 	result = ft_strjoin_free(result, char_as_str, 1);
-	free(char_as_str);
 	return (result);
 }
 

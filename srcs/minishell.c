@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 12:54:32 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 13:54:02 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 14:11:02 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main_loop(t_shell *shell)
 	t_prompt	prompt_info;
 	char		*rl_value;
 
+	rl_value = NULL;
 	while (1)
 	{
 		rl_value = get_user_input(&prompt_info, shell->env);
