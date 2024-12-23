@@ -30,6 +30,7 @@ SRCS := \
 	$(SRC_DIR)$(ENV)list_env_manip.c \
 	\
 	$(SRC_DIR)$(LEXER)token.c \
+	$(SRC_DIR)$(LEXER)toklen.c \
 	$(SRC_DIR)$(LEXER)tab_token_utils.c \
 	$(SRC_DIR)$(LEXER)lexer.c \
 	$(SRC_DIR)$(LEXER)list_lex_manip.c \

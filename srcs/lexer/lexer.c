@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 15:54:38 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 16:33:03 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	lexing(t_array *check_type, t_token **first_node, char **tok)
 
 t_token	*lexer(char *rl_value)
 {
-	t_array	check_type[10];
+	t_array		check_type[10];
 	t_token		*first_node;
 	char		**tok;
 

@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 15:54:50 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 16:28:22 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,16 @@ typedef bool	(*t_array)(char *, t_token *);
 
 int		is_sep(char c, char *sep);
 int		is_redirection(char c);
-int		toklen(char *string, char *sep);
 int		tok_count(char *string, char *sep);
 void	ft_free_tab(char **tab);
+
+/* toklen.c*/
+
+int		toklen(char *string, char *sep);
+int		is_quote(char c);
+void	handle_quote(char *current_quote, char c);
+int		is_special_separator(char c);
+int		get_token_length(int len);
 
 /* token.c */
 
