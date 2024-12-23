@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 11:46:06 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 12:37:47 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_env*env)
 {
 	char	*var_name;
 	char	*var_value;
+	char	*new_result;
 	int		start;
 
 	(*i)++;
@@ -73,12 +74,16 @@ t_env*env)
 	while (!ft_isalnum(str[*i]) || str[*i] != '_')
 		(*i)++;
 	var_name = ft_substr(str, start, *i - start);
+	if (!var_name)
+		return (result);
 	var_value = get_value_by_name(env, var_name);
 	free(var_name);
 	if (var_value)
-		result = ft_strjoin(result, var_value);
-	else
-		result = ft_strjoin(result, "");
+	{
+		new_result = ft_strjoin(result, var_value);
+		free (result);
+		result = new_result;
+	}
 	return (result);
 }
 
