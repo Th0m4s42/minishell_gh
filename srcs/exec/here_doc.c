@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 12:28:50 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 13:25:39 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ char	*stdin_to_str(char *limiter, t_env *env, int expand)
 		// tru_limit = newline;
 	// else
 		// tru_limit = limiter;
-	global_exit_code = 0;
+	g_lobal_exit_code = 0;
 	tmp_str = readline(">> ");
 	while (tmp_str && ft_strncmp(tmp_str, limiter, ft_strlen(tmp_str)))
 	{
 		tmp_str = ft_strjoin_free(tmp_str, "\n", 1);
 		if (has_dolla_sign(tmp_str) && expand)
 			tmp_str = replace_dolla_sign(tmp_str, env);
-		if (global_exit_code == 130)
+		if (g_lobal_exit_code == 130)
 			break ;
 		line = ft_strjoin_free(line, tmp_str, 3);
 		tmp_str = readline("> ");

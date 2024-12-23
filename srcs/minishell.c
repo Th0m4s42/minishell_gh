@@ -5,166 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 15:10:13 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/22 23:23:28 by noam             ###   ########.fr       */
+/*   Created: 2024/12/23 12:54:32 by noam              #+#    #+#             */
+/*   Updated: 2024/12/23 13:25:39 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/* ******************************** begin JK ****************************************** */
-// t_glob glob;
-int	global_exit_code;
+int	g_lobal_exit_code;
 
-// int is_child = 0;
-// int glob->global_exit_code = 0;
-// void ft_handle_sigint(int sig)
-// {
-// 	(void)sig;
-// 	if (is_child)
-// 		return;
-// 	printf("\n");
-// 	rl_replace_line("", 1);
-// 	rl_on_new_line();
-// 	rl_redisplay();
-// 	glob->global_exit_code = 130;
-// }
-
-// void signal_handler(void)
-// {
-// 	is_child = 0;
-// 	signal(SIGQUIT, SIG_IGN);
-// 	signal(SIGINT, ft_handle_sigint);
-// 	signal(SIGTSTP, SIG_IGN);
-// }
-/* ******************************** end JK ****************************************** */
-
-static char *d_to_str(char **array)
+void	cleanup_shell(t_shell *shell)
 {
-	char *new_str = NULL;
-	int i = 1;
-	while (array[i])
-	{
-		new_str = ft_strjoin_free(new_str, array[i], 1);
-		i++;
-	}
-	return (new_str);
+	free_env_list(&shell->env);
+	free_env_list(&shell->fallback_env);
+	clear_history();
 }
 
-static void one_liner(char **av, char **envp)
+char	*get_user_input(t_prompt *prompt_info, t_env *env)
 {
-	char *str;
-	t_shell shell;
-	t_token *tok;
-
-	str = d_to_str(av);
-	init_shell(&shell, envp);
-	tok = lexer(str);
-	tok = add_end_tok(tok);
-	shell.start = tok;
-	exec(&shell);
-	free_tok_list(&shell.start);
-	free_env_list(&shell.env);
-	free_env_list(&shell.fallback_env);
-	free(str);
+	get_info(env, prompt_info);
+	signal(SIGINT, ft_handle_sigint);
+	return (readline(prompt_info->prompt));
 }
 
-int main(int argc, char **argv, char **envp)
+void	process_input(char *rl_value, t_shell *shell)
 {
-	if (argc > 1)
-		one_liner(argv, envp);
-	char *rl_value;
-	// t_env		*env;
-	t_prompt prompt_info;
-	t_shell shell;
-	t_token *tok;
+	t_token	*tok;
 
-	(void)argv;
-	rl_value = NULL;
 	tok = NULL;
-	if (argc != 1)
-		return (EXIT_FAILURE);
+	if (*rl_value == '\0')
+	{
+		free(rl_value);
+		return ;
+	}
+	add_history(rl_value);
+	tok = lexer(rl_value);
+	final_process(tok, shell->env);
+	free(rl_value);
+	tok = add_end_tok(tok);
+	shell->start = tok;
+	exec(shell);
+	free_tok_list(&shell->start);
+}
 
-	signal_handler(); // global struct a faire
-	init_shell(&shell, envp);
-	// env = get_env(envp); //a proteger
+int	main_loop(t_shell *shell)
+{
+	t_prompt	prompt_info;
+	char		*rl_value;
 
 	while (1)
 	{
-		// glob.is_child = 0; // global struct a faire
-		get_info(shell.env, &prompt_info);
-		signal(SIGINT, ft_handle_sigint);
-		rl_value = readline(prompt_info.prompt);
-			// rl_value = ft_strdup("\n");
-		// is_child = 1; // global struct a faire
+		rl_value = get_user_input(&prompt_info, shell->env);
 		if (rl_value == NULL)
-			break;
-		if (*rl_value == '\0')
-		{
-			free(rl_value);
-			continue;
-		}
-		// {
-			add_history(rl_value);
-			tok = lexer(rl_value);
-			final_process(tok, shell.env);
-			free(rl_value);
-			tok = add_end_tok(tok);
-			shell.start = tok;
-			exec(&shell);
-			free_tok_list(&shell.start);
-			printf("exit code: %d\n", global_exit_code); // Test
-		// }
-			// free(rl_value); 
+			break ;
+		process_input(rl_value, shell);
 	}
-	free_env_list(&shell.env);
-	free_env_list(&shell.fallback_env);
-	clear_history();
 	return (0);
 }
 
-/*---------------------------------TEST----------------------------------------------------*/
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell	shell;
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_env		*env;
-// 	t_prompt	prompt_info;
-// 	// char		*line = "cd | echo blal << out";
-// 	// char		*line = "< out ls | cat | wc";
-// 	char		*line = "/ls | grep Makefile";
-// 	t_token		*tok = lexer(line);
-
-// 	//t_shell		shell;
-// 	// t_token		end_tok = {NULL, "end", END, NULL};
-
-// // 	tok = add_end_tok(tok);
-// 	// termine la liste chainée de tokens avec un token de type END == 9
-
-// 	(void)argv;
-// 	if (argc != 1)
-// 		return (EXIT_FAILURE);
-// 	env = get_env(envp); //a proteger
-// 	get_info(env, &prompt_info);
-
-// 	// // TEST EXEC
-// //	init_shell(&shell, envp); // debut de init_shell (utilise get_env btw)
-// //	shell.start = tok;
-// 	// // printf("start:%s\n", shell.start->value);
-// 	// exec(&shell); // exec.c marche que pour les cas simples tel que "ls | cat | wc"
-
-// 	// test de la tokenisation
-
-// 	t_token *tok_iter = tok;
-// 	while (tok_iter)
-// 	{
-// 		printf("token type:%d value:%s\n", tok_iter->type, tok_iter->value);
-// 		tok_iter = tok_iter->next;
-// 	}
-// 	free_env_list(&env);
-// 	free_tok_list(&tok);
-// 	// free(tok);
-// 	return (0);
-// }
-	// to do before exit:
-	// free_env_list(&env);
-	// clear_history();
+	(void)argv;
+	if (argc != 1)
+		return (EXIT_FAILURE);
+	signal_handler();
+	init_shell(&shell, envp);
+	main_loop(&shell);
+	cleanup_shell(&shell);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 01:56:37 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 13:25:39 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,18 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 		ret = execve(path, cmd_arg, env_array);
 		ft_putstr_fd("minishell: ", 2);
 		perror(cmd_arg[0]);
-		global_exit_code = 126;
+		g_lobal_exit_code = 126;
 		exit(126);
 	}
 	else
 		waitpid(pid, &ret, 0);
 	ft_free_tab(env_array);
 	if (WIFSIGNALED(ret))
-		global_exit_code = 128 + WTERMSIG(ret);
+		g_lobal_exit_code = 128 + WTERMSIG(ret);
 	else if (WIFEXITED(ret))
-		global_exit_code = WEXITSTATUS(ret);
+		g_lobal_exit_code = WEXITSTATUS(ret);
 	else
-		global_exit_code = 0;
+		g_lobal_exit_code = 0;
 	return (ret);
 }
 
@@ -127,7 +127,7 @@ int	exec_bin(char **cmd_arg, t_env *env)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd_arg[0], 2);
 		ft_putendl_fd(": command not found", 2);
-		global_exit_code = 127;
+		g_lobal_exit_code = 127;
 		return (127);
 	}
 	ret = process_cmd(cmd_arg, path, env);
