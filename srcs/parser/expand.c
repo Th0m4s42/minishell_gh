@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 12:37:47 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 12:55:53 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ char	*handle_quotes(char *str, t_env *envp)
 	char	*temp;
 	int		len;
 
-	result = ft_strdup("");
 	len = ft_strlen(str);
+	if (len < 2)
+		return (ft_strdup(str));
+	result = NULL;
 	if (str[0] == '\'' && str[len - 1] == '\'')
 	{
 		result = ft_substr(str, 1, len - 2);
@@ -27,6 +29,8 @@ char	*handle_quotes(char *str, t_env *envp)
 	else if (str[0] == '\"' && str[len - 1] == '\"')
 	{
 		temp = ft_substr(str, 1, len - 2);
+		if (!temp)
+			return (NULL);
 		result = substitute_variables(temp, envp);
 		free(temp);
 	}
@@ -44,14 +48,14 @@ char	*substitute_variables(char *str, t_env *env)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i+1] == '?')
 		{
-			result = handle_variable_substitution(result, str, &i, env);
-		}
-		else if (str[i] == '$' && str[i+1] == '?')
-		{
+			free (result);
 			result = ft_itoa(global_exit_code);
+			i += 2;
 		}
+		else if (str[i] == '$')
+			result = handle_variable_substitution(result, str, &i, env);
 		else
 		{
 			result = handle_regular_char(result, str[i]);
@@ -71,7 +75,7 @@ t_env*env)
 
 	(*i)++;
 	start = *i;
-	while (!ft_isalnum(str[*i]) || str[*i] != '_')
+	while (!ft_isalnum(str[*i]) && str[*i] != '_')
 		(*i)++;
 	var_name = ft_substr(str, start, *i - start);
 	if (!var_name)
@@ -103,6 +107,7 @@ void	final_process(t_token *tokens, t_env *envp)
 	char	*processed_value;
 
 	current = tokens;
+	processed_value = NULL;
 	while (current)
 	{
 		if (current->type != HEREDOC)
