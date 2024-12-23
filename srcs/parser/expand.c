@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 13:06:45 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/23 13:16:59 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,16 @@ void	final_process(t_token *tokens, t_env *envp)
 	processed_value = NULL;
 	while (current)
 	{
+		processed_value = handle_quotes(current->value, envp);
 		if (current->type != HEREDOC)
 		{
-			processed_value = handle_quotes(current->value, envp);
 			free(current->value);
 			current->value = processed_value;
+		}
+		else
+		{
+			ft_putendl_fd("Erreur : échec de traitement des quotes\n", 2);
+			break ;
 		}
 		current = current->next;
 	}
