@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 00:33:29 by noam              #+#    #+#             */
-/*   Updated: 2024/12/22 02:05:59 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 20:33:26 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,15 @@ int	ft_exit(char **cmd, t_shell *shell)
 		ft_free_tab(cmd);
 		free_tok_list(&shell->start);
 		free_env_list(&shell->env);
+		free_env_list(&shell->fallback_env);
+		clear_history();
 		exit(ret);
 	}
 	ft_free_tab(cmd);
 	free_tok_list(&shell->start);
 	free_env_list(&shell->env);
+	free_env_list(&shell->fallback_env);
+	clear_history();
 	exit(ret);
+	return (ret);
 }

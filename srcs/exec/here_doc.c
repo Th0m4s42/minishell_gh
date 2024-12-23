@@ -6,17 +6,12 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 16:01:29 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 19:57:24 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include "../../libft/includes/get_next_line.h"
-
-void	write_to_doc_file(char *file_content, int fd)
-{
-	write(fd, file_content, (ft_strlen(file_content)));
-}
 
 /* ************************************************************************** */
 
@@ -29,58 +24,78 @@ char	*create_doc_file(char *file_content, int *nb)
 	name = ft_strjoin_free(".here_doc_sOme_nAme_ThATwOn'T_cOnfLict_.tmp",
 			ft_itoa(*nb), 2);
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	write_to_doc_file(file_content, fd);
+	write(fd, file_content, (ft_strlen(file_content)));
 	free(file_content);
 	close (fd);
 	return (name);
 }
 
+/* ************************************************************************** */
+char	*proccess_var(char *newstr, char *str, int i[], t_env *env)
+{
+	char	*var_name;
+	char	*value;
+
+	if (str[i[0] + 1] == '?')
+	{
+		newstr = ft_strjoin_free(newstr, ft_substr(str, i[1], i[0] - i[1]), 3);
+		var_name = ft_itoa(g_lobal_exit_code);
+		newstr = ft_strjoin_free(newstr, var_name, 3);
+		i[0] += 2;
+		i[1] = i[0];
+	}
+	else
+	{
+		newstr = ft_strjoin_free(newstr, ft_substr(str, i[1], i[0] - i[1]), 3);
+		i[1] = until_space(str, i[0]);
+		var_name = ft_substr(str, i[0] + 1, i[1] - i[0] - 1);
+		value = get_value_by_name(env, var_name);
+		free(var_name);
+		var_name = NULL;
+		newstr = ft_strjoin_free(newstr, value, 1);
+		i[0]++;
+	}
+	return (newstr);
+}
+
+/* ************************************************************************** */
+
 char	*replace_dolla_sign(char *str, t_env *env)
 {
 	char	*new_str;
-	char	*env_name;
 	int		i;
 	int		j;
-	char	*var_name;
+	int		sum[2];
 
 	i = 0;
 	j = 0;
 	new_str = NULL;
-	env_name = NULL;
-	while (str[j])
+	sum[0] = i;
+	sum[1] = j;
+	while (str[sum[1]])
 	{
-		if (str[i])
+		sum[0] = until_dolla_sign(str, sum[0]);
+		if (str[sum[0]] == '$')
+			new_str = proccess_var(new_str, str, sum, env);
+		else
 		{
-			i = until_dolla_sign(str, i);
-			new_str = ft_strjoin_free(new_str, ft_substr(str, j, i - j), 3);
-			j = until_space(str, i);
-			var_name = ft_substr(str, i + 1, j - i - 1);
-			env_name = get_value_by_name(env, var_name);
-			free(var_name);
-			var_name = NULL;
-			new_str = ft_strjoin_free(new_str, env_name, 1);
-			i++;
-			env_name = NULL;
+			new_str = ft_strjoin_free(new_str,
+					ft_substr(str, sum[1], sum[0] - sum[1]), 3);
+			break ;
 		}
 	}
 	free(str);
 	return (new_str);
 }
 
+/* ************************************************************************** */
+
 char	*stdin_to_str(char *limiter, t_env *env, int expand)
 {
 	char	*line;
-	// char	*tru_limit;
-	// char	newline[1];
 	char	*tmp_str;
 
 	line = NULL;
-	// newline[0] = '\n';
-	// newline[0] = '\0';
-	// if (!limiter)`
-		// tru_limit = newline;
-	// else
-		// tru_limit = limiter;
 	g_lobal_exit_code = 0;
 	tmp_str = readline(">> ");
 	while (tmp_str && ft_strncmp(tmp_str, limiter, ft_strlen(limiter) + 1))

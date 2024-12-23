@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 15:16:55 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 19:01:51 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,40 @@
 
 /* ************************************************************************** */
 
-char	**format_cmd(t_token *cmd_tok)
+int	get_tab_len(t_token *cmd_tok)
 {
-	char		**format_cmd;
-	t_token		*tok;
-	int			tab_len;
-	int			i;
+	t_token	*tok;
+	int		tab_len;
 
-	i = 0;
-	tab_len = 0;
 	tok = cmd_tok;
-	if (!tok->value)
-		return (NULL);
+	tab_len = 0;
+	if (!tok || !tok->value)
+		return (0);
 	while (tok && (tok->type == ARG || !tab_len))
 	{
 		tab_len++;
 		tok = tok->next;
 	}
-	format_cmd = (char **)malloc(sizeof(char *) * (tab_len + 1));
+	return (tab_len);
+}
+
+/* ************************************************************************** */
+
+char	**format_cmd(t_token *cmd_tok)
+{
+	char	**format_cmd;
+	t_token	*tok;
+	int		tab_len;
+	int		i;
+
+	tab_len = get_tab_len(cmd_tok);
 	tok = cmd_tok;
+	i = 0;
+	if (tab_len == 0)
+		return (NULL);
+	format_cmd = (char **)malloc(sizeof(char *) * (tab_len + 1));
+	if (!format_cmd)
+		return (NULL);
 	while (tok && (tok->type == ARG || i == 0))
 	{
 		if (tok->value)
@@ -109,7 +124,6 @@ void	exec(t_shell *shell)
 	signal(SIGINT, ft_handle_sigint_doc);
 	token = handle_here_docs(token, shell->env, &doc_nb);
 	signal(SIGINT, ft_handle_sigint_child);
-	// current_doc_nb = doc_nb;
 	shell->parent = 1;
 	shell->charge = 1;
 	redir_and_exec(shell, token);
