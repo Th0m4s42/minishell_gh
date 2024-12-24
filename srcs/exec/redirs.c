@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:20:41 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 01:23:51 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 23:20:59 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	input(t_shell *shell, t_token *token)
 	shell->fdin = open(token->value, O_RDONLY);
 	if (shell->fdin == -1)
 	{
-		ft_putstr_fd("minishell :", STDERR);
+		ft_putstr_fd("minishell: ", STDERR);
 		perror(token->value);
 		return ;
 	}
@@ -38,7 +38,7 @@ void	redir(t_shell *shell, t_token *token, t_token_type type)
 				| O_APPEND, S_IRWXU);
 	if (shell->fdout == -1)
 	{
-		ft_putstr_fd("minishell :", STDERR);
+		ft_putstr_fd("minishell: ", STDERR);
 		perror(token->value);
 		return ;
 	}

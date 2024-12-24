@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:44:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/21 23:29:21 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/24 00:51:45 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 void	update_hiddn_pwds(t_shell *shell)
 {
 	if (shell->hiddn_oldpwd)
+	{
 		free(shell->hiddn_oldpwd);
+		shell->hiddn_oldpwd = NULL;
+	}
 	if (shell->hiddn_pwd)
 	{
 		shell->hiddn_oldpwd = shell->hiddn_pwd;
 		shell->hiddn_pwd = getcwd(NULL, 0);
 	}
 	else
+	{
 		shell->hiddn_pwd = getcwd(NULL, 0);
+		shell->hiddn_oldpwd = getcwd(NULL, 0);
+	}
 }
+
+/* ************************************************************************** */
 
 void	update_env_pwds(t_env **env, t_shell *shell)
 {
@@ -53,19 +61,27 @@ void	update_env_pwds(t_env **env, t_shell *shell)
 	}
 }
 
+/* ************************************************************************** */
+
 static inline int	cd_err_message(char *path)
 {
 	struct stat	path_state;
 
-	lstat(path, &path_state);
-	if (!S_ISDIR(path_state.st_mode))
+
+	if (lstat(path, &path_state) == -1)
 	{
-		ft_putstr_fd("minishell: cd:", STDERR);
-		ft_putstr_fd(path, STDERR);
-		ft_putendl_fd(": Not a directory", STDERR);
+		ft_putstr_fd("minishell: cd: ", STDERR);
+		perror(path);
+	}
+	else if (!S_ISDIR(path_state.st_mode))
+	{
+		ft_putstr_fd("minishell: cd: ", STDERR);
+		perror(path);
 	}
 	return (1);
 }
+
+/* ************************************************************************** */
 
 int	go_to_home(char *home_path)
 {
@@ -78,6 +94,8 @@ int	go_to_home(char *home_path)
 		return (cd_err_message(home_path));
 	return (0);
 }
+
+/* ************************************************************************** */
 
 int	ft_cd(char **cmd, t_shell *shell)
 {
@@ -101,31 +119,3 @@ int	ft_cd(char **cmd, t_shell *shell)
 	}
 	return (ret);
 }
-
-// int	ft_cd(char **cmd, t_shell *shell)
-// {
-	// (void)env;
-	// (void)cmd;
-
-	// if (cmd[1] == NULL)
-		// go to home
-		// if (chdir(get_value_by_name(env, "HOME")) == -1)
-			// error minishell: cd: HOME not set
-			// exit
-	// else if (cmd[2])
-		// error too many arguments
-		// exit
-	// else if (cmd[1] == "-")
-		// go to previous directory OLDPWD
-			// if OLDPWD is not set
-				// error
-				// exit
-		// n write path "~/Desktop/....."
-	// else if (chdir(cmd[1]) == -1)
-		// perror
-		// exit
-	// update env (if there)
-		// update oldpwd with current pwd (if there)
-		// update pwd with new pwd (with getcwd)
-		//
-// }

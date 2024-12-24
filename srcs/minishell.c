@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 12:54:32 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 18:02:43 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/24 00:00:34 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	cleanup_shell(t_shell *shell)
 	free_env_list(&shell->env);
 	free_env_list(&shell->fallback_env);
 	clear_history();
+	if (shell->hiddn_oldpwd)
+		free(shell->hiddn_oldpwd);
+	if (shell->hiddn_pwd)
+		free(shell->hiddn_pwd);
 }
 
 char	*get_user_input(t_prompt *prompt_info, t_env *env)
@@ -40,8 +44,8 @@ void	process_input(char *rl_value, t_shell *shell)
 	}
 	add_history(rl_value);
 	tok = lexer(rl_value);
-	final_process(tok, shell->env);
 	free(rl_value);
+	final_process(tok, shell->env);
 	if (tok)
 	{
 		tok = add_end_tok(tok);

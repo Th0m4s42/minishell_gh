@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 13:25:39 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/23 21:01:04 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 		ret = execve(path, cmd_arg, env_array);
 		ft_putstr_fd("minishell: ", 2);
 		perror(cmd_arg[0]);
-		g_lobal_exit_code = 126;
-		exit(126);
+		exit(ret);
 	}
 	else
 		waitpid(pid, &ret, 0);

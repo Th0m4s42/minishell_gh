@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 19:01:51 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/24 00:57:32 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exec_cmd(t_shell *shell, t_token *token)
 
 	cmd = format_cmd(token);
 	if (cmd && is_built_in(cmd[0]))
-		exec_built_in(cmd, shell->env, shell);
+		g_lobal_exit_code = exec_built_in(cmd, shell->env, shell);
 	else if (cmd)
 		exec_bin(cmd, shell->env);
 	ft_free_tab(cmd);
@@ -124,6 +124,7 @@ void	exec(t_shell *shell)
 	signal(SIGINT, ft_handle_sigint_doc);
 	token = handle_here_docs(token, shell->env, &doc_nb);
 	signal(SIGINT, ft_handle_sigint_child);
+	g_lobal_exit_code = 0;
 	shell->parent = 1;
 	shell->charge = 1;
 	redir_and_exec(shell, token);

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 19:57:24 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/24 00:54:58 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ char	*stdin_to_str(char *limiter, t_env *env, int expand)
 	char	*tmp_str;
 
 	line = NULL;
-	g_lobal_exit_code = 0;
 	tmp_str = readline(">> ");
 	while (tmp_str && ft_strncmp(tmp_str, limiter, ft_strlen(limiter) + 1))
 	{
