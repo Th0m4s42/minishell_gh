@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 16:33:03 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/24 11:45:05 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,11 @@ t_token	*process_token(t_array *check_type, t_token **first_node, char *token,
 	return (last_node);
 }
 
-void	lexing(t_array *check_type, t_token **first_node, char **tok)
+void	lexing(t_array *check_type, t_token **first_node, char **tok, int i)
 {
 	t_token	*tmp;
-	int		i;
 
 	tmp = NULL;
-	i = 0;
 	while (tok[i])
 	{
 		if (has_syntax_error(tok, i))
@@ -110,7 +108,7 @@ t_token	*lexer(char *rl_value)
 	}
 	first_node = NULL;
 	init_functionarray(&check_type);
-	lexing(check_type, &first_node, tok);
+	lexing(check_type, &first_node, tok, 0);
 	ft_free_tab(tok);
 	return (first_node);
 }
