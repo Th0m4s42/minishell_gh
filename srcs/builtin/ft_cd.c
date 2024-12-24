@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:44:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/24 00:51:45 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/24 11:57:12 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	update_env_pwds(t_env **env, t_shell *shell)
 static inline int	cd_err_message(char *path)
 {
 	struct stat	path_state;
-
 
 	if (lstat(path, &path_state) == -1)
 	{

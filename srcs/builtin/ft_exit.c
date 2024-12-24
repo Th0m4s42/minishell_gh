@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 00:33:29 by noam              #+#    #+#             */
-/*   Updated: 2024/12/24 00:37:47 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/24 11:55:50 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	handle_exit_code(char *arg)
 		}
 		i++;
 	}
-		return (ft_atoi(arg) % 256);
+	return (ft_atoi(arg) % 256);
 }
 
 void	real_exit(int ret, t_shell *shell, char **cmd)
