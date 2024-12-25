@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/25 16:40:03 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 18:10:49 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_token	*process_token(t_array *check_type, t_token **first_node, char *token,
 	return (last_node);
 }
 
-void	lexing(t_array *check_type, t_token **first_node, char **tok, int i)
+int	lexing(t_array *check_type, t_token **first_node, char **tok, int i)
 {
 	t_token	*tmp;
 
@@ -76,24 +76,25 @@ void	lexing(t_array *check_type, t_token **first_node, char **tok, int i)
 		if (has_syntax_error(tok, i))
 		{
 			handle_syntax_error(tok[i], first_node);
-			return ;
+			return (1);
 		}
 		tmp = process_token(check_type, first_node, tok[i], tmp);
 		if (tmp == NULL)
 		{
 			free_tok_list(first_node);
-			return ;
+			return (1);
 		}
 		i++;
 	}
 	if (is_invalid_final_token(tmp))
 	{
 		handle_syntax_error(tok[i - 1], first_node);
-		return ;
+		return (1);
 	}
+	return (0);
 }
 
-t_token	*lexer(char *rl_value)
+t_token	*lexer(char *rl_value, int *ret)
 {
 	t_array		check_type[10];
 	t_token		*first_node;
@@ -108,7 +109,8 @@ t_token	*lexer(char *rl_value)
 	}
 	first_node = NULL;
 	init_functionarray(&check_type);
-	lexing(check_type, &first_node, tok, 0);
+	if (lexing(check_type, &first_node, tok, 0) == 1)
+		*ret = 2;
 	ft_free_tab(tok);
 	tok = NULL;
 	return (first_node);

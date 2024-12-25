@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:02 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/24 11:45:44 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 18:06:24 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ bool	check_arg(char *tok_str, t_token *tok);
 t_token	*new_node(char **tok, t_token *last_node, int type);
 t_token	*process_token(t_array *check_type, t_token **first_node, char *token,
 			t_token *last_node);
-void	lexing(t_array *check_type, t_token **first_node, char **tok, int i);
-t_token	*lexer(char *rl_value);
+int		lexing(t_array *check_type, t_token **first_node, char **tok, int i);
+t_token	*lexer(char *rl_value, int *ret);
 
 /* handle_errors.c*/
 
