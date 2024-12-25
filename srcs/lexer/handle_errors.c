@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:42:19 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 14:38:58 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 16:46:03 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	handle_syntax_error(char *token, t_token **first_node)
 	ft_putstr_fd(token, 2);
 	ft_putendl_fd("'", 2);
 	free_tok_list(first_node);
-	g_lobal_exit_code = 2;
 }
 
 bool	is_invalid_final_token(t_token *last_node)
