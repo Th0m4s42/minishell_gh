@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/24 13:50:28 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 00:40:46 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_shell
 	int				charge;
 	int				parent;
 	int				exec;
+	int				last;
+	int pipe_pid[2];
 	int				ret;
 	char			*hiddn_pwd;
 	char			*hiddn_oldpwd;

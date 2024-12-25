@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/24 00:57:32 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 02:00:22 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	exec_cmd(t_shell *shell, t_token *token)
 
 	cmd = format_cmd(token);
 	if (cmd && is_built_in(cmd[0]))
-		g_lobal_exit_code = exec_built_in(cmd, shell->env, shell);
+		shell->ret = exec_built_in(cmd, shell->env, shell);
 	else if (cmd)
-		exec_bin(cmd, shell->env);
+		shell->ret = exec_bin(cmd, shell->env);
 	ft_free_tab(cmd);
 	close_fd(shell->pipin);
 	close_fd(shell->pipout);
@@ -110,12 +110,26 @@ void	redir_and_exec(t_shell *shell, t_token *token)
 	return ;
 }
 
+
+void pid_exchange(int *pipefd, int *pid) {
+    if (pid == 0) { 
+        // Close read end; we're writing the last child's PID
+        close(pipefd[0]);
+        write(pipefd[1], &pid, sizeof(pid));
+        close(pipefd[1]);
+    } else {
+        // Close write end; we're reading the last child's PID
+        close(pipefd[1]);
+        read(pipefd[0], &pid, sizeof(pid));
+        close(pipefd[0]);
+    }
+}
+
 /* ************************************************************************** */
 
 void	exec(t_shell *shell)
 {
 	t_token		*token;
-	int			status;
 	int			current_doc_nb;
 	static int	doc_nb;
 
@@ -125,13 +139,39 @@ void	exec(t_shell *shell)
 	token = handle_here_docs(token, shell->env, &doc_nb);
 	signal(SIGINT, ft_handle_sigint_child);
 	g_lobal_exit_code = 0;
+		shell->last = 1;				/////////
 	shell->parent = 1;
 	shell->charge = 1;
+	pipe(shell->pipe_pid);
 	redir_and_exec(shell, token);
+	int			status = 0;			//////
 	reset_stds(shell);
 	close_reset_fd(shell);
-	waitpid(shell->pid, &status, 0);
+	fprintf(stderr, "Before waitpid: P= %d, last= %d PID= %d\n", shell->parent, shell->last, shell->pid);
+	// if (shell->parent || shell->last)
+		// pid_exchange(shell->pipe_pid, &shell->pid);
+	if (shell->last)
+		waitpid(0, &status, 0);
+		// fprintf(stderr, "\n LAST REACHED\n");
+	else
+	{
+		waitpid(shell->pid, &status, 0);
+		fprintf(stderr, "status= %d\n", status);
+		if(WIFEXITED(status))
+			shell->ret = (WEXITSTATUS(status));
+		else if (WIFSIGNALED(status))
+			shell->ret = 128 + WTERMSIG(status);
+		else 
+			shell->ret = status;
+		fprintf(stderr, "shell_stats %d\n", shell->ret);
+	}
+	fprintf(stderr, "aafter waitpid: P= %d, last= %d PID= %d REURNT= %d\n", shell->parent, shell->last, shell->pid, shell->ret); 
 	if (shell->charge == 0 && shell->parent == 0)
-		exit (0);
+	{
+			if (shell->last)
+		fprintf(stderr, "\n LAST REACHED EEEEEND\n");
+		exit (shell->ret);
+	}
+	fprintf(stderr, "\nfinally: status=%d, shell-ret=%d \n", status, shell->ret);
 	del_docs(&doc_nb, current_doc_nb);
 }

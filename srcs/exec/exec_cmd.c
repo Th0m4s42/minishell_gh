@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/23 21:01:04 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 02:02:52 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,10 @@ int	exec_bin(char **cmd_arg, t_env *env)
 		return (127);
 	}
 	ret = process_cmd(cmd_arg, path, env);
+		if(WIFEXITED(ret))
+			ret = (WEXITSTATUS(ret));
+		else if (WIFSIGNALED(ret))
+			ret = 128 + WTERMSIG(ret);
 	if (path)
 		free(path);
 	return (ret);
