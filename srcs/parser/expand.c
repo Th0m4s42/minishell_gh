@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 14:29:12 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 17:38:22 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*handle_quotes(char *str, t_env *envp)
+char	*handle_quotes(char *str, t_env *envp, int ret)
 {
 	char	*result;
 	char	*temp;
@@ -27,15 +27,15 @@ char	*handle_quotes(char *str, t_env *envp)
 	else if (str[0] == '\"' && str[len - 1] == '\"')
 	{
 		temp = ft_substr(str, 1, len - 2);
-		result = substitute_variables(temp, envp);
+		result = substitute_variables(temp, envp, ret);
 		free(temp);
 	}
 	else
-		result = substitute_variables(str, envp);
+		result = substitute_variables(str, envp, ret);
 	return (result);
 }
 
-char	*substitute_variables(char *str, t_env *env)
+char	*substitute_variables(char *str, t_env *env, int ret)
 {
 	char	*result;
 	int		i;
@@ -46,7 +46,7 @@ char	*substitute_variables(char *str, t_env *env)
 	{
 		if (str[i] == '$' && str[i + 1] == '?')
 		{
-			result = ft_itoa(g_lobal_exit_code);
+			result = ft_itoa(ret);
 			i += 2;
 		}
 		else if (str[i] == '$' && str[i + 1])
@@ -98,7 +98,7 @@ char	*handle_regular_char(char *result, char c)
 	return (result);
 }
 
-void	final_process(t_token *tokens, t_env *envp)
+void	final_process(t_token *tokens, t_env *envp, int ret)
 {
 	t_token	*current;
 	char	*processed_value;
@@ -108,7 +108,7 @@ void	final_process(t_token *tokens, t_env *envp)
 	{
 		if (current->type != HEREDOC)
 		{
-			processed_value = handle_quotes(current->value, envp);
+			processed_value = handle_quotes(current->value, envp, ret);
 			free(current->value);
 			current->value = processed_value;
 		}
