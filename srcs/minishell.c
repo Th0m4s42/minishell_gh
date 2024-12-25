@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 12:54:32 by noam              #+#    #+#             */
-/*   Updated: 2024/12/24 00:00:34 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 15:51:26 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	cleanup_shell(t_shell *shell)
 		free(shell->hiddn_oldpwd);
 	if (shell->hiddn_pwd)
 		free(shell->hiddn_pwd);
+	close_fd(shell->in);
+	close_fd(shell->out);
 }
 
 char	*get_user_input(t_prompt *prompt_info, t_env *env)

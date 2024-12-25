@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 02:02:52 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 15:18:15 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 	else
 		waitpid(pid, &ret, 0);
 	ft_free_tab(env_array);
-	if (WIFSIGNALED(ret))
-		g_lobal_exit_code = 128 + WTERMSIG(ret);
-	else if (WIFEXITED(ret))
-		g_lobal_exit_code = WEXITSTATUS(ret);
+	if (WIFEXITED(ret))
+		ret = WEXITSTATUS(ret);
+	else if (WIFSIGNALED(ret))
+		ret = 128 + WTERMSIG(ret);
 	else
-		g_lobal_exit_code = 0;
+		ret = 0;
 	return (ret);
 }
 
@@ -130,10 +130,6 @@ int	exec_bin(char **cmd_arg, t_env *env)
 		return (127);
 	}
 	ret = process_cmd(cmd_arg, path, env);
-		if(WIFEXITED(ret))
-			ret = (WEXITSTATUS(ret));
-		else if (WIFSIGNALED(ret))
-			ret = 128 + WTERMSIG(ret);
 	if (path)
 		free(path);
 	return (ret);

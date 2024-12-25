@@ -46,6 +46,7 @@ SRCS := \
 	$(SRC_DIR)$(PROMPT)prompt.c \
 	$(SRC_DIR)$(EXEC)exec.c \
 	$(SRC_DIR)$(EXEC)exc_utils.c \
+	$(SRC_DIR)$(EXEC)string_utils.c \
 	$(SRC_DIR)$(EXEC)exec_cmd.c \
 	$(SRC_DIR)$(EXEC)redirs.c \
 	$(SRC_DIR)$(EXEC)shell_utils.c \

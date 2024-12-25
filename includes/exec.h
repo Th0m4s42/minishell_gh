@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 00:40:46 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 15:35:51 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_shell
 	int				parent;
 	int				exec;
 	int				last;
-	int pipe_pid[2];
+	// int pipe_pid[2];
 	int				ret;
 	char			*hiddn_pwd;
 	char			*hiddn_oldpwd;
@@ -98,6 +98,9 @@ int			until_space(char *str, int i);
 void		del_docs(int *doc_nb, int doc_from_parent);
 
 /* ******-REDIR N EXEC****************************************************** */
+
+char		**format_cmd(t_token *cmd_tok);
+int			get_tab_len(t_token *cmd_tok);
 
 void		redir(t_shell *shell, t_token *token, t_token_type type);
 void		input(t_shell *shell, t_token *token);
