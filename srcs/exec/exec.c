@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:54:05 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 15:49:19 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 16:19:08 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,16 @@ void	prep_exec(t_shell *shell, t_token **tok, int *currdoc_nb, int *doc_nb)
 {
 	*tok = shell->start;
 	*currdoc_nb = *doc_nb;
+	g_lobal_exit_code = 0;
 	signal(SIGINT, ft_handle_sigint_doc);
 	*tok = handle_here_docs(*tok, shell->env, doc_nb);
 	signal(SIGINT, ft_handle_sigint_child);
-	g_lobal_exit_code = 0;
+	if (g_lobal_exit_code == 2)
+	{
+		del_docs(doc_nb, *currdoc_nb);
+		shell->ret = 130;
+		return ;
+	}
 	shell->last = 1;
 	shell->parent = 1;
 	shell->charge = 1;

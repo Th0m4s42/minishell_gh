@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 15:35:51 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 15:59:50 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int			exec_bin(char **cmd_arg, t_env *env);
 bool		close_fd(int fd);
 void		close_reset_fd(t_shell *shell);
 void		reset_stds(t_shell *shell);
+void		cleanup_shell(t_shell *shell);
 
 /* ******-BUILT INS********************************************************* */
 

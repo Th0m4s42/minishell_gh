@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 15:18:15 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 16:07:43 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int	exec_bin(char **cmd_arg, t_env *env)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd_arg[0], 2);
 		ft_putendl_fd(": command not found", 2);
-		g_lobal_exit_code = 127;
 		return (127);
 	}
 	ret = process_cmd(cmd_arg, path, env);

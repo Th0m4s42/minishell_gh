@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:18:59 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 13:29:13 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/25 16:19:25 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_handle_sigint(int sig)
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
-	g_lobal_exit_code = 130;
+	g_lobal_exit_code = sig;
 }
 
 void	ft_handle_sigint_doc(int sig)
@@ -42,12 +42,12 @@ void	ft_handle_sigint_doc(int sig)
 	rl_on_new_line();
 	close(STDIN_FILENO);
 	rl_redisplay();
-	g_lobal_exit_code = 130;
+	g_lobal_exit_code = sig;
 }
 
 void	ft_handle_sigint_child(int sig)
 {
-	(void)sig;
+	g_lobal_exit_code = sig;
 	return ;
 }
 

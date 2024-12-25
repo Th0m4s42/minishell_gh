@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 00:33:29 by noam              #+#    #+#             */
-/*   Updated: 2024/12/24 11:55:50 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 16:02:01 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	free_resources(t_shell *shell, char **cmd)
 {
 	ft_free_tab(cmd);
 	free_tok_list(&shell->start);
-	free_env_list(&shell->env);
-	free_env_list(&shell->fallback_env);
+	cleanup_shell(shell);
 	clear_history();
 }
 
