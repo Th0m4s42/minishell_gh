@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:30:15 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/25 17:38:22 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 18:32:21 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,3 +115,63 @@ void	final_process(t_token *tokens, t_env *envp, int ret)
 		current = current->next;
 	}
 }
+
+/*
+char	*handle_quotes_combined(char *str, t_env *envp, int ret)
+{
+	char	*result;
+	char	*temp;
+	int		i;
+	int		start;
+	char	quote_type;
+
+	result = ft_strdup(""); // Initialiser une chaîne vide pour le résultat
+	quote_type = '\0';		// Aucun guillemet actif au départ
+	i = 0;
+
+	while (str[i])
+	{
+		if ((str[i] == '\'' || str[i] == '\"') && quote_type == '\0')
+		{
+			// Début d'une séquence de guillemets
+			quote_type = str[i];
+			start = i + 1; // Commencer après le guillemet ouvrant
+		}
+		else if (str[i] == quote_type)
+		{
+			// Fin de la séquence de guillemets
+			temp = ft_substr(str, start, i - start); // Contenu des guillemets
+			if (quote_type == '\'') // Pas de substitution pour les guillemets simples
+				result = ft_strjoin_free(result, temp, 1);
+			else if (quote_type == '\"') // Substitution pour les guillemets doubles
+			{
+				char *substituted = substitute_variables(temp, envp, ret);
+				result = ft_strjoin_free(result, substituted, 1);
+				free(temp);
+			}
+			quote_type = '\0'; // Réinitialiser
+		}
+		else if (quote_type == '\0')
+		{
+			// Hors des guillemets, traiter les caractères un par un
+			if (str[i] == '$') // Vérifier les variables hors guillemets
+			{
+				char *var_sub = substitute_variables(&str[i], envp, ret);
+				result = ft_strjoin_free(result, var_sub, 1);
+				free(var_sub);
+				while (str[i] && str[i] != ' ' && str[i] != '\'' && str[i] != '\"')
+					i++; // Sauter les caractères de la variable
+			}
+			else
+				result = handle_regular_char(result, str[i]);
+		}
+		i++;
+	}
+
+	// Ajouter les caractères restants (hors guillemets fermants)
+	if (quote_type == '\0' && str[start])
+		result = ft_strjoin_free(result, ft_substr(str, start, i - start), 1);
+
+	return (result);
+}
+*/
