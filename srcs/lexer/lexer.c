@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 13:21:08 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/24 11:45:05 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 16:40:03 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	lexing(t_array *check_type, t_token **first_node, char **tok, int i)
 		if (tmp == NULL)
 		{
 			free_tok_list(first_node);
-			ft_free_tab(tok);
 			return ;
 		}
 		i++;
@@ -104,11 +103,13 @@ t_token	*lexer(char *rl_value)
 	if (tok == NULL || *tok == NULL)
 	{
 		ft_free_tab(tok);
+		tok = NULL;
 		return (NULL);
 	}
 	first_node = NULL;
 	init_functionarray(&check_type);
 	lexing(check_type, &first_node, tok, 0);
 	ft_free_tab(tok);
+	tok = NULL;
 	return (first_node);
 }

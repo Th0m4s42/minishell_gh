@@ -6,7 +6,7 @@
 /*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:31:55 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 16:29:19 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/25 16:31:11 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	ft_free_tab(char **tab)
 		index++;
 	}
 	free(tab);
+	tab = NULL;
 }
