@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:21:20 by noam              #+#    #+#             */
-/*   Updated: 2024/12/24 00:54:58 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 02:10:37 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*create_doc_file(char *file_content, int *nb)
 }
 
 /* ************************************************************************** */
-char	*proccess_var(char *newstr, char *str, int i[], t_env *env)
+char	*proccess_var(char *newstr, char *str, int i[], t_shell *shell)
 {
 	char	*var_name;
 	char	*value;
@@ -39,7 +39,7 @@ char	*proccess_var(char *newstr, char *str, int i[], t_env *env)
 	if (str[i[0] + 1] == '?')
 	{
 		newstr = ft_strjoin_free(newstr, ft_substr(str, i[1], i[0] - i[1]), 3);
-		var_name = ft_itoa(g_lobal_exit_code);
+		var_name = ft_itoa(shell->ret);
 		newstr = ft_strjoin_free(newstr, var_name, 3);
 		i[0] += 2;
 		i[1] = i[0];
@@ -49,7 +49,7 @@ char	*proccess_var(char *newstr, char *str, int i[], t_env *env)
 		newstr = ft_strjoin_free(newstr, ft_substr(str, i[1], i[0] - i[1]), 3);
 		i[1] = until_space(str, i[0]);
 		var_name = ft_substr(str, i[0] + 1, i[1] - i[0] - 1);
-		value = get_value_by_name(env, var_name);
+		value = get_value_by_name(shell->env, var_name);
 		free(var_name);
 		var_name = NULL;
 		newstr = ft_strjoin_free(newstr, value, 1);
@@ -60,7 +60,7 @@ char	*proccess_var(char *newstr, char *str, int i[], t_env *env)
 
 /* ************************************************************************** */
 
-char	*replace_dolla_sign(char *str, t_env *env)
+char	*replace_dolla_sign(char *str, t_shell *shell)
 {
 	char	*new_str;
 	int		i;
@@ -76,7 +76,7 @@ char	*replace_dolla_sign(char *str, t_env *env)
 	{
 		sum[0] = until_dolla_sign(str, sum[0]);
 		if (str[sum[0]] == '$')
-			new_str = proccess_var(new_str, str, sum, env);
+			new_str = proccess_var(new_str, str, sum, shell);
 		else
 		{
 			new_str = ft_strjoin_free(new_str,
@@ -90,7 +90,7 @@ char	*replace_dolla_sign(char *str, t_env *env)
 
 /* ************************************************************************** */
 
-char	*stdin_to_str(char *limiter, t_env *env, int expand)
+char	*stdin_to_str(char *limiter, t_shell *shell, int expand)
 {
 	char	*line;
 	char	*tmp_str;
@@ -101,7 +101,7 @@ char	*stdin_to_str(char *limiter, t_env *env, int expand)
 	{
 		tmp_str = ft_strjoin_free(tmp_str, "\n", 1);
 		if (has_dolla_sign(tmp_str) && expand)
-			tmp_str = replace_dolla_sign(tmp_str, env);
+			tmp_str = replace_dolla_sign(tmp_str, shell);
 		if (g_lobal_exit_code == 130)
 			break ;
 		line = ft_strjoin_free(line, tmp_str, 3);
@@ -114,7 +114,7 @@ char	*stdin_to_str(char *limiter, t_env *env, int expand)
 
 /* ************************************************************************** */
 
-t_token	*handle_here_docs(t_token *token, t_env *env, int *doc_nb)
+t_token	*handle_here_docs(t_token *token, t_shell *shell, int *doc_nb)
 {
 	char		*doc_name;
 	char		*captured_str;
@@ -127,9 +127,9 @@ t_token	*handle_here_docs(t_token *token, t_env *env, int *doc_nb)
 		if (tmp->type == HERE_DOC)
 		{
 			if (tmp->value && eradicate_quotes(tmp->value))
-				captured_str = stdin_to_str(tmp->value, env, 0);
+				captured_str = stdin_to_str(tmp->value, shell, 0);
 			else
-				captured_str = stdin_to_str(tmp->value, env, 1);
+				captured_str = stdin_to_str(tmp->value, shell, 1);
 			doc_name = create_doc_file(captured_str, doc_nb);
 			free (tmp->value);
 			if (!doc_name)

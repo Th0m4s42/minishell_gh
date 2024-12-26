@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:45:37 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 15:59:50 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 02:27:18 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 # define EXEC_H
 
 # include <minishell.h>
-# include <fcntl.h>
 # include <errno.h>
-# include <unistd.h>
 # include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 # include <fcntl.h>
-# include <sys/wait.h>
-# include <string.h>
 # include <limits.h>
 
 # define STDIN 0
@@ -73,6 +66,7 @@ typedef struct s_shell
 char		*ft_strjoin_free(char *s1, char *s2, int free_ss);
 bool		has_backslash(char *str);
 bool		eradicate_quotes(char *str);
+bool		isnt_alnum(char *str);
 
 /* ******-INIT************************************************************** */
 
@@ -88,11 +82,11 @@ t_token		*prev_sep(t_token *token);
 
 /* ******-DOC N $VAR********************************************************* */
 
-t_token		*handle_here_docs(t_token *token, t_env *env, int *doc_nb);
+t_token		*handle_here_docs(t_token *token, t_shell *shell, int *doc_nb);
 
 bool		has_dolla_sign(char *str);
 int			until_dolla_sign(char *str, int i);
-char		*replace_dolla_sign(char *str, t_env *env);
+char		*replace_dolla_sign(char *str, t_shell *shell);
 int			until_space(char *str, int i);
 
 void		del_docs(int *doc_nb, int doc_from_parent);
@@ -101,6 +95,8 @@ void		del_docs(int *doc_nb, int doc_from_parent);
 
 char		**format_cmd(t_token *cmd_tok);
 int			get_tab_len(t_token *cmd_tok);
+char		**allocate_and_fill_command_array(t_token *cmd_tok, int tab_len);
+int			check_for_the_cmd(char *path, char *cmd);
 
 void		redir(t_shell *shell, t_token *token, t_token_type type);
 void		input(t_shell *shell, t_token *token);
@@ -127,12 +123,17 @@ int			ft_unset(char **cmd_arg, t_shell *shell);
 int			ft_env(t_env *env);
 int			ft_exit(char **cmd_arg, t_shell *shell);
 
+char		*make_var_name(char *var, int to_trim);
+
 /* ******-******************************************************************* */
 
 bool		already_set(t_env *env, char *name, int len, char *var_value);
 void		add_in_lex_order(t_env **first, t_env *new_var);
 void		set_var(t_env **env, char *name, char *value, int exp_env);
 
-/* ************************************************************************** */
+/* ******-PARSER************************************************************* */
+
+void		final_process(t_token *tokens, t_env *envp, t_shell *shell);
+char		*handle_in_quotes(char *str, t_env *envp, t_shell *shell);
 
 #endif

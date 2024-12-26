@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:06:45 by noam              #+#    #+#             */
-/*   Updated: 2024/12/21 23:49:59 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 00:15:24 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ void	add_in_lex_order(t_env **first, t_env *new_var)
 
 /* ************************************************************************** */
 
-static inline int	export_error(char *arg)
+static inline int	export_error(char *arg, int free_arg)
 {
 	ft_putstr_fd("minishell: export: `", STDERR);
 	ft_putstr_fd(arg, STDERR);
 	ft_putendl_fd("': not a valid identifier", STDERR);
+	if (free_arg)
+		free(arg);
 	return (1);
 }
 
@@ -96,21 +98,20 @@ void	add_var_to_list(t_shell *shell, char *name, char *value)
 int	ft_export(char **cmd, t_shell *shell)
 {
 	char	*var_name;
-	int		name_len;
 	char	*var_value;
 	int		i;
 
 	i = 1;
-	name_len = 0;
 	if (!cmd[i])
 		return (ft_exp_displ(shell->fallback_env));
 	while (cmd[i])
 	{
 		var_value = ft_strchr(cmd[i], '=');
 		if (var_value && ft_strlen(var_value) == ft_strlen(cmd[i]))
-			return (export_error(cmd[i]));
-		name_len = ft_strlen(cmd[i]) - ft_strlen(var_value);
-		var_name = ft_substr(cmd[i], 0, name_len);
+			return (export_error(cmd[i], 0));
+		var_name = make_var_name(cmd[i], ft_strlen(var_value));
+		if (isnt_alnum(var_name))
+			return (export_error(var_name, 1));
 		if (!var_value)
 			add_var_to_list(shell, var_name, NULL);
 		else

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 00:33:29 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 16:02:01 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 00:16:32 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ int	handle_exit_code(char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (!ft_isdigit(arg[i]))
+		if (!ft_isdigit(arg[i]) && !(arg[i] == '-' || arg[i] == '+'
+				|| arg[i] == '\"'))
 		{
 			ft_putstr_fd("minishell: cd: ", 2);
 			ft_putstr_fd(arg, 2);
 			ft_putstr_fd(": numeric argument required", 2);
-			return (255);
+			return (2);
 		}
 		i++;
 	}
+	eradicate_quotes(arg);
 	return (ft_atoi(arg) % 256);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 12:54:32 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 18:08:23 by thbasse          ###   ########.fr       */
+/*   Updated: 2024/12/26 01:46:18 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	process_input(char *rl_value, t_shell *shell)
 	add_history(rl_value);
 	tok = lexer(rl_value, &shell->ret);
 	free(rl_value);
-	final_process(tok, shell->env, shell->ret);
+	final_process(tok, shell->env, shell);
 	if (tok)
 	{
 		tok = add_end_tok(tok);

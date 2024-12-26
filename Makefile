@@ -40,12 +40,15 @@ SRCS := \
 	$(SRC_DIR)$(LEXER)handle_errors.c \
 	\
 	$(SRC_DIR)$(PARSING)expand.c \
+	$(SRC_DIR)$(PARSING)quotes.c \
 	\
 	$(SRC_DIR)$(SIGNALS)signal.c \
 	\
 	$(SRC_DIR)$(PROMPT)prompt.c \
 	$(SRC_DIR)$(EXEC)exec.c \
 	$(SRC_DIR)$(EXEC)exc_utils.c \
+	$(SRC_DIR)$(EXEC)cmd_tab_utils.c \
+	$(SRC_DIR)$(EXEC)check_if_cmd_or_dir.c \
 	$(SRC_DIR)$(EXEC)string_utils.c \
 	$(SRC_DIR)$(EXEC)exec_cmd.c \
 	$(SRC_DIR)$(EXEC)redirs.c \
@@ -54,6 +57,7 @@ SRCS := \
 	$(SRC_DIR)$(BUILTIN)is_built_in.c \
 	$(SRC_DIR)$(BUILTIN)exec_built_in.c \
 	$(SRC_DIR)$(BUILTIN)var_utils.c \
+	$(SRC_DIR)$(BUILTIN)built_utils.c \
 	$(SRC_DIR)$(BUILTIN)ft_echo.c \
 	$(SRC_DIR)$(BUILTIN)ft_pwd.c \
 	$(SRC_DIR)$(BUILTIN)ft_cd.c \

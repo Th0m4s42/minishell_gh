@@ -1,48 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_utils.c                                      :+:      :+:    :+:   */
+/*   check_if_cmd_or_dir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 22:30:49 by noam              #+#    #+#             */
-/*   Updated: 2024/12/26 00:27:00 by noam             ###   ########.fr       */
+/*   Created: 2024/12/26 00:30:59 by noam              #+#    #+#             */
+/*   Updated: 2024/12/26 01:23:07 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
+#include <minishell.h>
 
 /* ************************************************************************** */
 
-bool	close_fd(int fd)
+static void	error_builder(char *arg, char *err_mess)
 {
-	if (fd > 0)
+	ft_putstr_fd(arg, STDERR);
+	ft_putendl_fd(err_mess, STDERR);
+}
+
+/* ************************************************************************** */
+
+int	check_for_the_cmd(char *path, char *cmd)
+{
+	struct stat	path_stat;
+
+	if (access(path, F_OK) != 0)
 	{
-		close(fd);
-		return (true);
+		error_builder(cmd, ": command not found");
+		return (127);
 	}
-	else
-		return (false);
+	if (stat(path, &path_stat) != 0)
+		return (127);
+	if (S_ISDIR(path_stat.st_mode))
+	{
+		error_builder(cmd, ": Is a directory");
+		return (126);
+	}
+	if (access(path, X_OK) != 0)
+	{
+		ft_putstr_fd("minishell :", STDERR);
+		error_builder(cmd, ": Permission denied");
+		return (126);
+	}
+	return (0);
 }
 
 /* ************************************************************************** */
-
-void	close_reset_fd(t_shell *shell)
-{
-	close_fd(shell->fdin);
-	close_fd(shell->fdout);
-	close_fd(shell->pipin);
-	close_fd(shell->pipout);
-	shell->fdin = -1;
-	shell->fdout = -1;
-	shell->pipin = -1;
-	shell->pipout = -1;
-}
-
-/* ************************************************************************** */
-
-void	reset_stds(t_shell *shell)
-{
-	dup2(shell->in, STDIN);
-	dup2(shell->out, STDOUT);
-}

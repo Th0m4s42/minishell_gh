@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:26:25 by noam              #+#    #+#             */
-/*   Updated: 2024/12/25 16:07:43 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 01:15:50 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	process_cmd(char **cmd_arg, char *path, t_env *env)
 	if (pid == 0)
 	{
 		ret = execve(path, cmd_arg, env_array);
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("minishell: execve :", 2);
 		perror(cmd_arg[0]);
-		exit(ret);
+		exit(2);
 	}
 	else
 		waitpid(pid, &ret, 0);
@@ -121,14 +121,9 @@ int	exec_bin(char **cmd_arg, t_env *env)
 	}
 	else if (cmd_arg)
 		path = find_exec_path(cmd_arg[0], env);
-	if (!path)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd_arg[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		return (127);
-	}
-	ret = process_cmd(cmd_arg, path, env);
+	ret = check_for_the_cmd(path, cmd_arg[0]);
+	if (ret == 0)
+		ret = process_cmd(cmd_arg, path, env);
 	if (path)
 		free(path);
 	return (ret);
