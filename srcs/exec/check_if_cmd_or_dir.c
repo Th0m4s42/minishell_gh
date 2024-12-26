@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:30:59 by noam              #+#    #+#             */
-/*   Updated: 2024/12/26 01:23:07 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 02:39:29 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_for_the_cmd(char *path, char *cmd)
 {
 	struct stat	path_stat;
 
-	if (access(path, F_OK) != 0)
+	if (!path || access(path, F_OK) != 0)
 	{
 		error_builder(cmd, ": command not found");
 		return (127);
