@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:37:05 by thbasse           #+#    #+#             */
-/*   Updated: 2024/12/23 13:27:51 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 11:54:10 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ extern int	g_lobal_exit_code;
 void	ft_handle_sigint(int sig);
 void	ft_handle_sigint_child(int sig);
 void	ft_handle_sigint_doc(int sig);
+void	ft_handle_sigquit(int sig);
+void	ft_handle_sigquit_doc(int sig_num);
 void	signal_handler(void);
 
 #endif

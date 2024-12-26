@@ -43,6 +43,7 @@ SRCS := \
 	$(SRC_DIR)$(PARSING)quotes.c \
 	\
 	$(SRC_DIR)$(SIGNALS)signal.c \
+	$(SRC_DIR)$(SIGNALS)signal2.c \
 	\
 	$(SRC_DIR)$(PROMPT)prompt.c \
 	$(SRC_DIR)$(EXEC)exec.c \
