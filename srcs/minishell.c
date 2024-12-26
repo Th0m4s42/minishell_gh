@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: thbasse <thbasse@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 12:54:32 by noam              #+#    #+#             */
-/*   Updated: 2024/12/26 01:46:18 by noam             ###   ########.fr       */
+/*   Updated: 2024/12/26 12:32:39 by thbasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	process_input(char *rl_value, t_shell *shell)
 		free(rl_value);
 		return ;
 	}
+	if (g_lobal_exit_code == 2 || g_lobal_exit_code == 3)
+		shell->ret = g_lobal_exit_code + 128;
 	add_history(rl_value);
 	tok = lexer(rl_value, &shell->ret);
 	free(rl_value);
